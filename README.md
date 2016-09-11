@@ -1,4 +1,4 @@
-# nsob
+# nso
 Namespace object
 
 ## Getting Started
