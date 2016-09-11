@@ -1,0 +1,35 @@
+{
+  "name": "nsob",
+  "title": "nsob",
+  "description": "Allows you to manage namespace objects",
+  "version": "1.0.0",
+  "main": "index.js",
+  "homepage": "https://github.com/adriancmiranda/nsob",
+  "readmeFilename": "README.md",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "standard": "5.3.0",
+    "semver": "5.0.3",
+    "should": "7.1.0",
+    "sinon": "1.16.1",
+    "lab": "5.17.0"
+  },
+  "scripts": {
+    "test": "lab test/* --coverage",
+    "posttest": "npm run lint",
+    "lint": "standard"
+  },
+  "jsdomVersions": {
+    "node": "3.1.2",
+    "iojs": "5.3.0"
+  },
+  "keywords": [
+    "ns",
+    "namespace",
+    "object",
+    "variables",
+    "config",
+    "settings"
+  ]
+}
