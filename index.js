@@ -7,7 +7,7 @@
 			return factory(global, exports, name);
 		});
 	}else global[name] = factory(global, {}, name);
-}(typeof window !== 'undefined'? window : this, 'dotcfg', function(global, exports, name){
+}(typeof window !== 'undefined'? window : global, 'dotcfg', function(global, exports, name){
 	'use strict';
 
 	var objectAssessor = /\[(["']?)([^\1]+?)\1?\]/g;
