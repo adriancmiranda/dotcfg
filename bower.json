@@ -1,0 +1,22 @@
+{
+  "name": "dotcfg",
+  "version": "1.0.2",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {},
+  "exportsOverride": {},
+  "ignore": [
+    "node_modules",
+    "source",
+    "tasks",
+    "test",
+    "docs",
+    "**/.*",
+    "bower.json",
+    "component.json",
+    "composer.json",
+    "package.json",
+    "README.md"
+  ]
+}
