@@ -1,0 +1,17 @@
+{
+	"name": "dotcfg",
+	"version": "1.0.2",
+	"main": "index.js",
+	"description": "Allows you to manage namespace objects with qualified names",
+	"repo": "adriancmiranda/dotcfg",
+	"license": "MIT",
+	"scripts": "index.js",
+  "keywords": [
+    "ns",
+    "namespace",
+    "object",
+    "variables",
+    "config",
+    "settings"
+  ]
+}
