@@ -30,7 +30,7 @@ ns.uri([namespace:String][, value:*]):*
 ```javascript
 const dotcfg = require('dotcfg');
 
-const NS = dotcfg('NS');
+const NS = dotcfg('NS', {});
 NS.uri('env.url.host', process.env.HOST || '0.0.0.0'); // { env:{ url:{ host:'0.0.0.0' } } }
 NS.uri('env.url.port', process.env.PORT || 3000); // { env:{ url:{ host:'0.0.0.0', port:3000 } } }
 
