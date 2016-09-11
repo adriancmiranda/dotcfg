@@ -5,11 +5,13 @@ Namespace object
 
 ### Install:
 
+#### from github:
+
 ```bash
 npm i -S github:adriancmiranda/nsob
 ```
 
-#### Usage:
+### Usage:
 
 ```node
 const nsob = require('nsob');
