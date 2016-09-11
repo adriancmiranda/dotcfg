@@ -11,10 +11,11 @@
 	'use strict';
 
 	var objectAssessor = /\[(["']?)([^\1]+?)\1?\]/g;
+	var startWithDot = /^\./;
 
 	function ls(path){
 		var keys = path.replace(objectAssessor, '.$2');
-		keys = keys.replace(/^\./, '');
+		keys = keys.replace(startWithDot, '');
 		return keys.split('.');
 	}
 
