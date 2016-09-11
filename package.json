@@ -1,9 +1,9 @@
 {
-  "name": "nso",
+  "name": "dotcfg",
   "description": "Allows you to manage namespace objects in qualified names",
   "version": "1.0.0",
   "main": "index.js",
-  "homepage": "https://github.com/adriancmiranda/nso",
+  "homepage": "https://github.com/adriancmiranda/dotcfg",
   "readmeFilename": "README.md",
   "license": "MIT",
   "dependencies": {},
