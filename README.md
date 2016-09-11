@@ -4,8 +4,6 @@
 
 ### Install:
 
-#### from github:
-
 ```bash
 npm i -S adriancmiranda/dotcfg
 ```
@@ -16,7 +14,7 @@ or
 bower i -S adriancmiranda/dotcfg
 ```
 
-#### from npm:
+or yet
 
 ```bash
 npm i -S dotcfg
