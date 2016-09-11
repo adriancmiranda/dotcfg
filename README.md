@@ -6,7 +6,7 @@ Namespace object
 ### Install:
 
 ```bash
-npm i -S nsob
+npm i -S adriancmiranda/nsob
 ```
 
 #### Usage:
