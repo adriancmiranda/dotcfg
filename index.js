@@ -53,7 +53,8 @@
 		return hasValue? write(this, key, value, overwrite) : read(this, key);
 	}
 
-	function stub(target, namespace){
+	function stub(namespace, target){
+		target = target === Object(target)? target : {}; 
 		target = target[namespace] = target[namespace] || {};
 		target.namespace = namespace;
 		target.uri = uri.bind(target);
