@@ -24,17 +24,17 @@ npm i -S dotcfg
 
 ```javascript
 var ns = dotcfg([namespace:String][, scope:Object]):Object
-ns.uri([namespace:String][, value:*]):*
+ns.cfg([namespace:String][, value:*]):*
 ```
 
 ```javascript
 const dotcfg = require('dotcfg');
+const ns = dotcfg('NS', {});
 
-const NS = dotcfg('NS', {});
-NS.uri('env.url.host', process.env.HOST || '0.0.0.0'); // { env:{ url:{ host:'0.0.0.0' } } }
-NS.uri('env.url.port', process.env.PORT || 3000); // { env:{ url:{ host:'0.0.0.0', port:3000 } } }
+ns.cfg('env.url.host', process.env.HOST || '0.0.0.0'); // { env:{ url:{ host:'0.0.0.0' } } }
+ns.cfg('env.url.port', process.env.PORT || 3000); // { env:{ url:{ host:'0.0.0.0', port:3000 } } }
 
-console.log(NS.uri('env')); // { url:{ host:'0.0.0.0', port:3000 } } }
-console.log(NS.uri('env.url')); // { host:'0.0.0.0', port:3000 }
-console.log(NS.uri('env.url.host')); // '0.0.0.0'
+console.log(ns.uri('env')); // { url:{ host:'0.0.0.0', port:3000 } } }
+console.log(ns.uri('env.url')); // { host:'0.0.0.0', port:3000 }
+console.log(ns.uri('env.url.host')); // '0.0.0.0'
 ```
