@@ -1,13 +1,13 @@
 (function(global, name, factory){
 	'use strict';
 	if(typeof module === 'object' && typeof module.exports === 'object'){
-		module.exports = factory(exports, name);
+		module.exports = factory(global, exports, name);
 	}else if(typeof define === 'function' && define.amd){
 		define(['exports'], function(exports){
-			return factory(exports, name);
+			return factory(global, exports, name);
 		});
-	}else global[name] = factory(global, name);
-}(typeof window !== 'undefined'? window : this, 'dotcfg', function(exports, name){
+	}else global[name] = factory(global, {}, name);
+}(typeof window !== 'undefined'? window : this, 'dotcfg', function(global, exports, name){
 	'use strict';
 
 	var objectAssessor = /\[(["']?)([^\1]+?)\1?\]/g;
@@ -54,7 +54,7 @@
 	}
 
 	function stub(namespace, target){
-		target = target === Object(target)? target : {}; 
+		target = target === Object(target)? target : global; 
 		target = target[namespace] = target[namespace] || {};
 		target.namespace = namespace;
 		target.uri = uri.bind(target);
