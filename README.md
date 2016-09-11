@@ -8,7 +8,7 @@ Namespace object
 #### from github:
 
 ```bash
-npm i -S github:adriancmiranda/nsob
+npm i -S adriancmiranda/nsob
 ```
 
 ### Usage:
