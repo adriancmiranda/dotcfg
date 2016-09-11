@@ -57,7 +57,7 @@
 		target = target === Object(target)? target : global; 
 		target = target[namespace] = target[namespace] || {};
 		target.namespace = namespace;
-		target.uri = uri.bind(target);
+		target.cfg = uri.bind(target);
 		return target;
 	}
 
