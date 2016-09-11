@@ -1,5 +1,4 @@
-# nso
-Namespace object
+# dotcfg
 
 ## Getting Started
 
@@ -8,38 +7,38 @@ Namespace object
 #### from github:
 
 ```bash
-npm i -S adriancmiranda/nso
+npm i -S adriancmiranda/dotcfg
 ```
 
 #### from npm:
 
 ```bash
-npm i -S nso
+npm i -S dotcfg
 ```
 
 ### Usage:
 
 ```node
-const nso = require('nso');
+const dotcfg = require('dotcfg');
 
-const YPN = nso('YourProjectNamespace');
-YPN.uri('env.url.host', process.env.HOST || '0.0.0.0'); // { env:{ url:{ host:'0.0.0.0' } } }
-YPN.uri('env.url.port', process.env.PORT || 3000); // { env:{ url:{ host:'0.0.0.0', port:3000 } } }
+const NS = dotcfg('YourProjectNamespace');
+NS.uri('env.url.host', process.env.HOST || '0.0.0.0'); // { env:{ url:{ host:'0.0.0.0' } } }
+NS.uri('env.url.port', process.env.PORT || 3000); // { env:{ url:{ host:'0.0.0.0', port:3000 } } }
 
-console.log(YPN.uri('env')); // { url:{ host:'0.0.0.0', port:3000 } } }
-console.log(YPN.uri('env.url')); // { host:'0.0.0.0', port:3000 }
-console.log(YPN.uri('env.url.host')); // '0.0.0.0'
+console.log(NS.uri('env')); // { url:{ host:'0.0.0.0', port:3000 } } }
+console.log(NS.uri('env.url')); // { host:'0.0.0.0', port:3000 }
+console.log(NS.uri('env.url.host')); // '0.0.0.0'
 ```
 
 or
 
 ```node
-const YPN = require('nso').stub(global, 'YourProjectNamespace');
-YPN.uri('env.url.host', process.env.HOST || '0.0.0.0'); // { env:{ url:{ host:'0.0.0.0' } } }
-YPN.uri('env.url.port', process.env.PORT || 3000); // { env:{ url:{ host:'0.0.0.0', port:3000 } } }
+const NS = require('dotcfg').stub(global, 'YourProjectNamespace');
+NS.uri('env.url.host', process.env.HOST || '0.0.0.0'); // { env:{ url:{ host:'0.0.0.0' } } }
+NS.uri('env.url.port', process.env.PORT || 3000); // { env:{ url:{ host:'0.0.0.0', port:3000 } } }
 
-console.log(YPN.uri('env')); // { url:{ host:'0.0.0.0', port:3000 } } }
-console.log(YPN.uri('env.url')); // { host:'0.0.0.0', port:3000 }
-console.log(YPN.uri('env.url.host')); // '0.0.0.0'
+console.log(NS.uri('env')); // { url:{ host:'0.0.0.0', port:3000 } } }
+console.log(NS.uri('env.url')); // { host:'0.0.0.0', port:3000 }
+console.log(NS.uri('env.url.host')); // '0.0.0.0'
 
 ```
