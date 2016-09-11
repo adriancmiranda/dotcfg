@@ -49,9 +49,4 @@ function stub(target, namespace){
 	return target;
 }
 
-function create(namespace){
-  return stub({}, namespace);
-}
-
-exports.stub = stub;
-module.exports = create;
+module.exports = stub;
