@@ -22,7 +22,7 @@ npm i -S dotcfg
 
 ### Usage:
 
-```
+```javascript
 var ns = dotcfg([namespace:String][, scope:Object]):Object
 ns.uri([namespace:String][, value:*]):*
 ```
