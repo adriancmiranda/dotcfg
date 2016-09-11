@@ -8,11 +8,11 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "standard": "5.3.0",
-    "semver": "5.0.3",
-    "should": "7.1.0",
-    "sinon": "1.16.1",
-    "lab": "5.17.0"
+    "lab": "11.0.1",
+    "semver": "5.3.0",
+    "should": "11.1.0",
+    "sinon": "1.17.5",
+    "standard": "8.0.0"
   },
   "scripts": {
     "test": "lab test/* --coverage",
