@@ -1,10 +1,9 @@
 {
-  "name": "nsob",
-  "title": "nsob",
-  "description": "Allows you to manage namespace objects",
+  "name": "nso",
+  "description": "Allows you to manage namespace objects in qualified names",
   "version": "1.0.0",
   "main": "index.js",
-  "homepage": "https://github.com/adriancmiranda/nsob",
+  "homepage": "https://github.com/adriancmiranda/nso",
   "readmeFilename": "README.md",
   "license": "MIT",
   "dependencies": {},
