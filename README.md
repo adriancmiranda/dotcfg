@@ -18,7 +18,7 @@ npm i -S dotcfg
 
 ### Usage:
 
-```node
+```javascript
 const NS = require('dotcfg')({}, 'NS');
 NS.uri('env.url.host', process.env.HOST || '0.0.0.0'); // { env:{ url:{ host:'0.0.0.0' } } }
 NS.uri('env.url.port', process.env.PORT || 3000); // { env:{ url:{ host:'0.0.0.0', port:3000 } } }
