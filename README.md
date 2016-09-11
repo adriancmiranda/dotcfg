@@ -22,6 +22,11 @@ npm i -S dotcfg
 
 ### Usage:
 
+```
+var ns = dotcfg([scope:Object], [namespace:String]):Object
+ns.uri([namespace:String][, value:*]):*
+```
+
 ```javascript
 const dotcfg = require('dotcfg');
 
