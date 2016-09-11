@@ -10,6 +10,12 @@
 npm i -S adriancmiranda/dotcfg
 ```
 
+or
+
+```bash
+bower i -S adriancmiranda/dotcfg
+```
+
 #### from npm:
 
 ```bash
