@@ -1,0 +1,24 @@
+
+{
+	"name": "dotcfg",
+	"description": "Allows you to manage namespace objects with qualified names",
+	"type": "component",
+	"license": "MIT",
+	"support": {
+		"source": "https://github.com/adriancmiranda/dotcfg"
+	},
+	"authors": [
+		{
+			"name": "Adrian C. Miranda",
+			"email": "adriancmiranda@gmail.com"
+		}
+	],
+	"extra": {
+		"component": {
+			"scripts": "index.js",
+			"files": [
+				"index.js"
+			]
+		}
+	}
+}
