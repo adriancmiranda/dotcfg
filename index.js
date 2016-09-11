@@ -44,6 +44,7 @@ function uri(key, value, overwrite){
 
 function stub(target, namespace){
 	target = target[namespace] = target[namespace] || {};
+	target.namespace = namespace;
 	target.uri = uri.bind(target);
 	return target;
 }
