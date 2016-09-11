@@ -11,6 +11,12 @@ Namespace object
 npm i -S adriancmiranda/nso
 ```
 
+#### from npm:
+
+```bash
+npm i -S nso
+```
+
 ### Usage:
 
 ```node
