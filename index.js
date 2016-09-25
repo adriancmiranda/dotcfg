@@ -9,7 +9,11 @@
 	}else global[name] = factory(global, {}, name);
 }(typeof window !== 'undefined'? window : global, 'dotcfg', function(global, exports, name){
 	'use strict';
-
+	
+	// TODO: Define object qualified names
+	// (extractKeys = /.*\[([^0-9]+)\].*/g);
+	// E.G.: cfg('locals[process.env.NODE_ENV]', 'production');
+	// cfg('locals[process.env.NODE_ENV]') // { locals: { 'process.env.NODE_ENV': 'production' } }
 	var objectAssessor = /\[(["']?)([^\1]+?)\1?\]/g;
 	var startWithDot = /^\./;
 
