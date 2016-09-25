@@ -40,4 +40,5 @@ console.log(NS.cfg('env')); // { url:{ host:'0.0.0.0', port:3000 } } }
 console.log(NS.cfg('env.url')); // { host:'0.0.0.0', port:3000 }
 console.log(NS.cfg('env.url.host')); // '0.0.0.0'
 console.log(NS.cfg('resolve.extensions[1]')); // { name:'.js' }
+console.log(NS.resolve.extensions[1].name); // '.js'
 ```
