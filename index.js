@@ -48,13 +48,14 @@
 	}
 
 	function uri(key, value, overwrite){
+		if(!key)return this;
 		var hasValue = arguments.length > 1;
 		overwrite = value && typeof overwrite === 'undefined'? true : !!overwrite;
 		return hasValue? write(this, key, value, overwrite) : read(this, key);
 	}
 
 	function stub(namespace, target){
-		target = target === Object(target)? target : global; 
+		target = target === Object(target)? target : global;
 		target = target[namespace] = target[namespace] || {};
 		target.namespace = namespace;
 		target.cfg = uri.bind(target);

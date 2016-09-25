@@ -33,8 +33,11 @@ const NS = dotcfg('NS');
 
 NS.cfg('env.url.host', process.env.HOST || '0.0.0.0'); // { env:{ url:{ host:'0.0.0.0' } } }
 NS.cfg('env.url.port', process.env.PORT || 3000); // { env:{ url:{ host:'0.0.0.0', port:3000 } } }
+NS.cfg('resolve.extensions[1].name', '.js'); // { resolve:{ extensions: { '1': [Object] } } }
 
+console.log(NS.cfg()); // { env:{ url:{ host:'0.0.0.0', port:3000 } } } }
 console.log(NS.cfg('env')); // { url:{ host:'0.0.0.0', port:3000 } } }
 console.log(NS.cfg('env.url')); // { host:'0.0.0.0', port:3000 }
 console.log(NS.cfg('env.url.host')); // '0.0.0.0'
+console.log(NS.cfg('resolve.extensions[1]')); // { name:'.js' }
 ```
