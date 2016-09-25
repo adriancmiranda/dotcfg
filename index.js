@@ -50,9 +50,20 @@
 		while((target = target[keys[id++]]) && id < total){}
 		return id < total? void(0) : target;
 	}
+	
+	function cloneObject(obj) {
+		return JSON.parse(JSON.stringify(obj));
+	}
+	
+	function getCfg(obj) {
+		obj = cloneObject(obj);
+		delete obj.namespace;
+		delete obj.cfg;
+		return obj;
+	}
 
 	function uri(key, value, overwrite){
-		if(!key)return this;
+		if(!key) return getCfg(this);
 		var hasValue = arguments.length > 1;
 		overwrite = value && typeof overwrite === 'undefined'? true : !!overwrite;
 		return hasValue? write(this, key, value, overwrite) : read(this, key);
