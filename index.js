@@ -51,8 +51,15 @@
 		return id < total? void(0) : target;
 	}
 	
-	function cloneObject(obj) {
-		return JSON.parse(JSON.stringify(obj));
+	function cloneObject(obj){
+		if(obj === null || typeof obj !== 'object'){
+			return obj;
+		}
+		var temp = obj.constructor();
+		for(var key in obj){
+			temp[key] = cloneObject(obj[key]);
+		}
+		return temp;
 	}
 	
 	function getCfg(obj) {
