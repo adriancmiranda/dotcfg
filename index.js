@@ -51,19 +51,26 @@
 		return id < total? void(0) : target;
 	}
 
-	function cloneObject(value){
-		if(value === null || typeof value !== 'object'){
-			return value;
+	function assign(target){
+		if(target === undefined || target === null){
+			throw new TypeError('Cannot convert undefined or null to object');
 		}
-		var temp = value.constructor();
-		for(var key in value){
-			temp[key] = cloneObject(value[key]);
+		var output = Object(target);
+		for(var index = 1; index < arguments.length; index++){
+			var source = arguments[index];
+			if(source !== undefined && source !== null){
+				for(var nextKey in source){
+					if(source.hasOwnProperty(nextKey)){
+						output[nextKey] = source[nextKey];
+					}
+				}
+			}
 		}
-		return temp;
+		return output;
 	}
 
 	function getCfg(target) {
-		target = cloneObject(target);
+		target = assign({}, target);
 		delete target.namespace;
 		delete target.cfg;
 		return target;
