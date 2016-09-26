@@ -61,7 +61,11 @@
 			if(source !== undefined && source !== null){
 				for(var nextKey in source){
 					if(source.hasOwnProperty(nextKey)){
-						output[nextKey] = source[nextKey];
+						if(source[nextKey] === Object(source[nextKey])){
+							output[nextKey] = assign(source[nextKey]);
+						}else{
+							output[nextKey] = source[nextKey];
+						}
 					}
 				}
 			}
