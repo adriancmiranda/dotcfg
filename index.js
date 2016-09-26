@@ -9,7 +9,7 @@
 	}else global[name] = factory(global, {}, name);
 }(typeof window !== 'undefined'? window : global, 'dotcfg', function(global, exports, name){
 	'use strict';
-	
+
 	// TODO: Define object qualified names
 	// (extractKeys = /.*\[([^0-9]+)\].*/g);
 	// E.G.: cfg('locals[process.env.NODE_ENV]', 'production');
@@ -50,23 +50,23 @@
 		while((target = target[keys[id++]]) && id < total){}
 		return id < total? void(0) : target;
 	}
-	
-	function cloneObject(obj){
-		if(obj === null || typeof obj !== 'object'){
-			return obj;
+
+	function cloneObject(value){
+		if(value === null || typeof value !== 'object'){
+			return value;
 		}
-		var temp = obj.constructor();
-		for(var key in obj){
-			temp[key] = cloneObject(obj[key]);
+		var temp = value.constructor();
+		for(var key in value){
+			temp[key] = cloneObject(value[key]);
 		}
 		return temp;
 	}
-	
-	function getCfg(obj) {
-		obj = cloneObject(obj);
-		delete obj.namespace;
-		delete obj.cfg;
-		return obj;
+
+	function getCfg(target) {
+		target = cloneObject(target);
+		delete target.namespace;
+		delete target.cfg;
+		return target;
 	}
 
 	function uri(key, value, overwrite){
