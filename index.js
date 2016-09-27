@@ -17,9 +17,14 @@
 	var objectAssessor = /\[(["']?)([^\1]+?)\1?\]/g;
 	var startWithDot = /^\./;
 	var defaultStrategy;
-	
-	function dotStrategy(cache, input, path) {
-		return [].concat(cache, input);
+
+	function dotStrategy(target, value, path) {
+		if(typeof value === 'undefined'){
+			delete(target[path]);
+		}else{
+			target[path] = value;
+		}
+		return target[path];
 	}
 
 	function ls(path){
@@ -28,7 +33,7 @@
 		return keys.split('.');
 	}
 
-	function write(target, path, value, overwrite){
+	function write(target, path, value, strategy){
 		var id = 0;
 		var keys = ls(path);
 		var total = keys.length - 1;
@@ -38,14 +43,7 @@
 			isLikeObject = target[path] === Object(target[path]);
 			target = target[path] = isLikeObject? target[path] : {};
 		}
-		path = keys[id];
-		if(typeof(value) === 'undefined'){
-			overwrite && delete(target[path]);
-		}else{
-			value = overwrite? value : target[path] || value;
-			target[path] = value;
-		}
-		return value;
+		return strategy(target, value, keys[id]);
 	}
 
 	function read(target, path){
@@ -85,11 +83,11 @@
 		return target;
 	}
 
-	function uri(key, value, overwrite){
+	function uri(key, value, strategy){
 		if(!key) return getCfg(this);
 		var hasValue = arguments.length > 1;
-		overwrite = value && typeof overwrite === 'undefined'? true : !!overwrite;
-		return hasValue? write(this, key, value, overwrite) : read(this, key);
+		strategy = value && typeof strategy === 'function'? strategy : defaultStrategy;
+		return hasValue? write(this, key, value, strategy) : read(this, key);
 	}
 
 	function stub(namespace, target, strategy){
