@@ -67,7 +67,7 @@
 		var keys = ls(path);
 		var total = keys.length;
 		while((target = target[keys[id++]]) && id < total){}
-		return id < total? void(0) : target;
+		return id < total? void(0):target;
 	}
 
 	function assign(target){
