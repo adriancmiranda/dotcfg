@@ -18,7 +18,7 @@
 	var startWithDot = /^\./;
 	var defaultStrategy;
 	
-	function dotStrategy(cache, input path) {
+	function dotStrategy(cache, input, path) {
 		return [].concat(cache, input);
 	}
 
