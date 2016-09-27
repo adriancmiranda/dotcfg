@@ -30,9 +30,9 @@
 		return Object(value) === value;
 	}
 
-	function dotStrategy(target, value, path){
-		if(Array.isArray(target[path])){
-			target[path] = target[path].concat(value);
+	function dotStrategy(target, value){
+		if(Array.isArray(target)){
+			return target.concat(value);
 		}
 		return value;
 	}
@@ -57,8 +57,8 @@
 			}
 		}
 		path = keys[id];
-		isUndefined(value) && delete(target[path]);
-		target[path] = strategy(target, value, path);
+		if(isUndefined(value))delete(target[path]);
+		else(target[path] = strategy(target[path], value, path));
 		return dot;
 	}
 
