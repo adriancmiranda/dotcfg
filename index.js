@@ -32,7 +32,7 @@
 
 	function dotStrategy(target, value, path){
 		if(Array.isArray(target[path])){
-			target[path].push(value);
+			target[path] = target[path].concat(value);
 		}
 		return value;
 	}
