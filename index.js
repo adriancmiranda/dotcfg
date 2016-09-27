@@ -16,6 +16,11 @@
 	// cfg('locals[process.env.NODE_ENV]') // { locals: { 'process.env.NODE_ENV': 'production' } }
 	var objectAssessor = /\[(["']?)([^\1]+?)\1?\]/g;
 	var startWithDot = /^\./;
+	var defaultStrategy;
+	
+	function dotStrategy(cache, input path) {
+		return [].concat(cache, input);
+	}
 
 	function ls(path){
 		var keys = path.replace(objectAssessor, '.$2');
@@ -87,7 +92,8 @@
 		return hasValue? write(this, key, value, overwrite) : read(this, key);
 	}
 
-	function stub(namespace, target){
+	function stub(namespace, target, strategy){
+		defaultStrategy = typeof strategy === 'function'? strategy : dotStrategy;
 		target = target === Object(target)? target : global;
 		target = target[namespace] = target[namespace] || {};
 		target.namespace = namespace;
