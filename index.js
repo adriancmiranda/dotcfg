@@ -10,10 +10,6 @@
 }(typeof window !== 'undefined'? window:global, 'dotcfg', function(global, exports, name){
 	'use strict';
 
-	// TODO: Define object qualified names
-	// (extractKeys = /.*\[([^0-9]+)\].*/g);
-	// E.G.: cfg('locals[process.env.NODE_ENV]', 'production');
-	// ----- cfg('locals[process.env.NODE_ENV]');// {locals:{'process.env.NODE_ENV':'production'}}
 	var objectAssessor = /\[(["']?)([^\1]+?)\1?\]/g;
 	var startWithDot = /^\./;
 	var defaultStrategy;
@@ -37,10 +33,15 @@
 		return value;
 	}
 
+	function replacer(match, p1, p2) {
+		return isNaN(p2)? ' '+ p2.trim() : '.'+ p2.trim();
+	}
+
 	function ls(path){
-		var keys = path.replace(objectAssessor, '.$2');
+		var keys = path.replace(objectAssessor, replacer);
 		keys = keys.replace(startWithDot, '');
-		return keys.split('.');
+		keys = keys.split(/\s/);
+		return keys.length > 1? keys : keys[0].split('.');
 	}
 
 	function write(target, path, value, strategy){
