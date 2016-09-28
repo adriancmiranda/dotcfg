@@ -12,6 +12,7 @@
 
 	var objectAssessor = /\[(["']?)([^\1]+?)\1?\]/g;
 	var startWithDot = /^\./;
+	var spaces = /\s/g;
 	var defaultStrategy;
 
 	function isUndefined(value){
@@ -38,8 +39,8 @@
 	}
 
 	function ls(path){
-		var keys = path.replace(/\s/g, '').replace(objectAssessor, replacer);
-		keys = keys.replace(startWithDot, '').split(/\s/);
+		var keys = path.replace(spaces, '').replace(objectAssessor, replacer);
+		keys = keys.replace(startWithDot, '').split(spaces);
 		keys = keys.length > 1? keys.filter(String):keys[0].split('.');
 		return keys;
 	}
