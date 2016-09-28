@@ -1,23 +1,22 @@
 {
   "name": "dotcfg",
   "description": "Allows you to manage namespace objects with qualified names",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "main": "index.js",
   "homepage": "https://github.com/adriancmiranda/dotcfg",
   "readmeFilename": "README.md",
   "license": "MIT",
-  "dependencies": {},
-  "devDependencies": {
-    "lab": "11.0.1",
-    "semver": "5.3.0",
-    "should": "11.1.3",
-    "sinon": "1.17.5",
-    "standard": "8.0.0"
-  },
   "scripts": {
     "test": "lab test/* --coverage",
     "posttest": "npm run lint",
     "lint": "standard"
+  },
+  "devDependencies": {
+    "lab": "11.0.1",
+    "semver": "5.3.0",
+    "should": "11.1.4",
+    "sinon": "1.17.5",
+    "standard": "8.0.0"
   },
   "jsdomVersions": {
     "node": "3.1.2",
