@@ -28,7 +28,8 @@ ns.cfg([namespace:string][, value:*][, customStrategy:function]):*
 ```
 
 ```javascript
-const dotcfg = require('dotcfg')('NS')
+const dotcfg = require('dotcfg')
+const NS = dotcfg('NS')
 .cfg('env.url.host', process.env.HOST || '0.0.0.0') // { env:{ url:{ host:'0.0.0.0' } } }
 .cfg('env.url.port', process.env.PORT || 3000) // { env:{ url:{ host:'0.0.0.0', port:3000 } } }
 .cfg('resolve.extensions[1].name', '.js') // { resolve:{ extensions:{ '1': { name: '.js' } } } }
