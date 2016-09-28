@@ -57,8 +57,8 @@
 			}
 		}
 		path = keys[id];
-		if(isUndefined(value))delete(target[path]);
-		else(target[path] = strategy(target[path], value, path));
+		if (isUndefined(value)) delete(target[path]);
+		else (target[path] = strategy(target[path], value, path));
 		return dot;
 	}
 
