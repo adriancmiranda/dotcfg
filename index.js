@@ -25,6 +25,10 @@
 	function isLikeObject(value){
 		return Object(value) === value;
 	}
+	
+	function trim(value){
+    return String(value).replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+	}
 
 	function dotStrategy(target, value){
 		if(Array.isArray(target)){
@@ -34,14 +38,16 @@
 	}
 
 	function replacer(match, p1, p2) {
-		return isNaN(p2)? ' '+ p2.trim() : '.'+ p2.trim();
+		return isNaN(p2)? ' '+ trim(p2) : '.'+ trim(p2);
 	}
 
 	function ls(path){
 		var keys = path.replace(objectAssessor, replacer);
 		keys = keys.replace(startWithDot, '');
 		keys = keys.split(/\s/);
-		return keys.length > 1? keys : keys[0].split('.');
+		keys = keys.length > 1? keys : keys[0].split('.');
+		!keys[0] && keys.shift();
+		return keys;
 	}
 
 	function write(target, path, value, strategy){
