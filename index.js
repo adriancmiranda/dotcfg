@@ -40,7 +40,7 @@
 	function ls(path){
 		var keys = path.replace(/\s/g, '').replace(objectAssessor, replacer);
 		keys = keys.replace(startWithDot, '').split(/\s/);
-		keys = keys.length > 1? keys.filter(String) : keys[0].split('.');
+		keys = keys.length > 1? keys.filter(String):keys[0].split('.');
 		return keys;
 	}
 
@@ -100,12 +100,12 @@
 	function uri(key, value, strategy){
 		if(!key) return getCfg(this);
 		var hasValue = arguments.length > 1;
-		strategy = value && isFunction(strategy)? strategy : defaultStrategy;
-		return hasValue? write(this, key, value, strategy) : read(this, key);
+		strategy = value && isFunction(strategy)? strategy:defaultStrategy;
+		return hasValue? write(this, key, value, strategy):read(this, key);
 	}
 
 	function stub(namespace, target, strategy){
-		target = isLikeObject(target)? target : global;
+		target = isLikeObject(target)? target:global;
 		target = target[namespace] = target[namespace] || {};
 		defaultStrategy = isFunction(strategy)? strategy:dotStrategy;
 		target.namespace = namespace;
