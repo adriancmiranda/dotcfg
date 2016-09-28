@@ -33,28 +33,22 @@
 		return value;
 	}
 
-	function cleanEmptyValues(list){
-		return list.filter(String);
-	}
-
 	function replacer(match, p1, p2) {
 		return isNaN(p2)? ' '+ p2 : '.'+ p2;
 	}
 
 	function ls(path){
-		path = String(path).replace(/\s/g, '');
-		var keys = path.replace(objectAssessor, replacer);
-		keys = keys.replace(startWithDot, '');
-		keys = keys.split(/\s/);
-		keys = keys.length > 1? cleanEmptyValues(keys) : keys[0].split('.');
+		var keys = path.replace(/\s/g, '').replace(objectAssessor, replacer);
+		keys = keys.replace(startWithDot, '').split(/\s/);
+		keys = keys.length > 1? keys.filter(String) : keys[0].split('.');
 		return keys;
 	}
 
 	function write(target, path, value, strategy){
-		var id = 0;
-		var dot = target;
-		var keys = ls(path);
-		var total = keys.length - 1;
+		var id = 0,
+		dot = target,
+		keys = ls(path),
+		total = keys.length - 1;
 		while(id < total){
 			path = keys[id++];
 			if(!isLikeObject(target[path])){
@@ -70,9 +64,9 @@
 	}
 
 	function read(target, path){
-		var id = 0;
-		var keys = ls(path);
-		var total = keys.length;
+		var id = 0,
+		keys = ls(path),
+		total = keys.length;
 		while((target = target[keys[id++]]) && id < total){}
 		return id < total? void(0):target;
 	}
