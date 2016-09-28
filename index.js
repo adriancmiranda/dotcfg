@@ -25,10 +25,6 @@
 	function isLikeObject(value){
 		return Object(value) === value;
 	}
-	
-	function trim(value){
-    return String(value).replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
-	}
 
 	function dotStrategy(target, value){
 		if(Array.isArray(target)){
@@ -37,16 +33,19 @@
 		return value;
 	}
 
+	function cleanEmptyValues(list){
+		return list.filter(String);
+	}
+
 	function replacer(match, p1, p2) {
-		return isNaN(p2)? ' '+ trim(p2) : '.'+ trim(p2);
+		return isNaN(p2)? ' '+ p2.replace(/\s/g, '') : '.'+ p2.replace(/\s/g, '');
 	}
 
 	function ls(path){
 		var keys = path.replace(objectAssessor, replacer);
 		keys = keys.replace(startWithDot, '');
 		keys = keys.split(/\s/);
-		keys = keys.length > 1? keys : keys[0].split('.');
-		!keys[0] && keys.shift();
+		keys = keys.length > 1? cleanEmptyValues(keys) : keys[0].split('.');
 		return keys;
 	}
 
