@@ -38,10 +38,11 @@
 	}
 
 	function replacer(match, p1, p2) {
-		return isNaN(p2)? ' '+ p2.replace(/\s/g, '') : '.'+ p2.replace(/\s/g, '');
+		return isNaN(p2)? ' '+ p2 : '.'+ p2;
 	}
 
 	function ls(path){
+		path = String(path).replace(/\s/g, '');
 		var keys = path.replace(objectAssessor, replacer);
 		keys = keys.replace(startWithDot, '');
 		keys = keys.split(/\s/);
