@@ -106,10 +106,15 @@
 	}
 
 	function stub(namespace, target, strategy){
-		target = isLikeObject(target) ? target : global;
-		target = target[namespace] = target[namespace] || {};
+		if (isLikeObject(namespace)) {
+			strategy = target;
+			target = namespace;
+		} else {
+			target = isLikeObject(target) ? target : global;
+			target = target[namespace] = target[namespace] || {};
+			target.namespace = namespace;
+		}
 		defaultStrategy = isFunction(strategy) ? strategy : dotStrategy;
-		target.namespace = namespace;
 		target.cfg = uri.bind(target);
 		return target;
 	}
