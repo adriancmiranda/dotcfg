@@ -90,8 +90,8 @@
 		return output;
 	}
 
-	function getCfg(target) {
-		target = assign({}, target);
+	function getCfg(target, deep) {
+		target = deep? assign({}, target) : Object.assign({}, target);
 		delete target.namespace;
 		delete target.cfg;
 		return target;
@@ -99,7 +99,7 @@
 
 	function uri(key, value, strategy) {
 		var hasValue = arguments.length > 1;
-		if (!key) return getCfg(this);
+		if (!key || key === true) return getCfg(this, key);
 		if (!hasValue && isLikeObject(key)) return assign({}, this, key);
 		strategy = value && isFunction(strategy) ? strategy : defaultStrategy;
 		return hasValue ? write(this, key, value, strategy) : read(this, key);
