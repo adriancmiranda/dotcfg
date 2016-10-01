@@ -12,9 +12,9 @@
     "lint": "standard"
   },
   "devDependencies": {
-    "lab": "11.0.1",
+    "lab": "11.1.0",
     "semver": "5.3.0",
-    "should": "11.2.0",
+    "should": "11.1.0",
     "sinon": "1.17.5",
     "standard": "8.0.0"
   },
