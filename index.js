@@ -5,7 +5,7 @@
 		define(['exports'], function (exports) {
 			return factory(global, exports, name);
 		});
-	}else global[name] = factory(global, {}, name);
+	} else global[name] = factory(global, {}, name);
 }(typeof window !== 'undefined' ? window : global, 'dotcfg', function (global, exports, name) {
 	'use strict';
 
