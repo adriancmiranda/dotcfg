@@ -105,7 +105,7 @@
 		return hasValue ? write(this, key, value, strategy) : read(this, key);
 	}
 
-	function stub(namespace, target, strategy){
+	function stub(namespace, target, strategy) {
 		if (isLikeObject(namespace)) {
 			strategy = target;
 			target = namespace;
