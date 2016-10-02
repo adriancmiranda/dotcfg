@@ -78,7 +78,7 @@
 			if (source !== undefined && source !== null) {
 				for (var nextKey in source) {
 					if (source.hasOwnProperty(nextKey)) {
-						if (source[nextKey] === Object(source[nextKey])) {
+						if (isLikeObject(source[nextKey])) {
 							output[nextKey] = assign(source[nextKey]);
 						} else {
 							output[nextKey] = source[nextKey];
