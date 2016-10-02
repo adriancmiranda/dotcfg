@@ -90,8 +90,8 @@
 		return output;
 	}
 
-	function getCfg(target, deep) {
-		target = deep? assign({}, target) : Object.assign({}, target);
+	function getCfg(target, copy) {
+		target = copy? assign({}, target) : target;
 		delete target.namespace;
 		delete target.cfg;
 		return target;
