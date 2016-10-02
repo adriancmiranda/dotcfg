@@ -23,7 +23,7 @@
 	}
 
 	function isLikeObject(value) {
-		return Object(value) === value;
+		return value === Object(value);
 	}
 
 	function dotStrategy(target, value) {
