@@ -42,3 +42,7 @@ console.log(NS.cfg('env.url.host')); // '0.0.0.0'
 console.log(NS.cfg('resolve.extensions[1]')); // { name:'.js' }
 console.log(NS.resolve.extensions[1].name); // '.js'
 ```
+
+### Playground
+
+* [webpack:base:raw](https://runkit.com/adriancmiranda/57f0f3b7ad67621400b89c2b)
