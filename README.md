@@ -45,4 +45,4 @@ console.log(NS.resolve.extensions[1].name); // '.js'
 
 ### Playground
 
-* [webpack:base:raw](https://runkit.com/adriancmiranda/57f0f3b7ad67621400b89c2b)
+* [webpack:base:raw](https://runkit.com/adriancmiranda/57f1037ef5fa9d1400830169)
