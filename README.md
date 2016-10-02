@@ -34,6 +34,7 @@ const NS = dotcfg('NS')
 .cfg('env.url.port', process.env.PORT || 3000) // { env:{ url:{ host:'0.0.0.0', port:3000 } } }
 .cfg('resolve.extensions[1].name', '.js') // { resolve:{ extensions:{ '1': { name: '.js' } } } }
 .cfg('watchOptions.pool', undefined); // { watchOptions:{} }
+.cfg('process[env.NODE_ENV]', 'DEV') // { process:{ 'env.NODE_ENV': 'DEV' } }
 
 console.log(NS.cfg()); // { env:{ url:{ host:'0.0.0.0', port:3000 } } } }
 console.log(NS.cfg('env')); // { url:{ host:'0.0.0.0', port:3000 } } }
@@ -46,3 +47,4 @@ console.log(NS.resolve.extensions[1].name); // '.js'
 ### Playground
 
 * [webpack:base:raw](https://runkit.com/adriancmiranda/57f1037ef5fa9d1400830169)
+* [webpack:base:dot](https://runkit.com/adriancmiranda/57f1064ff5fa9d1400830272)
