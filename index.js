@@ -100,7 +100,7 @@
 	function uri(key, value, strategy) {
 		var hasValue = arguments.length > 1;
 		if (!key || key === true) return getCfg(this, key);
-		if (!hasValue && isLikeObject(key)) return assign({}, this, key);
+		if (isLikeObject(key)) return assign(this, key);
 		strategy = value && isFunction(strategy) ? strategy : defaultStrategy;
 		return hasValue ? write(this, key, value, strategy) : read(this, key);
 	}
