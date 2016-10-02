@@ -91,7 +91,7 @@
 	}
 
 	function getCfg(target, copy) {
-		target = copy? assign({}, target) : target;
+		target = copy ? assign({}, target) : target;
 		delete target.namespace;
 		delete target.cfg;
 		return target;
