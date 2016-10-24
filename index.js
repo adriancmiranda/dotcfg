@@ -94,6 +94,7 @@
 		target = copy ? assign({}, target) : target;
 		delete target.namespace;
 		delete target.cfg;
+		delete target.exe;
 		return target;
 	}
 
@@ -103,6 +104,10 @@
 		if (isLikeObject(key)) return assign(this, key);
 		strategy = value && isFunction(strategy) ? strategy : defaultStrategy;
 		return hasValue ? write(this, key, value, strategy) : read(this, key);
+	}
+
+	function exe(key) {
+		// N/A yet.
 	}
 
 	function stub(namespace, target, strategy) {
@@ -116,6 +121,7 @@
 		}
 		defaultStrategy = isFunction(strategy) ? strategy : dotStrategy;
 		target.cfg = uri.bind(target);
+		target.exe = exe.bind(target);
 		return target;
 	}
 
