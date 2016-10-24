@@ -1,8 +1,16 @@
 interface DotCfg {
 	/**
 	 * Write/Read/Delete/Update a config with strategy method if needed.
+	 * @param key
+	 * @param value
+	 * @param strategy
 	 */
 	cfg(key: string|boolean|Object, value?: any, strategy?: Function): any;
+	
+	/**
+	 * @param key
+	 */
+	exe(key: string, ...rest):any
 
 	/**
 	 * Should be named to avoid ambiguity and minimize the risk of naming collisions.
