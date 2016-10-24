@@ -1,9 +1,49 @@
-interface IDotCfg {
-	cfg(key?: string|boolean|Object, value?: any, strategy?: Function): IDotCfg;
-	(namespace?: string|Object, target?: Object, strategy?: Function): any;
+interface DotCfg {
+	/**
+	 * Write a property with strategy method.
+	 */
+	cfg(key: string, value: any, strategy?: Function): DotCfg;
+
+	/**
+	 * Write config hash.
+	 */
+	cfg(key: Object): DotCfg;
+
+	/**
+	 * Read config or only a property.
+	 */
+	cfg(key: string|boolean): DotCfg;
+
+	/**
+	 * Read config object and flush the dot.
+	 */
+	cfg(): DotCfg;
+
+	/**
+	 * Should be named to avoid ambiguity and minimize the risk of naming collisions.
+	 */
+	namespace: string;
+
+	/**
+	 * @param namespace A string containing a qualified name to identify objects from.
+	 * @param target A object that have system-wide relevance.
+	 * @param strategy A function that configures the input values.
+	 */
+	(namespace: string, target?: Object, strategy?: Function): any;
+
+	/**
+	 * @param target A object that have system-wide relevance.
+	 * @param strategy A function that configures the input values.
+	 */
+	(target: Object, strategy?: Function): any;
+
+	/**
+	 * @param namespace A string containing a qualified name to identify objects from.
+	 */
+	(namespace: string): any;
 }
 
-declare const dotcfg: IDotCfg;
+declare const dotcfg: DotCfg;
 declare module 'dotcfg' {
 	export = dotcfg;
 }
