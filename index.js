@@ -106,8 +106,7 @@
 		return hasValue ? write(this, key, value, strategy) : read(this, key);
 	}
 
-	function run() {
-		var scope = this;
+	function run(scope) {
 		return function(key) {
 			var piece = read(scope, key);
 			var params = Array.prototype.slice.call(arguments, 1);
