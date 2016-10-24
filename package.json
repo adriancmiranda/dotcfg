@@ -7,6 +7,10 @@
   "homepage": "https://github.com/adriancmiranda/dotcfg",
   "readmeFilename": "README.md",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adriancmiranda/dotcfg.git"
+  },
   "scripts": {
     "test": "lab test/* --coverage",
     "posttest": "npm run lint",
