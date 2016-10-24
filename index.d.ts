@@ -12,12 +12,12 @@ interface DotCfg {
 	/**
 	 * Read config or only a property.
 	 */
-	cfg(key: string|boolean): DotCfg;
+	cfg(key: string|boolean): any;
 
 	/**
 	 * Read config object and flush the dot.
 	 */
-	cfg(): DotCfg;
+	cfg(): any;
 
 	/**
 	 * Should be named to avoid ambiguity and minimize the risk of naming collisions.
