@@ -126,7 +126,7 @@
 		}
 		defaultStrategy = isFunction(strategy) ? strategy : dotStrategy;
 		target.cfg = uri.bind(target);
-		target.exe = run.bind(target);
+		target.exe = run(target);
 		return target;
 	}
 
