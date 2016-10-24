@@ -1,6 +1,6 @@
 {
 	"name": "dotcfg",
-	"version": "1.3.0",
+	"version": "1.3.1",
 	"main": "index.js",
 	"description": "Allows you to manage namespace objects with qualified names",
 	"repo": "adriancmiranda/dotcfg",
