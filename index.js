@@ -106,8 +106,13 @@
 		return hasValue ? write(this, key, value, strategy) : read(this, key);
 	}
 
-	function exe(key) {
-		// N/A yet.
+	function run() {
+		var scope = this;
+		return function(key) {
+			var piece = read(scope, key);
+			var params = Array.prototype.slice.call(arguments, 1);
+			return typeof piece === 'function' ? piece.apply(scope, params) : piece;
+		};
 	}
 
 	function stub(namespace, target, strategy) {
@@ -121,7 +126,7 @@
 		}
 		defaultStrategy = isFunction(strategy) ? strategy : dotStrategy;
 		target.cfg = uri.bind(target);
-		target.exe = exe.bind(target);
+		target.exe = run.bind(target);
 		return target;
 	}
 
