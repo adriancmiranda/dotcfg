@@ -8,7 +8,7 @@
 	} else global[name] = factory(global, {}, name);
 }(typeof window !== 'undefined' ? window : global, 'dotcfg', function (global, exports, name) {
 	'use strict';
-
+	
 	var objectAssessor = /\[(["']?)([^\1]+?)\1?\]/g;
 	var startWithDot = /^\./;
 	var spaces = /\s/g;
@@ -77,7 +77,7 @@
 			var source = arguments[index];
 			if (source !== undefined && source !== null) {
 				for (var nextKey in source) {
-					if (source.hasOwnProperty(nextKey)) {
+					if (Object.prototype.hasOwnProperty.call(source, nextKey)) {
 						if (isLikeObject(source[nextKey])) {
 							output[nextKey] = assign(source[nextKey]);
 						} else {
