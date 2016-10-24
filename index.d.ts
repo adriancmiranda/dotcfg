@@ -2,7 +2,12 @@ interface DotCfg {
 	/**
 	 * Write a property with strategy method.
 	 */
-	cfg(key: string, value: any, strategy?: Function): DotCfg;
+	cfg(key: string, value?: any, strategy?: Function): DotCfg;
+
+	/**
+	 * Write a property with strategy method.
+	 */
+	cfg(key: string, value?: any): DotCfg;
 
 	/**
 	 * Write config hash.
