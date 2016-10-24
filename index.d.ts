@@ -1,28 +1,8 @@
 interface DotCfg {
 	/**
-	 * Write a property with strategy method.
+	 * Write/Read/Delete/Update a config with strategy method if needed.
 	 */
-	cfg(key: string, value?: any, strategy?: Function): DotCfg;
-
-	/**
-	 * Write a property with strategy method.
-	 */
-	cfg(key: string, value?: any): DotCfg;
-
-	/**
-	 * Write config hash.
-	 */
-	cfg(key: Object): DotCfg;
-
-	/**
-	 * Read config or only a property.
-	 */
-	cfg(key: string|boolean): any;
-
-	/**
-	 * Read config object and flush the dot.
-	 */
-	cfg(): any;
+	cfg(key: string|boolean|Object, value?: any, strategy?: Function): any;
 
 	/**
 	 * Should be named to avoid ambiguity and minimize the risk of naming collisions.
