@@ -10,7 +10,7 @@ interface DotCfg {
 	/**
 	 * @param key
 	 */
-	exe(key: string, ...rest):any
+	exe(key: string, ...rest: any[]):any
 
 	/**
 	 * Should be named to avoid ambiguity and minimize the risk of naming collisions.
