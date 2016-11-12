@@ -10,7 +10,7 @@ interface DotCfg {
 	/**
 	 * Read safely a key containing a function or a simple property.
 	 * @param key 
-	 * @...rest Function arguments
+	 * @param ...rest Function arguments
 	 */
 	exe(key: string, ...rest: any[]):any
 
