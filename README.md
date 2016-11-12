@@ -23,8 +23,40 @@ npm i -S dotcfg
 ### Usage:
 
 ```javascript
-var ns = dotcfg([namespace:string][, scope:object][, defaultStrategy:function]):Object
-ns.cfg([namespace:string][, value:*][, customStrategy:function]):*
+interface DotCfg {
+	/**
+	 * Write/Read/Delete/Update a config with strategy method if needed.
+	 */
+	cfg(key: string|boolean|Object, value?: any, strategy?: Function): any;
+	
+	/**
+	 * Read safely a key containing a function or a simple property
+	 */
+	exe(key: string, ...rest: any[]):any
+
+	/**
+	 * Should be named to avoid ambiguity and minimize the risk of naming collisions.
+	 */
+	namespace: string;
+
+	/**
+	 * @param namespace A string containing a qualified name to identify objects from.
+	 * @param target A object that have system-wide relevance.
+	 * @param strategy A function that configures the input values.
+	 */
+	(namespace: string, target?: Object, strategy?: Function): any;
+
+	/**
+	 * @param target A object that have system-wide relevance.
+	 * @param strategy A function that configures the input values.
+	 */
+	(target: Object, strategy?: Function): any;
+
+	/**
+	 * @param namespace A string containing a qualified name to identify objects from.
+	 */
+	(namespace: string): any;
+}
 ```
 
 ```javascript
@@ -36,7 +68,7 @@ const NS = dotcfg('NS')
 .cfg('watchOptions.pool', undefined); // { watchOptions:{} }
 .cfg('process[env.NODE_ENV]', 'DEV') // { process:{ 'env.NODE_ENV': 'DEV' } }
 
-console.log(NS.cfg()); // { env:{ url:{ host:'0.0.0.0', port:3000 } } } }
+console.log(NS.cfg(true /* true, brings a deep copy of raw object, false, brings a raw object */));
 console.log(NS.cfg('env')); // { url:{ host:'0.0.0.0', port:3000 } } }
 console.log(NS.cfg('env.url')); // { host:'0.0.0.0', port:3000 }
 console.log(NS.cfg('env.url.host')); // '0.0.0.0'
