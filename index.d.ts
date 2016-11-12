@@ -8,6 +8,7 @@ interface DotCfg {
 	cfg(key: string|boolean|Object, value?: any, strategy?: Function): any;
 	
 	/**
+	 * Read a function return (Even if the function doesn't exist)
 	 * @param key
 	 */
 	exe(key: string, ...rest: any[]):any
