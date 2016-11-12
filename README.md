@@ -20,7 +20,7 @@ or yet
 npm i -S dotcfg
 ```
 
-### Usage:
+### How it works:
 
 ```javascript
 interface DotCfg {
@@ -58,6 +58,8 @@ interface DotCfg {
 	(namespace: string): any;
 }
 ```
+
+### Usage:
 
 ```javascript
 const dotcfg = require('dotcfg')
