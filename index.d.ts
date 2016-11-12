@@ -8,7 +8,7 @@ interface DotCfg {
 	cfg(key: string|boolean|Object, value?: any, strategy?: Function): any;
 	
 	/**
-	 * Read safely a key containing a function or a simple property
+	 * Read safely a key containing a function or a simple property.
 	 * @param key
 	 */
 	exe(key: string, ...rest: any[]):any
