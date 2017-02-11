@@ -71,21 +71,25 @@
 		return id < total ? void(0) : target;
 	}
 
-	function assign(target){
-		var output = Object(target);
-		for (var index = 1; index < arguments.length; index++) {
-			var source = arguments[index];
-			if (source !== undefined && source !== null) {
-				for (var nextKey in source) {
-					if (Object.prototype.hasOwnProperty.call(source, nextKey)) {
-						if (Array.isArray(source[nextKey])) {
-							output[nextKey] = assign([], source[nextKey]);
-						} else if (isLikeObject(source[nextKey]) && !isFunction(source[nextKey])) {
-							output[nextKey] = assign({}, source[nextKey]);
-						} else {
-							output[nextKey] = source[nextKey];
-						}
-					}
+	function assign(target, source){
+		var args = Array.prototype.slice.call(arguments);
+		var startIndex = 1;
+		var output = Object(target || {});
+		for (var ix = startIndex; ix < args.length; ix++) {
+			var from = args[ix];
+			var keys = Object.keys(Object(from));
+			for (var iy = 0; iy < keys.length; iy++) {
+				var key = keys[iy];
+				if (Array.isArray(output[key]) || Array.isArray(from[key])) {
+					var o = (Array.isArray(output[key]) ? output[key].slice() : []);
+					var f = (Array.isArray(from[key]) ? from[key].slice() : []);
+					output[key] = o.concat(f);
+				} else if (isFunction(output[key]) || isFunction(from[key])) {
+					output[key] = from[key];
+				} else if (isObject(output[key]) || isObject(from[key])) {
+					output[key] = assign(output[key], from[key]);
+				} else {
+					output[key] = from[key];
 				}
 			}
 		}
