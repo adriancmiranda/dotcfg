@@ -77,7 +77,7 @@
 			var source = arguments[index];
 			if (source !== undefined && source !== null) {
 				for (var nextKey in source) {
-					if (source.hasOwnProperty(nextKey)) {
+					if (Object.prototype.hasOwnProperty.call(source, nextKey)) {
 						if (Array.isArray(source[nextKey])) {
 							output[nextKey] = assign([], source[nextKey]);
 						} else if (isLikeObject(source[nextKey]) && !isFunction(source[nextKey])) {
