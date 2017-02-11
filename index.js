@@ -77,9 +77,8 @@
 
 	function assign(target, source){
 		var args = Array.prototype.slice.call(arguments);
-		var startIndex = 1;
 		var output = Object(target || {});
-		for (var ix = startIndex; ix < args.length; ix++) {
+		for (var ix = 1; ix < args.length; ix++) {
 			var from = args[ix];
 			var keys = Object.keys(Object(from));
 			for (var iy = 0; iy < keys.length; iy++) {
