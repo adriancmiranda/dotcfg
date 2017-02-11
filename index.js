@@ -26,6 +26,10 @@
 		return value === Object(value);
 	}
 
+	function isObject(value) {
+		return toString.call(value) === '[object Object]';
+	}
+
 	function dotStrategy(target, value) {
 		if (Array.isArray(target)) {
 			return target.concat(value);
