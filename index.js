@@ -137,7 +137,8 @@
 		target.exe = run(target);
 		return target;
 	}
-
+	
+	stub.assign = assign;
 	exports[name] = stub;
 	return stub;
 }));
