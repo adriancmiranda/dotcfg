@@ -126,7 +126,7 @@
 	function stub(namespace, target, strategy) {
 		if (isLikeObject(namespace)) {
 			strategy = target;
-			target = assign({}, namespace);
+			target = namespace;
 		} else {
 			target = isLikeObject(target) ? target : global;
 			target = target[namespace] = target[namespace] || {};
