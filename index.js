@@ -51,6 +51,7 @@
 	function write(target, path, value, strategy){
 		var id = 0,
 		dot = target,
+		opath = path,
 		keys = ls(path),
 		total = keys.length - 1;
 		while (id < total) {
@@ -63,7 +64,7 @@
 		}
 		path = keys[id];
 		if (isUndefined(value)) delete target[path];
-		else (target[path] = strategy(target[path], value, path));
+		else (target[path] = strategy(target[path], value, opath, keys));
 		return dot;
 	}
 
@@ -107,16 +108,18 @@
 		return target;
 	}
 
-	function uri(key, value, strategy) {
-		var hasValue = arguments.length > 1;
-		if (!key || key === true) return getCfg(this, key);
-		if (isLikeObject(key)) return assign(this, key);
-		strategy = value && isFunction(strategy) ? strategy : defaultStrategy;
-		return hasValue ? write(this, key, value, strategy) : read(this, key);
+	function uri(target, defaultStrategy) {
+		return function cfg(key, value, strategy) {
+			var hasValue = arguments.length > 1;
+			if (!key || key === true) return getCfg(target, key);
+			if (isLikeObject(key)) return assign(target, key);
+			strategy = value && isFunction(strategy) ? strategy : defaultStrategy;
+			return hasValue ? write(target, key, value, strategy) : read(target, key);
+		};
 	}
 
 	function run(scope) {
-		return function(key) {
+		return function exe(key) {
 			var piece = read(scope, key);
 			var params = Array.prototype.slice.call(arguments, 1);
 			return typeof piece === 'function' ? piece.apply(scope, params) : piece;
@@ -133,7 +136,7 @@
 			target.namespace = namespace;
 		}
 		defaultStrategy = isFunction(strategy) ? strategy : dotStrategy;
-		target.cfg = uri.bind(target);
+		target.cfg = uri(target, defaultStrategy);
 		target.exe = run(target);
 		return target;
 	}
