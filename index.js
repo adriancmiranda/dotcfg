@@ -34,6 +34,9 @@
 		if (Array.isArray(target)) {
 			return target.concat(value);
 		}
+		if (isObject(target)) {
+			return assign(target, value);
+		}
 		return value;
 	}
 
@@ -142,6 +145,7 @@
 	}
 
 	stub.assign = assign;
+	stub.strategy = defaultStrategy;
 	exports[name] = stub;
 	return stub;
 }));
