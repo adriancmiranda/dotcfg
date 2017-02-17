@@ -12,7 +12,6 @@
 	var objectAssessor = /\[(["']?)([^\1]+?)\1?\]/g;
 	var startWithDot = /^\./;
 	var spaces = /\s/g;
-	var defaultStrategy;
 
 	function isUndefined(value) {
 		return typeof value === 'undefined';
@@ -34,7 +33,7 @@
 		if (Array.isArray(target)) {
 			return target.concat(value);
 		}
-		if (isObject(target)) {
+		if (isObject(target) && isObject(value)) {
 			return assign(target, value);
 		}
 		return value;
@@ -138,14 +137,13 @@
 			target = target[namespace] = target[namespace] || {};
 			target.namespace = namespace;
 		}
-		defaultStrategy = isFunction(strategy) ? strategy : dotStrategy;
-		target.cfg = uri(target, defaultStrategy);
+		target.cfg = uri(target, isFunction(strategy) ? strategy : dotStrategy);
 		target.exe = run(target);
 		return target;
 	}
 
 	stub.assign = assign;
-	stub.strategy = defaultStrategy;
+	stub.strategy = dotStrategy;
 	exports[name] = stub;
 	return stub;
 }));
