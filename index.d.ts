@@ -6,13 +6,19 @@ interface DotCfg {
 	 * @param strategy
 	 */
 	cfg(key: string|boolean|Object, value?: any, strategy?: Function): any;
-	
+
 	/**
 	 * Read safely a key containing a function or a simple property.
-	 * @param key 
+	 * @param key
 	 * @param ...rest Arguments for the object.
 	 */
 	exe(key: string, ...rest: any[]):any
+
+	/**
+	 * End the most recent cfg chain and return the target.
+	 * @param This method does not accept any arguments.
+	 */
+	end():DotCfg
 
 	/**
 	 * Should be named to avoid ambiguity and minimize the risk of naming collisions.

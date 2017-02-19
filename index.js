@@ -107,6 +107,7 @@
 		delete target.namespace;
 		delete target.cfg;
 		delete target.exe;
+		delete target.end;
 		return target;
 	}
 
@@ -128,6 +129,12 @@
 		};
 	}
 
+	function get(scope) {
+		return function end(){
+			return scope;
+		};
+	}
+
 	function stub(namespace, target, strategy) {
 		if (isLikeObject(namespace)) {
 			strategy = target;
@@ -139,6 +146,7 @@
 		}
 		target.cfg = uri(target, isFunction(strategy) ? strategy : dotStrategy);
 		target.exe = run(target);
+		target.end = get(target);
 		return target;
 	}
 
