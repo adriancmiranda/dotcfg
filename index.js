@@ -9,12 +9,17 @@
 }(typeof window !== 'undefined' ? window : global, 'dotcfg', function (global, exports, name) {
 	'use strict';
 
+	var assingStrategy;
 	var objectAssessor = /\[(["']?)([^\1]+?)\1?\]/g;
 	var startWithDot = /^\./;
 	var spaces = /\s/g;
 
 	function isUndefined(value) {
 		return typeof value === 'undefined';
+	}
+
+	function isDefined(value) {
+		return typeof value !== 'undefined';
 	}
 
 	function isFunction(value) {
@@ -78,7 +83,7 @@
 		return id < total ? void(0) : target;
 	}
 
-	function assign(target, source){
+	function assign(target){
 		var args = Array.prototype.slice.call(arguments);
 		var output = Object(target || {});
 		for (var ix = 1; ix < args.length; ix++) {
@@ -86,17 +91,10 @@
 			var keys = Object.keys(Object(from));
 			for (var iy = 0; iy < keys.length; iy++) {
 				var key = keys[iy];
-				if (Array.isArray(output[key]) || Array.isArray(from[key])) {
-					var o = (Array.isArray(output[key]) ? output[key].slice() : []);
-					var f = (Array.isArray(from[key]) ? from[key].slice() : []);
-					output[key] = o.concat(f);
-				} else if (isFunction(output[key]) || isFunction(from[key])) {
-					output[key] = from[key];
-				} else if (isObject(output[key]) || isObject(from[key])) {
-					output[key] = assign(output[key], from[key]);
-				} else {
-					output[key] = from[key];
+				if (Array.isArray(from[key])) {
+					from[key] = from[key].slice();
 				}
+				write(output, key, from[key], assingStrategy);
 			}
 		}
 		return output;
@@ -107,16 +105,16 @@
 		delete target.namespace;
 		delete target.cfg;
 		delete target.exe;
-		delete target.end;
 		return target;
 	}
 
 	function uri(target, defaultStrategy) {
+		assingStrategy = defaultStrategy;
 		return function cfg(key, value, strategy) {
 			var hasValue = arguments.length > 1;
 			if (!key || key === true) return getCfg(target, key);
 			if (isLikeObject(key)) return assign(target, key);
-			strategy = value && isFunction(strategy) ? strategy : defaultStrategy;
+			strategy = isDefined(value) && isFunction(strategy) ? strategy : defaultStrategy;
 			return hasValue ? write(target, key, value, strategy) : read(target, key);
 		};
 	}
@@ -126,12 +124,6 @@
 			var piece = read(scope, key);
 			var params = Array.prototype.slice.call(arguments, 1);
 			return isFunction(piece) ? piece.apply(scope, params) : piece;
-		};
-	}
-
-	function get(scope) {
-		return function end(){
-			return scope;
 		};
 	}
 
@@ -146,7 +138,6 @@
 		}
 		target.cfg = uri(target, isFunction(strategy) ? strategy : dotStrategy);
 		target.exe = run(target);
-		target.end = get(target);
 		return target;
 	}
 
