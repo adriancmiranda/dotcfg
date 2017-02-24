@@ -125,7 +125,7 @@
 		return function exe(key) {
 			var piece = read(scope, key);
 			var params = Array.prototype.slice.call(arguments, 1);
-			return typeof piece === 'function' ? piece.apply(scope, params) : piece;
+			return isFunction(piece) ? piece.apply(scope, params) : piece;
 		};
 	}
 
