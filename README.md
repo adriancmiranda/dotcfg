@@ -33,12 +33,6 @@ interface DotCfg {
 	 * Read safely a key containing a function or a simple property
 	 */
 	exe(key: string, ...rest: any[]):any
-	
-	/**
-	 * End the most recent cfg chain and return the target.
-	 * @param This method does not accept any arguments.
-	 */
-	end():DotCfg
 
 	/**
 	 * Should be named to avoid ambiguity and minimize the risk of naming collisions.

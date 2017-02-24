@@ -15,12 +15,6 @@ interface DotCfg {
 	exe(key: string, ...rest: any[]):any
 
 	/**
-	 * End the most recent cfg chain and return the target.
-	 * @param This method does not accept any arguments.
-	 */
-	end():DotCfg
-
-	/**
 	 * Should be named to avoid ambiguity and minimize the risk of naming collisions.
 	 */
 	namespace: string;
