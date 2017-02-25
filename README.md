@@ -80,5 +80,4 @@ console.log(NS.resolve.extensions[1].name); // '.js'
 
 ### Playground
 
-* [webpack:base:raw](https://runkit.com/adriancmiranda/57f1037ef5fa9d1400830169)
-* [webpack:base:dot](https://runkit.com/adriancmiranda/57f1064ff5fa9d1400830272)
+* [runkit](https://runkit.com/npm/dotcfg)
