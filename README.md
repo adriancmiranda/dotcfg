@@ -5,19 +5,19 @@
 ### Install:
 
 ```bash
-npm i -S adriancmiranda/dotcfg
+npm i -S dotcfg
 ```
 
 or
 
 ```bash
-bower i -S adriancmiranda/dotcfg
+bower i -S dotcfg
 ```
 
 or yet
 
 ```bash
-npm i -S dotcfg
+npm i -S adriancmiranda/dotcfg
 ```
 
 ### How it works:
