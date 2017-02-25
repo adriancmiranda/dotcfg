@@ -1,7 +1,7 @@
 interface DotCfg {
 	/**
 	 * Write/Read/Delete/Update a config with strategy method if needed.
-	 * @param key
+	 * @param key 
 	 * @param value
 	 * @param strategy
 	 */
@@ -9,7 +9,7 @@ interface DotCfg {
 
 	/**
 	 * Read safely a key containing a function or a simple property.
-	 * @param key
+	 * @param key A object path.
 	 * @param ...rest Arguments for the object.
 	 */
 	exe(key: string, ...rest: any[]):any
