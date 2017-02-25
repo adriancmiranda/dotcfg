@@ -141,8 +141,8 @@
 		return target;
 	}
 
-	stub.assign = assign;
 	stub.strategy = dotStrategy;
+	stub.assign = assign;
 	exports[name] = stub;
 	return stub;
 }));
