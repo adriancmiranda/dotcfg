@@ -9,7 +9,7 @@
 }(typeof window !== 'undefined' ? window : global, 'dotcfg', function (global, exports, name) {
 	'use strict';
 
-	var assingStrategy;
+	var assignStrategy;
 	var objectAssessor = /\[(["']?)([^\1]+?)\1?\]/g;
 	var startWithDot = /^\./;
 	var spaces = /\s/g;
@@ -94,7 +94,7 @@
 				if (Array.isArray(from[key])) {
 					from[key] = from[key].slice();
 				}
-				write(output, key, from[key], assingStrategy);
+				write(output, key, from[key], assignStrategy);
 			}
 		}
 		return output;
@@ -109,7 +109,7 @@
 	}
 
 	function uri(target, defaultStrategy) {
-		assingStrategy = defaultStrategy;
+		assignStrategy = defaultStrategy;
 		return function cfg(key, value, strategy) {
 			var hasValue = arguments.length > 1;
 			if (!key || key === true) return getCfg(target, key);
