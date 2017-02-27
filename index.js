@@ -34,7 +34,7 @@
 		return toString.call(value) === '[object Object]';
 	}
 
-	function dotStrategy(target, value) {
+	function dotStrategy(value, target) {
 		if (Array.isArray(target)) {
 			return target.concat(value);
 		}
@@ -71,7 +71,7 @@
 		}
 		path = keys[id];
 		if (isUndefined(value)) delete target[path];
-		else (target[path] = strategy(target[path], value, opath, keys));
+		else (target[path] = strategy(value, target[path], opath, keys));
 		return dot;
 	}
 
