@@ -120,7 +120,7 @@
 	}
 
 	function run(scope) {
-		return function exe(key) {
+		return function result(key) {
 			var piece = read(scope, key);
 			var params = Array.prototype.slice.call(arguments, 1);
 			return isFunction(piece) ? piece.apply(scope, params) : piece;
