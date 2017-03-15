@@ -1,16 +1,16 @@
 interface DotCfg {
 	/**
 	 * Write/Read/Delete/Update a config with strategy method if needed.
-	 * @param key 
-	 * @param value
-	 * @param strategy
+	 * @param key:
+	 * @param value:
+	 * @param strategy:
 	 */
 	cfg(key: string|boolean|Object, value?: any, strategy?: Function): any;
 
 	/**
 	 * Read safely a key containing a function or a simple property.
-	 * @param key A object path.
-	 * @param ...rest Arguments for the object.
+	 * @param key: A object path.
+	 * @param ...rest: Arguments for the object.
 	 */
 	exe(key: string, ...rest: any[]):any
 
@@ -20,20 +20,20 @@ interface DotCfg {
 	namespace: string;
 
 	/**
-	 * @param namespace A string containing a qualified name to identify objects from.
-	 * @param target A object that have system-wide relevance.
-	 * @param strategy A function that configures the input values.
+	 * @param namespace: A string containing a qualified name to identify objects from.
+	 * @param target: A object that have system-wide relevance.
+	 * @param strategy: A function that configures the input values.
 	 */
 	(namespace: string, target?: Object, strategy?: Function): any;
 
 	/**
-	 * @param target A object that have system-wide relevance.
-	 * @param strategy A function that configures the input values.
+	 * @param target: A object that have system-wide relevance.
+	 * @param strategy: A function that configures the input values.
 	 */
 	(target: Object, strategy?: Function): any;
 
 	/**
-	 * @param namespace A string containing a qualified name to identify objects from.
+	 * @param namespace: A string containing a qualified name to identify objects from.
 	 */
 	(namespace: string): any;
 }

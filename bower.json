@@ -8,7 +8,7 @@
 	"exportsOverride": {},
 	"ignore": [
 		"node_modules",
-		"source",
+		"lib",
 		"tasks",
 		"test",
 		"docs",
