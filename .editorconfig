@@ -7,7 +7,7 @@
 root = true
 
 [*]
-indent_style = tab
+indent_style = space
 indent_size = 2
 charset = utf-8
 trim_trailing_whitespace = true
@@ -19,14 +19,6 @@ trim_trailing_whitespace = false
 [*.diff]
 trim_trailing_whitespace = false
 
-[*.js]
+# Indentation override for all JS under lib directory
+[{source/**.js,webpack.config.js}]
 indent_style = tab
-
-[*.json]
-indent_style = tab
-
-[dist/**.js]
-indent_style = space
-
-[{package.json,.travis.yml}]
-indent_style = space

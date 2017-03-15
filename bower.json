@@ -8,15 +8,13 @@
 	"exportsOverride": {},
 	"ignore": [
 		"node_modules",
-		"lib",
-		"tasks",
+		"source",
 		"test",
-		"docs",
 		"**/.*",
 		"bower.json",
 		"component.json",
-		"composer.json",
-		"package.json",
-		"README.md"
+    "package.json",
+    "webpack.config.js",
+		"README.md",
 	]
 }

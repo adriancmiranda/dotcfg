@@ -22,7 +22,8 @@
     "ava": "^0.18.2",
     "npm-check-updates": "^2.10.3",
     "npm-run-all": "^4.0.2",
-    "standard-version": "^4.0.0"
+    "standard-version": "^4.0.0",
+    "webpack": "^2.2.1"
   },
   "keywords": [
     "ns",
