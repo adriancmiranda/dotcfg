@@ -13,28 +13,34 @@
   },
   "scripts": {
     "upgrade": "ncu -a --loglevel verbose --packageFile package.json && npm i",
-    "test": "lab test/* --coverage",
-    "posttest": "npm run lint",
-    "lint": "standard"
+    "test": "ava test/*.spec.js",
+    "watch": "npm test -- --watch",
+    "travis:test": "npm test",
+    "release": "standard-version"
   },
   "devDependencies": {
-    "lab": "13.0.1",
-    "semver": "5.3.0",
-    "should": "11.2.1",
-    "sinon": "1.17.7",
-    "standard": "9.0.1",
-    "npm-check-updates": "2.10.3"
-  },
-  "jsdomVersions": {
-    "node": "3.1.2",
-    "iojs": "5.3.0"
+    "ava": "^0.18.2",
+    "npm-check-updates": "^2.10.3",
+    "npm-run-all": "^4.0.2",
+    "standard-version": "^4.0.0"
   },
   "keywords": [
     "ns",
+    "obj",
+    "dot",
     "namespace",
     "object",
     "variables",
     "config",
-    "settings"
+    "settings",
+    "prop",
+    "property",
+    "path",
+    "access",
+    "del",
+    "delete",
+    "get",
+    "set",
+    "notation"
   ]
 }
