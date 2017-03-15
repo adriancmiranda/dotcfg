@@ -11,18 +11,20 @@ moment.locale();
 
 module.exports = (argv = {}) => ({
 	context: __dirname,
-	entry: 'index.js',
+	entry: './index.js',
 	devtool: 'source-map',
 	target: 'web',
 	output: {
-		path: 'dist',
+		path: './dist',
 		filename: `${pkg.name}${argv.dev ? '' : '.min'}.js`,
 		library: pkg.name,
 		libraryTarget: 'umd',
 		umdNamedDefine: true,
 	},
 	resolve: {
-		modules: [resolve('source')],
+		alias: {
+			'~': resolve('source'),
+		},
 	},
 	module: {
 		rules: [
