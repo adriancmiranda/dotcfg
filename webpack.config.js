@@ -16,7 +16,7 @@ module.exports = (argv = {}) => ({
 	target: 'web',
 	output: {
 		path: 'dist',
-		filename: `${pkg.name}${argv.dev ? '.min' : ''}.js`,
+		filename: `${pkg.name}${argv.dev ? '' : '.min'}.js`,
 		library: pkg.name,
 		libraryTarget: 'umd',
 		umdNamedDefine: true,
@@ -45,6 +45,9 @@ module.exports = (argv = {}) => ({
 	plugins: argv.dev ? [] : [
 		new optimize.UglifyJsPlugin({
 			minimize: true,
+			output: {
+				comments: false,
+			},
 		}),
 		new BannerPlugin({
 			banner: pirateFlag(pkg, {
