@@ -82,7 +82,6 @@ console.log(NS.resolve.extensions[1].name); // '.js'
 
 * [runkit](https://runkit.com/npm/dotcfg)
 
-
 [stability]: http://badges.github.io/stability-badges/dist/experimental.svg
 [stability-url]: http://learnhtmlwithsong.com/blog/wp-content/uploads/2014/12/errors-everywhere-meme.png
 [deps]: https://david-dm.org/adriancmiranda/dotcfg.svg
