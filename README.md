@@ -1,4 +1,4 @@
-# dotcfg [![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://learnhtmlwithsong.com/blog/wp-content/uploads/2014/12/errors-everywhere-meme.png)
+# dotcfg [![stability]][stability-url] [![deps][deps]][deps-url]
 
 ## Getting Started
 
@@ -24,38 +24,38 @@ npm i -S adriancmiranda/dotcfg
 
 ```javascript
 interface DotCfg {
-	/**
-	 * Write/Read/Delete/Update a config with strategy method if needed.
-	 */
-	cfg(key: string|boolean|Object, value?: any, strategy?: Function): any;
-	
-	/**
-	 * Read safely a key containing a function or a simple property
-	 */
-	exe(key: string, ...rest: any[]):any
+  /**
+   * Write/Read/Delete/Update a config with strategy method if needed.
+   */
+  cfg(key: string|boolean|Object, value?: any, strategy?: Function): any;
+  
+  /**
+   * Read safely a key containing a function or a simple property
+   */
+  exe(key: string, ...rest: any[]):any
 
-	/**
-	 * Should be named to avoid ambiguity and minimize the risk of naming collisions.
-	 */
-	namespace: string;
+  /**
+   * Should be named to avoid ambiguity and minimize the risk of naming collisions.
+   */
+  namespace: string;
 
-	/**
-	 * @param namespace A string containing a qualified name to identify objects from.
-	 * @param target A object that have system-wide relevance.
-	 * @param strategy A function that configures the input values.
-	 */
-	(namespace: string, target?: Object, strategy?: Function): any;
+  /**
+   * @param namespace A string containing a qualified name to identify objects from.
+   * @param target A object that have system-wide relevance.
+   * @param strategy A function that configures the input values.
+   */
+  (namespace: string, target?: Object, strategy?: Function): any;
 
-	/**
-	 * @param target A object that have system-wide relevance.
-	 * @param strategy A function that configures the input values.
-	 */
-	(target: Object, strategy?: Function): any;
+  /**
+   * @param target A object that have system-wide relevance.
+   * @param strategy A function that configures the input values.
+   */
+  (target: Object, strategy?: Function): any;
 
-	/**
-	 * @param namespace A string containing a qualified name to identify objects from.
-	 */
-	(namespace: string): any;
+  /**
+   * @param namespace A string containing a qualified name to identify objects from.
+   */
+  (namespace: string): any;
 }
 ```
 
@@ -81,3 +81,9 @@ console.log(NS.resolve.extensions[1].name); // '.js'
 ### Playground
 
 * [runkit](https://runkit.com/npm/dotcfg)
+
+
+[stability]: http://badges.github.io/stability-badges/dist/experimental.svg
+[stability-url]: http://learnhtmlwithsong.com/blog/wp-content/uploads/2014/12/errors-everywhere-meme.png
+[deps]: https://david-dm.org/adriancmiranda/dotcfg.svg
+[deps-url]: https://david-dm.org/adriancmiranda/dotcfg
