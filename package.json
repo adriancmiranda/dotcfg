@@ -18,11 +18,11 @@
     "lint": "standard"
   },
   "devDependencies": {
-    "lab": "12.1.0",
+    "lab": "13.0.1",
     "semver": "5.3.0",
-    "should": "11.2.0",
+    "should": "11.2.1",
     "sinon": "1.17.7",
-    "standard": "8.6.0",
+    "standard": "9.0.1",
     "npm-check-updates": "2.10.3"
   },
   "jsdomVersions": {
