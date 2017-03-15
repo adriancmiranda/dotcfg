@@ -13,6 +13,7 @@ module.exports = (argv = {}) => ({
 	context: __dirname,
 	entry: 'index.js',
 	devtool: 'source-map',
+	target: 'web',
 	output: {
 		path: 'dist',
 		filename: `${pkg.name}${argv.dev ? '.min' : ''}.js`,
@@ -34,6 +35,11 @@ module.exports = (argv = {}) => ({
 					emitError: true,
 				},
 			},
+			{
+				loader: 'es3ify-loader',
+				test: /\.js$/,
+				exclude: /node_modules/,
+			}
 		],
 	},
 	plugins: argv.dev ? [] : [
