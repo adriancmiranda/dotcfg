@@ -8,10 +8,21 @@
 	"scripts": "index.js",
 	"keywords": [
 		"ns",
-		"namespace",
-		"object",
-		"variables",
-		"config",
-		"settings"
+    "obj",
+    "dot",
+    "namespace",
+    "object",
+    "variables",
+    "config",
+    "settings",
+    "prop",
+    "property",
+    "path",
+    "access",
+    "del",
+    "delete",
+    "get",
+    "set",
+    "notation"
 	]
 }
