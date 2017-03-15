@@ -1,6 +1,12 @@
 const { resolve } = require('path');
-const { optimize } = require('webpack');
+const { optimize, BannerPlugin } = require('webpack');
+const GitRevisionPlugin = require('git-revision-webpack-plugin');
 const pkg = require('./package.json');
+
+const git = new GitRevisionPlugin({ lightweightTags: true });
+const mkBanner = info => {
+	return '';
+};
 
 module.exports = (argv = {}) => ({
 	context: __dirname,
@@ -11,7 +17,7 @@ module.exports = (argv = {}) => ({
 		filename: `${pkg.name}${argv.dev ? '.min' : ''}.js`,
 		library: pkg.name,
 		libraryTarget: 'umd',
-		umdNamedDefine: true
+		umdNamedDefine: true,
 	},
 	resolve: {
 		modules: [resolve('source')],
@@ -30,6 +36,17 @@ module.exports = (argv = {}) => ({
 		],
 	},
 	plugins: argv.dev ? [] : [
-		new optimize.UglifyJsPlugin({ minimize: true }),
+		new optimize.UglifyJsPlugin({
+			include: [resolve('source')],
+			minimize: true,
+		}),
+		new BannerPlugin({
+			banner: mkBanner({
+				homepage: pkg.homepage,
+				version: pkg.version,
+				commit: git.commithash(),
+				name: pkg.name,
+			}),
+		}),
 	],
 });
