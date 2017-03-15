@@ -1,12 +1,13 @@
 const { resolve } = require('path');
 const { optimize, BannerPlugin } = require('webpack');
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
+const pirateFlag = require('pirate-flag');
+const moment = require('moment');
 const pkg = require('./package.json');
 
 const git = new GitRevisionPlugin({ lightweightTags: true });
-const mkBanner = info => {
-	return '';
-};
+
+moment.locale();
 
 module.exports = (argv = {}) => ({
 	context: __dirname,
@@ -37,15 +38,14 @@ module.exports = (argv = {}) => ({
 	},
 	plugins: argv.dev ? [] : [
 		new optimize.UglifyJsPlugin({
-			include: [resolve('source')],
 			minimize: true,
 		}),
 		new BannerPlugin({
-			banner: mkBanner({
-				homepage: pkg.homepage,
-				version: pkg.version,
+			banner: pirateFlag(pkg, {
+				moment: moment().format('LLLL'),
 				commit: git.commithash(),
-				name: pkg.name,
+				homepage: pkg.homepage,
+				author: pkg.author,
 			}),
 		}),
 	],

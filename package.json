@@ -1,5 +1,6 @@
 {
   "name": "dotcfg",
+  "author": "Adrian C. Miranda",
   "description": "Allows you to manage namespace objects with qualified names",
   "version": "1.5.5",
   "main": "index.js",
@@ -19,13 +20,16 @@
     "watch:test": "npm test -- --watch",
     "test": "ava test/*.spec.js",
     "travis:test": "npm test",
-    "release": "standard-version"
+    "bump": "standard-version",
+    "release": "run-s build bump"
   },
   "devDependencies": {
     "ava": "^0.18.2",
     "git-revision-webpack-plugin": "2.4.1",
+    "moment": "^2.17.1",
     "npm-check-updates": "^2.10.3",
     "npm-run-all": "^4.0.2",
+    "pirate-flag": "0.0.1",
     "rimraf": "2.6.1",
     "standard-version": "^4.0.0",
     "webpack": "^2.2.1",
