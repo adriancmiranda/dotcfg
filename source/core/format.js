@@ -1,2 +1,2 @@
-module.exports = function format() {
+module.exports = function() {
 };

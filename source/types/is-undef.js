@@ -1,3 +1,3 @@
-module.exports = function isUndef(value) {
+module.exports = function(value) {
 	return typeof value === 'undefined';
 };

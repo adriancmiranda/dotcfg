@@ -1,3 +1,3 @@
-module.exports = function isFn(value) {
+module.exports = function(value) {
 	return typeof value === 'function';
 };
