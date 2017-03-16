@@ -22,6 +22,9 @@ module.exports = (argv = {}) => ({
 		libraryTarget: 'umd',
 		umdNamedDefine: true,
 	},
+	resolve: {
+		extensions: ['.js'],
+	},
 	module: {
 		rules: [
 			{
