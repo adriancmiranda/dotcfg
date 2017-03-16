@@ -10,6 +10,7 @@ const git = new GitRevisionPlugin({ lightweightTags: true });
 moment.locale();
 
 module.exports = (argv = {}) => ({
+	bail: !argv.dev,
 	context: __dirname,
 	entry: './index.js',
 	devtool: 'source-map',

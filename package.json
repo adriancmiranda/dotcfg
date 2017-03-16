@@ -20,15 +20,16 @@
     "clean": "rimraf dist/",
     "dev": "run-p watch:*",
     "build": "webpack",
+    "prebuild": "run-s clean",
     "watch": "webpack --progress --colors --watch --env dev",
     "watch:test": "npm test -- --watch",
     "test": "ava test/*.spec.js",
     "travis:test": "npm test",
-    "bump": "standard-version",
-    "release": "run-s build bump"
+    "release": "npm run build && standard-version"
   },
   "devDependencies": {
     "ava": "^0.18.2",
+    "cross-env": "3.2.4",
     "es3ify-loader": "0.2.0",
     "git-revision-webpack-plugin": "^2.4.1",
     "moment": "^2.17.1",
