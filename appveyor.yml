@@ -20,6 +20,7 @@ environment:
 
 install:
   - ps: Install-Product node $env:nodejs_version x64
+  - npm install ava-cli -g
   - npm install yarn -g
   - yarn install
   - yarn link
