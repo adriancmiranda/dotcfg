@@ -25,10 +25,12 @@
     "watch:test": "npm test -- --watch",
     "test": "ava test/*.spec.js",
     "travis:test": "npm test",
+    "appveyor:test": "node --max_old_space_size=4096 $(npm bin)/ava test/*.spec.js",
     "release": "npm run build && standard-version"
   },
   "devDependencies": {
     "ava": "^0.18.2",
+    "benchmark": "^2.1.3",
     "compression-webpack-plugin": "^0.3.2",
     "cross-env": "^3.2.4",
     "es3ify-loader": "^0.2.0",
