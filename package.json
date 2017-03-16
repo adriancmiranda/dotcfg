@@ -24,6 +24,7 @@
     "watch": "webpack --progress --colors --watch --env dev",
     "watch:test": "npm test -- --watch",
     "test": "ava test/*.spec.js",
+    "fix": "xo --fix",
     "travis:test": "npm test",
     "release": "npm run build && standard-version"
   },
