@@ -1,5 +1,5 @@
-exports.isDefined = require('./is-defined');
-exports.isFunction = require('./is-function');
-exports.isLikeObject = require('./is-like-object');
-exports.isObject = require('./is-object');
-exports.isUndefined = require('./is-undefined');
+exports.defined = require('./is-defined');
+exports.fn = require('./is-fn');
+exports.objectLike = require('./is-object-like');
+exports.object = require('./is-object');
+exports.undef = require('./is-undef');

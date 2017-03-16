@@ -1,8 +1,8 @@
 var isDefined = require('./source/types/is-defined');
-var isFunction = require('./source/types/is-function');
-var isLikeObject = require('./source/types/is-like-object');
+var isFunction = require('./source/types/is-fn');
+var isLikeObject = require('./source/types/is-object-like');
 var isObject = require('./source/types/is-object');
-var isUndefined = require('./source/types/is-undefined');
+var isUndefined = require('./source/types/is-undef');
 var assignStrategy;
 var objectAssessor = /\[(["']?)([^\1]+?)\1?\]/g;
 var startWithDot = /^\./;
