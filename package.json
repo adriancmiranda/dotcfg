@@ -25,7 +25,7 @@
     "watch:test": "npm test -- --watch",
     "test": "ava test/*.spec.js",
     "travis:test": "npm test",
-    "appveyor:test": "node --max_old_space_size=4096 ava test/*.spec.js",
+    "appveyor:test": "node --max_old_space_size=4096 node_modules\\ava test/*.spec.js",
     "release": "npm run build && standard-version"
   },
   "devDependencies": {
