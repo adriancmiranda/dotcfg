@@ -23,7 +23,7 @@ install:
   - npm install yarn -g
   - yarn install
   - yarn link
-  - yarn link webpack
+  - yarn link dotcfg
 
 build: off
 
