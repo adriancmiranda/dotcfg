@@ -22,11 +22,6 @@ module.exports = (argv = {}) => ({
 		libraryTarget: 'umd',
 		umdNamedDefine: true,
 	},
-	resolve: {
-		alias: {
-			'~': resolve('source'),
-		},
-	},
 	module: {
 		rules: [
 			{
