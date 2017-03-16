@@ -1,8 +1,4 @@
-var isDefined = require('./source/types/is-defined');
-var isFunction = require('./source/types/is-fn');
-var isLikeObject = require('./source/types/is-object-like');
-var isObject = require('./source/types/is-object');
-var isUndefined = require('./source/types/is-undef');
+var is = require('./source/types');
 var assignStrategy;
 var objectAssessor = /\[(["']?)([^\1]+?)\1?\]/g;
 var startWithDot = /^\./;
@@ -12,7 +8,7 @@ function dotStrategy(value, target) {
   if (Array.isArray(target)) {
     return target.concat(value);
   }
-  if (isObject(target) && isObject(value)) {
+  if (is.obj(target) && is.obj(value)) {
     return assign(target, value);
   }
   return value;
@@ -37,14 +33,14 @@ function write(target, path, value, strategy){
   total = keys.length - 1;
   while (id < total) {
     path = keys[id++];
-    if (!isLikeObject(target[path])) {
+    if (!is.objectLike(target[path])) {
       target = target[path] = {};
     } else {
       target = target[path];
     }
   }
   path = keys[id];
-  if (isUndefined(value)) delete target[path];
+  if (is.undef(value)) delete target[path];
   else (target[path] = strategy(value, target[path], opath, keys));
   return dot;
 }
@@ -87,8 +83,8 @@ function uri(target, defaultStrategy) {
   return function cfg(key, value, strategy) {
     var hasValue = arguments.length > 1;
     if (!key || key === true) return getCfg(target, key);
-    if (isLikeObject(key)) return assign(target, key);
-    strategy = isDefined(value) && isFunction(strategy) ? strategy : defaultStrategy;
+    if (is.objectLike(key)) return assign(target, key);
+    strategy = is.defined(value) && is.fn(strategy) ? strategy : defaultStrategy;
     return hasValue ? write(target, key, value, strategy) : read(target, key);
   };
 }
@@ -97,20 +93,20 @@ function run(scope) {
   return function result(key) {
     var piece = read(scope, key);
     var params = Array.prototype.slice.call(arguments, 1);
-    return isFunction(piece) ? piece.apply(scope, params) : piece;
+    return is.fn(piece) ? piece.apply(scope, params) : piece;
   };
 }
 
 function stub(namespace, target, strategy) {
-  if (isLikeObject(namespace)) {
+  if (is.objectLike(namespace)) {
     strategy = target;
     target = namespace;
   } else {
-    target = isLikeObject(target) ? target : global;
+    target = is.objectLike(target) ? target : global;
     target = target[namespace] = target[namespace] || {};
     target.namespace = namespace;
   }
-  target.cfg = uri(target, isFunction(strategy) ? strategy : dotStrategy);
+  target.cfg = uri(target, is.fn(strategy) ? strategy : dotStrategy);
   target.exe = run(target);
   return target;
 }
