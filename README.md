@@ -1,7 +1,7 @@
 # dotcfg
 > Allows you to manage namespace objects with qualified names.
 
-[![stability]][stability-url] [![deps]][deps-url] [![xo]][xo-url]
+[![stability]][stability-url] [![deps]][deps-url] [![xo]][xo-url] [![travis]][travis-url]
 
 ## Getting Started
 
@@ -88,6 +88,8 @@ console.log(NS.resolve.extensions[1].name); // '.js'
 
 [xo]: https://img.shields.io/badge/code_style-XO-5ed9c7.svg
 [xo-url]: https://github.com/sindresorhus/xo
+[travis]: https://travis-ci.org/adriancmiranda/dotcfg.svg?branch=master
+[travis-url]: https://travis-ci.org/adriancmiranda/dotcfg
 [stability]: http://badges.github.io/stability-badges/dist/experimental.svg
 [stability-url]: http://learnhtmlwithsong.com/blog/wp-content/uploads/2014/12/errors-everywhere-meme.png
 [deps]: https://david-dm.org/adriancmiranda/dotcfg.svg
