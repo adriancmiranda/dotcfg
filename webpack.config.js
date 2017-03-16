@@ -31,6 +31,7 @@ module.exports = (argv = {}) => ({
 				exclude: /node_modules/,
 				options: {
 					emitError: true,
+					fix: true,
 				},
 			},
 			{
