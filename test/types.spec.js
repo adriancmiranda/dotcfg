@@ -1,3 +1,5 @@
+/* globals window, document, HTMLElement */
+
 import ava from 'ava';
 import genFn from 'make-generator-function';
 import dotcfg from '../';
