@@ -1,5 +1,6 @@
 const { resolve } = require('path');
 const { optimize, BannerPlugin } = require('webpack');
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
 const pirateFlag = require('pirate-flag');
 const moment = require('moment');
@@ -31,10 +32,13 @@ module.exports = (argv = {}) => ({
 				enforce: 'pre',
 				loader: 'xo-loader',
 				test: /\.js$/,
-				exclude: /node_modules/,
+				include: [resolve('index.js'), resolve('source')],
 				options: {
 					emitError: true,
 					fix: true,
+					rules: {
+						'import/no-unresolved': 0,
+					}
 				},
 			},
 			{
@@ -50,6 +54,13 @@ module.exports = (argv = {}) => ({
 			output: {
 				comments: false,
 			},
+		}),
+		new CompressionWebpackPlugin({
+			test: /\.js$/,
+			asset: '[path].gz[query]',
+			algorithm: 'gzip',
+			threshold: 10240,
+			minRatio: 0.8,
 		}),
 		new BannerPlugin({
 			banner: pirateFlag(pkg, {

@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "ava": "^0.18.2",
+    "compression-webpack-plugin": "^0.3.2",
     "cross-env": "^3.2.4",
     "es3ify-loader": "^0.2.0",
     "git-revision-webpack-plugin": "^2.4.1",
