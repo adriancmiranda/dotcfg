@@ -24,7 +24,6 @@ install:
   - npm install yarn -g
   - yarn install
   - yarn link
-  - yarn link dotcfg
 
 build: off
 
