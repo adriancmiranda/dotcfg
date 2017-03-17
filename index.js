@@ -1,6 +1,6 @@
 var is = require('./source/types');
 var parse = require('./source/core/parse');
-var read = require('./source/core/get');
+var read = require('./source/core/read');
 var res = require('./source/core/resolve');
 
 var assignStrategy;

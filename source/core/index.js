@@ -1,7 +1,7 @@
-exports.del = require('./del');
+exports.del = require('./delete');
 exports.format = require('./format');
-exports.get = require('./get');
-exports.has = require('./has');
+exports.get = require('./read');
+exports.has = require('./exists');
 exports.parse = require('./parse');
 exports.resolve = require('./resolve');
-exports.set = require('./set');
+exports.set = require('./write');

@@ -1,5 +1,5 @@
 var isFn = require('../types/is-fn');
-var read = require('./get');
+var read = require('./read');
 
 module.exports = function(scope) {
   return function(path) {
