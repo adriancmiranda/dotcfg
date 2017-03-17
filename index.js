@@ -46,14 +46,14 @@ function getCfg(target, copy) {
   return target;
 }
 
-function uri(target, dotStrategyDefault) {
-  dotStrategy = assign(dotStrategyDefault);
-  return function(key, value, strategy) {
+function uri(target, strategy) {
+  dotStrategy = assign(strategy);
+  return function(key, value, localStrategy) {
     var hasValue = arguments.length > 1;
     if (!key || key === true) return getCfg(target, key);
     if (is.objectLike(key)) return dotStrategy(target, key);
-    strategy = is.defined(value) && is.fn(strategy) ? strategy : dotStrategyDefault;
-    return hasValue ? write(target, key, value, strategy) : read(target, key);
+    localStrategy = is.defined(value) && is.fn(localStrategy) ? localStrategy : strategy;
+    return hasValue ? write(target, key, value, localStrategy) : read(target, key);
   };
 }
 
