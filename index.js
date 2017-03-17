@@ -4,7 +4,7 @@ var read = require('./source/core/read');
 var resolve = require('./source/core/resolve');
 
 var assignStrategy;
-function dotStrategy(value, target) {
+function dotStrategy(value) {
   return value;
 }
 
