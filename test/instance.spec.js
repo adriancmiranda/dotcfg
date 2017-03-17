@@ -24,13 +24,13 @@ ava('instance.get', t => {
 
 ava('instance.assign', t => {
   const common = dotcfg({ name: 'common' });
+  common.cfg('entry', 'entry common')
   common.cfg('commonProp', 'common property');
 
   const a = dotcfg({ name: 'a' });
   a.cfg('entry', 'entry a');
 
-  const b = dotcfg({ name: 'b' });
-  b.cfg('entry', 'entry b');
+  const b = dotcfg(Object.create(null));
 
   const merges = [a, b].map(config => {
     return dotcfg.assign(common.cfg(true), config.cfg());
@@ -40,6 +40,6 @@ ava('instance.assign', t => {
   t.is(merges[0].entry, 'entry a');
   t.is(merges[0].name, 'a');
   t.is(merges[1].commonProp, 'common property');
-  t.is(merges[1].entry, 'entry b');
-  t.is(merges[1].name, 'b');
+  t.is(merges[1].entry, 'entry common');
+  t.is(merges[1].name, 'common');
 });
