@@ -5,12 +5,6 @@ var resolve = require('./source/core/resolve');
 
 var assignStrategy;
 function dotStrategy(value, target) {
-  if (Array.isArray(target)) {
-    return target.concat(value);
-  }
-  if (is.obj(target) && is.obj(value)) {
-    return assign(target, value);
-  }
   return value;
 }
 
