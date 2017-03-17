@@ -2,7 +2,7 @@ import ava from 'ava';
 import assert from 'assert';
 import dotcfg from '../';
 
-ava('creation', t => {
+ava('new instance', t => {
   const i = dotcfg({});
   t.truthy(i.cfg, 'instance.cfg function exists');
 });

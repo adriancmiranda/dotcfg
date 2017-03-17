@@ -1,5 +1,5 @@
 import ava from 'ava';
-import dotcfg from '../';
+import remove from '../source/core/remove';
 
 ava('del', t => {
 });

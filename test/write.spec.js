@@ -1,5 +1,5 @@
 import ava from 'ava';
-import dotcfg from '../';
+import write from '../source/core/write';
 
 ava('set', t => {
 });

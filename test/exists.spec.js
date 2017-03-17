@@ -1,5 +1,5 @@
 import ava from 'ava';
-import dotcfg from '../';
+import exists from '../source/core/exists';
 
 ava('has', t => {
 });

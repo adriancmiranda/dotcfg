@@ -1,5 +1,5 @@
 import ava from 'ava';
-import dotcfg from '../';
+import assign from '../source/core/assign';
 
 ava('assign:can extend on 1 level', t => {
 });

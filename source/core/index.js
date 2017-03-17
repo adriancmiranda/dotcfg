@@ -1,4 +1,4 @@
-exports.del = require('./delete');
+exports.del = require('./remove');
 exports.format = require('./format');
 exports.get = require('./read');
 exports.has = require('./exists');

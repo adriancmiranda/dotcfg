@@ -1,6 +1,6 @@
 import ava from 'ava';
 import dotcfg from '../';
-import res from '../source/core/resolve';
+import resolve from '../source/core/resolve';
 
 ava('resolve', t => {
   // call a.b.c function with arguments 'argA', 'argB' and 'argC'
@@ -8,8 +8,8 @@ ava('resolve', t => {
   const argB = 'argB';
   const argC = 'argC';
   const fn = (a, b, c) => ({ a: a, b: b, c: c });
-  let resolve = res({ a: { b: { c: fn } } });
-  t.deepEqual(resolve('a.b.c', argA, argB, argC), {
+  let res = resolve({ a: { b: { c: fn } } });
+  t.deepEqual(res('a.b.c', argA, argB, argC), {
     a: argA,
     b: argB,
     c: argC,
@@ -17,6 +17,6 @@ ava('resolve', t => {
 
   // get a.b.c property value
   const propertyValue = 'This is a test';
-  resolve = res({ a: { b: { c: propertyValue } } });
-  t.is(resolve('a.b.c'), propertyValue);
+  res = resolve({ a: { b: { c: propertyValue } } });
+  t.is(res('a.b.c'), propertyValue);
 });

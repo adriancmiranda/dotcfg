@@ -1,7 +1,7 @@
 var is = require('./source/types');
 var parse = require('./source/core/parse');
 var read = require('./source/core/read');
-var res = require('./source/core/resolve');
+var resolve = require('./source/core/resolve');
 
 var assignStrategy;
 function dotStrategy(value, target) {
@@ -80,7 +80,7 @@ function stub(namespace, target, strategy) {
     target.namespace = namespace;
   }
   target.cfg = uri(target, is.fn(strategy) ? strategy : dotStrategy);
-  target.exe = res(target);
+  target.exe = resolve(target);
   return target;
 }
 
