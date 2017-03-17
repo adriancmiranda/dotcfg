@@ -3,20 +3,11 @@ var parse = require('./source/core/parse');
 var read = require('./source/core/read');
 var resolve = require('./source/core/resolve');
 var assign = require('./source/core/assign');
+var copyStrategyDefault = require('./source/strategies/copy-default');
+var dotStrategyDefault = require('./source/strategies/dot-default');
 
 var copyStrategy = assign(copyStrategyDefault);
 var dotStrategy = assign(dotStrategyDefault);
-
-function dotStrategyDefault(value) {
-  return value;
-}
-
-function copyStrategyDefault(value, target) {
-  if (Array.isArray(target)) {
-    return target.concat(value);
-  }
-  return value;
-}
 
 function write(target, path, value, strategy){
   var id = 0;
