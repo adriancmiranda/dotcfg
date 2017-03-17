@@ -8,19 +8,19 @@ module.exports = function(strategy) {
 		for (var ix = 1; ix < args.length; ix++) {
 			var from = args[ix];
 			var keys = Object.keys(Object(from));
-			var cpath;
+			var cpath = '';
 			for (var iy = 0; iy < keys.length; iy++) {
-				var key = cpath = keys[iy];
+				var key = keys[iy];
 				if (Array.isArray(output[key]) || Array.isArray(from[key])) {
 					var o = Array.isArray(output[key]) ? output[key].slice() : [];
 					var f = Array.isArray(from[key]) ? from[key].slice() : [];
-					output[key] = strategy(o, f, cpath, keys);
+					output[key] = strategy(f, o, cpath, keys);
 				} else if (isFn(output[key]) || isFn(from[key])) {
-					output[key] = strategy(output[key], from[key], cpath, keys);
+					output[key] = strategy(from[key], output[key], cpath, keys);
 				} else if (isObject(output[key]) || isObject(from[key])) {
-					output[key] = assign(output[key], from[key]);
+					output[key] = assign(from[key], output[key]);
 				} else {
-					output[key] = strategy(output[key], from[key], cpath, keys);
+					output[key] = strategy(from[key], output[key], cpath, keys);
 				}
 			}
 		}
