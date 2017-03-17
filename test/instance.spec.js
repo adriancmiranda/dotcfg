@@ -1,4 +1,4 @@
-import ava from 'ava';
+import ava from 'ava-spec';
 import assert from 'assert';
 import dotcfg from '../';
 

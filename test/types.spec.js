@@ -1,6 +1,6 @@
 /* globals window, document, HTMLElement */
 
-import ava from 'ava';
+import ava from 'ava-spec';
 import genFn from 'make-generator-function';
 import dotcfg from '../';
 import is from '../source/types';
