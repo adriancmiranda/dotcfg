@@ -1,7 +1,7 @@
 # dotcfg
 > Allows you to manage namespace objects with qualified names.
 
-[![stability]][stability-url] [![xo]][xo-url] [![deps]][deps-url] [![travis]][travis-url] [![appveyor]][appveyor-url]
+[![stability]][stability-url] [![xo]][xo-url] [![deps]][deps-url] [![depsci]][depsci-url] [![travis]][travis-url] [![appveyor]][appveyor-url]
 
 ## Getting Started
 
