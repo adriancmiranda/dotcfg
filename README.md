@@ -100,3 +100,6 @@ console.log(NS.resolve.extensions[1].name); // '.js'
 
 [deps]: https://david-dm.org/adriancmiranda/dotcfg.svg
 [deps-url]: https://david-dm.org/adriancmiranda/dotcfg
+
+[depsci]: https://dependencyci.com/github/adriancmiranda/dotcfg/badge
+[depsci-url]: https://dependencyci.com/github/adriancmiranda/dotcfg
