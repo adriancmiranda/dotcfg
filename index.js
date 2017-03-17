@@ -43,9 +43,11 @@ function assign(target){
     for (var iy = 0, key; iy < keys.length; iy++) {
       key = keys[iy];
       if (Array.isArray(from[key])) {
-        from[key] = from[key].slice();
+        output[key] = from[key].slice();
+      } else if (is.object(output[key]) || is.object(from[key])) {
+        output[key] = assign(output[key], from[key]);
       }
-      write(output, key, from[key], assignStrategy);
+      write(output, key, output[key], assignStrategy);
     }
   }
   return output;

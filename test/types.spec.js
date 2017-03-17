@@ -30,6 +30,7 @@ ava('is.fn', t => {
 });
 
 ava('is.objectLike', t => {
+  t.is(is['objLike'], is.objectLike, 'alias works');
   t.truthy(is.objectLike({}), 'object literal is objectLike');
   t.falsy(is.objectLike(), 'undefined is not an objectLike');
   t.falsy(is.objectLike(null), 'null is not an objectLike');
