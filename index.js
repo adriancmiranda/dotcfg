@@ -3,20 +3,11 @@ var parse = require('./source/core/parse');
 var read = require('./source/core/read');
 var resolve = require('./source/core/resolve');
 var assign = require('./source/core/assign');
+var copyStrategyDefault = require('./source/strategies/copy-default');
+var dotStrategyDefault = require('./source/strategies/dot-default');
 
 var copyStrategy = assign(copyStrategyDefault);
 var dotStrategy = assign(dotStrategyDefault);
-
-function dotStrategyDefault(value) {
-  return value;
-}
-
-function copyStrategyDefault(value, target) {
-  if (Array.isArray(target)) {
-    return target.concat(value);
-  }
-  return value;
-}
 
 function write(target, path, value, strategy){
   var id = 0;
@@ -46,14 +37,14 @@ function getCfg(target, copy) {
   return target;
 }
 
-function uri(target, dotStrategyDefault) {
-  dotStrategy = assign(dotStrategyDefault);
-  return function(key, value, strategy) {
+function uri(target, strategy) {
+  dotStrategy = assign(strategy);
+  return function(key, value, localStrategy) {
     var hasValue = arguments.length > 1;
     if (!key || key === true) return getCfg(target, key);
     if (is.objectLike(key)) return dotStrategy(target, key);
-    strategy = is.defined(value) && is.fn(strategy) ? strategy : dotStrategyDefault;
-    return hasValue ? write(target, key, value, strategy) : read(target, key);
+    localStrategy = is.defined(value) && is.fn(localStrategy) ? localStrategy : strategy;
+    return hasValue ? write(target, key, value, localStrategy) : read(target, key);
   };
 }
 

@@ -12,8 +12,8 @@ module.exports = function(strategy) {
 			for (var iy = 0; iy < keys.length; iy++) {
 				var key = cpath = keys[iy];
 				if (Array.isArray(output[key]) || Array.isArray(from[key])) {
-					var o = (Array.isArray(output[key]) ? output[key].slice() : []);
-					var f = (Array.isArray(from[key]) ? from[key].slice() : []);
+					var o = Array.isArray(output[key]) ? output[key].slice() : [];
+					var f = Array.isArray(from[key]) ? from[key].slice() : [];
 					output[key] = strategy(o, f, cpath, keys);
 				} else if (isFn(output[key]) || isFn(from[key])) {
 					output[key] = strategy(output[key], from[key], cpath, keys);
