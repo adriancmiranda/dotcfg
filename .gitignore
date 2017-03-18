@@ -42,6 +42,8 @@ Session.vim
 !.editorconfig
 !.gitignore
 !.npmignore
+!.npmrc
 !.travis.yml
+!.vcmrc
 *~
 *#*
