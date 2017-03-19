@@ -3,14 +3,14 @@ var read = require('./source/read');
 var write = require('./source/write');
 var resolve = require('./source/resolve');
 var assign = require('./source/assign');
-var copyStrategyDefault = require('./source/strategies/copy-default');
+var assignStrategyDefault = require('./source/strategies/assign-default');
 var dotStrategyDefault = require('./source/strategies/dot-default');
 
-var copyStrategy = assign(copyStrategyDefault);
+var assignStrategy = assign(assignStrategyDefault);
 var dotStrategy = assign(dotStrategyDefault);
 
 function getCfg(target, copy) {
-  target = copy ? copyStrategy({}, target) : target;
+  target = copy ? assignStrategy({}, target) : target;
   delete target.namespace;
   delete target.cfg;
   delete target.exe;
@@ -44,6 +44,6 @@ function stub(namespace, target, strategy) {
 }
 
 stub.strategy = dotStrategyDefault;
-stub.assign = copyStrategy;
+stub.assign = assignStrategy;
 
 module.exports = stub;
