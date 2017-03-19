@@ -1,5 +1,6 @@
 const { resolve } = require('path');
 const { optimize, BannerPlugin } = require('webpack');
+const BumpPlugin = require('bump-webpack-plugin');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
 const pirateFlag = require('pirate-flag');
@@ -73,5 +74,10 @@ module.exports = (argv = {}) => ({
 				author: pkg.author,
 			}),
 		}),
+		new BumpPlugin([
+			'package.json',
+			'component.json',
+			'bower.json',
+		]),
 	],
 });
