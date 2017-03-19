@@ -62,7 +62,7 @@ module.exports = (argv = {}) => ({
 			test: /\.js$/,
 			asset: '[path].gz[query]',
 			algorithm: 'gzip',
-			threshold: 10240,
+			threshold: 300,
 			minRatio: 0.8,
 		}),
 		new BannerPlugin({
