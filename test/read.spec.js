@@ -1,16 +1,34 @@
 import ava from 'ava-spec';
-import dotcfg from '../';
 import read from '../source/read';
 
+ava.before(t => {
+  t.data = {
+    name: 'Unit test',
+    list: ['test_1'],
+    hello: {
+      from: {
+        nested: {
+          object: 'This is the object property',
+          list: [
+            {
+              value: 'It works!',
+            },
+            {
+              value: 'It works too!',
+            },
+          ],
+        },
+      },
+    },
+  };
+});
+
 ava('read', t => {
-  let i = dotcfg({ cfg: 'It doesn\'t replace the method itself.' });
-  // t.is(i.cfg('cfg'), 'This is the settings');
-
-  i = dotcfg({ settings: 'This is the settings' });
-  t.is(i.cfg('settings'), 'This is the settings', 'simple property access works');
-
-  i = dotcfg({ 'test.string.notation': 'works', arr: [1, 'b'] });
-  t.is(i.cfg('arr[1]'), 'b', 'array access works');
-  // t.is(i.cfg('[test.string.notation]'), 'works', 'string property access works');
-  t.is(i.cfg('test.string.notation'), undefined, 'test.string.notation is undefined');
+  t.is(read(t.data, 'name'), 'Unit test');
+  t.is(read(t.data, 'list[0]'), 'test_1');
+  t.is(read(t.data, 'hello.from.nested.object'), 'This is the object property');
+  t.is(read(t.data, 'hello.from.nested.list[0].value'), 'It works!');
+  t.is(read(t.data, 'hello.from.nested.list[1].value'), 'It works too!');
+  t.is(read(t.data, 'hello.from.nested.list[2].value'), undefined);
+  t.is(read(t.data, 'another.non.existent.property'), undefined);
 });

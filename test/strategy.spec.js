@@ -1,5 +1,5 @@
 import ava from 'ava-spec';
-import dotcfg from '../';
+import strategies from '../source/strategies';
 
 ava('strategy', t => {
 });
