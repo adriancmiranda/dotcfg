@@ -2,7 +2,7 @@
   "name": "dotcfg",
   "author": "Adrian C. Miranda",
   "description": "Allows you to manage namespace objects with qualified names",
-  "version": "1.5.6",
+  "version": "1.5.7",
   "main": "index.js",
   "types": "index.d.ts",
   "homepage": "https://github.com/adriancmiranda/dotcfg",
@@ -45,7 +45,7 @@
     "husky": "^0.13.2",
     "make-generator-function": "^1.1.0",
     "microtime": "^2.1.2",
-    "moment": "^2.17.1",
+    "moment": "^2.18.0",
     "npm-check-updates": "^2.10.3",
     "npm-run-all": "^4.0.2",
     "nyc": "^10.1.2",
@@ -54,7 +54,7 @@
     "standard-version": "^4.0.0",
     "validate-commit-msg": "^2.11.2",
     "webpack": "^2.2.1",
-    "xo": "^0.17.1",
+    "xo": "^0.18.0",
     "xo-loader": "^0.7.0"
   },
   "engines": {
