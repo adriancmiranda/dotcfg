@@ -32,7 +32,10 @@ module.exports = (argv = {}) => ({
 				enforce: 'pre',
 				loader: 'xo-loader',
 				test: /\.js$/,
-				include: [resolve('index.js'), resolve('source')],
+				include: [
+					resolve('index.js'),
+					resolve('source'),
+				],
 				options: {
 					emitError: true,
 					fix: true,

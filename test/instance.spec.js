@@ -2,6 +2,10 @@ import ava from 'ava-spec';
 import assert from 'assert';
 import dotcfg from '../';
 
+ava.beforeEach(t => {
+  // t.context.i = dotcfg({});
+});
+
 ava('new instance', t => {
   const i = dotcfg({});
   t.truthy(i.cfg, 'instance.cfg function exists');
@@ -42,4 +46,7 @@ ava('instance.assign', t => {
   t.is(merges[1].commonProp, 'common property');
   t.is(merges[1].entry, 'entry common');
   t.is(merges[1].name, 'common');
+});
+
+ava.afterEach(t => {
 });

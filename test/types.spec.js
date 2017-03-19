@@ -2,8 +2,7 @@
 
 import ava from 'ava-spec';
 import genFn from 'make-generator-function';
-import dotcfg from '../';
-import is from '../source/types';
+import is from '../source/is';
 
 ava('is.defined', t => {
   t.is(is['def'], is.defined, 'alias works');
@@ -63,6 +62,17 @@ ava('is.object', t => {
   if (typeof Symbol !== 'function') {
     t.falsy(is.object(Symbol('foo')), 'symbol is not an object');
   }
+});
+
+ava('is.string', t => {
+  t.is(is['str'], is.string, 'alias works');
+  t.truthy(is.string('foo'), 'string literal is string');
+  t.truthy(is.string(Object('foo')), 'string object is string');
+  t.falsy(is.string(), 'undefined is not string');
+  t.falsy(is.string(String), 'string constructor is not string');
+  var F = function () {};
+  F.prototype = Object('');
+  t.falsy(is.string(F), 'string subtype is not string');
 });
 
 ava('is.undef', t => {

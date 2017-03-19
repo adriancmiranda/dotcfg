@@ -1,5 +1,5 @@
 import ava from 'ava-spec';
-import remove from '../source/core/remove';
+import remove from '../source/remove';
 
-ava('del', t => {
+ava('remove', t => {
 });

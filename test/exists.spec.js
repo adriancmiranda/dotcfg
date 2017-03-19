@@ -1,5 +1,5 @@
 import ava from 'ava-spec';
-import exists from '../source/core/exists';
+import exists from '../source/exists';
 
-ava('has', t => {
+ava('exists', t => {
 });

@@ -1,7 +1,7 @@
 import ava from 'ava-spec';
 import benchmark from 'benchmark';
 import microtime from 'microtime';
-import remove from '../source/core/remove';
+import remove from '../source/remove';
 
-ava(t => {
+ava('remove', t => {
 });

@@ -1,2 +1,10 @@
-exports.core = require('./core');
-exports.types = require('./types');
+exports.is = require('./is');
+exports.parse = require('./parse');
+exports.strategies = require('./strategies');
+exports.assign = require('./assign');
+exports.exists = require('./exists');
+exports.format = require('./format');
+exports.read = require('./read');
+exports.remove = require('./remove');
+exports.resolve = require('./resolve');
+exports.write = require('./write');

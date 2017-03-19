@@ -1,5 +1,5 @@
 import ava from 'ava-spec';
-import write from '../source/core/write';
+import write from '../source/write';
 
-ava('set', t => {
+ava('write', t => {
 });

@@ -1,4 +1,4 @@
-var isFn = require('../types/is-fn');
+var isFn = require('./is/function');
 var read = require('./read');
 
 module.exports = function(scope) {

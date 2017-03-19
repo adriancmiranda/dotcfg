@@ -1,8 +1,8 @@
-var is = require('./source/types');
-var parse = require('./source/core/parse');
-var read = require('./source/core/read');
-var resolve = require('./source/core/resolve');
-var assign = require('./source/core/assign');
+var is = require('./source/is');
+var parse = require('./source/parse');
+var read = require('./source/read');
+var resolve = require('./source/resolve');
+var assign = require('./source/assign');
 var copyStrategyDefault = require('./source/strategies/copy-default');
 var dotStrategyDefault = require('./source/strategies/dot-default');
 
