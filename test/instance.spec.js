@@ -7,8 +7,13 @@ ava.beforeEach(t => {
 });
 
 ava('new instance', t => {
-  const i = dotcfg({});
-  t.truthy(i.cfg, 'instance.cfg function exists');
+  const TEST_OBJ = dotcfg({});
+  t.truthy(TEST_OBJ.cfg, 'instance.cfg function exists');
+  t.truthy(TEST_OBJ.exe, 'instance.exe function exists');
+
+  const TEST_NS = dotcfg('TEST_NS');
+  t.truthy(TEST_NS.cfg, 'instance.cfg function exists');
+  t.truthy(TEST_NS.exe, 'instance.exe function exists');
 });
 
 ava('instance.set', t => {
