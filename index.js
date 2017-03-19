@@ -1,6 +1,6 @@
 var is = require('./source/is');
-var parse = require('./source/parse');
 var read = require('./source/read');
+var write = require('./source/write');
 var resolve = require('./source/resolve');
 var assign = require('./source/assign');
 var copyStrategyDefault = require('./source/strategies/copy-default');
@@ -8,27 +8,6 @@ var dotStrategyDefault = require('./source/strategies/dot-default');
 
 var copyStrategy = assign(copyStrategyDefault);
 var dotStrategy = assign(dotStrategyDefault);
-
-function write(target, path, value, strategy){
-  var id = 0;
-  var dot = target;
-  var opath = path;
-  var keys = parse(path);
-  var total = keys.length - 1;
-  while (id < total) {
-    path = keys[id++];
-    if (is.objectLike(target[path])) {
-      target = target[path];
-    } else {
-      target[path] = {};
-      target = target[path];
-    }
-  }
-  path = keys[id];
-  if (is.undef(value)) delete target[path];
-  else (target[path] = strategy(value, target[path], opath, keys));
-  return dot;
-}
 
 function getCfg(target, copy) {
   target = copy ? copyStrategy({}, target) : target;
