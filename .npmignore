@@ -4,3 +4,4 @@ test/
 **/.*
 package.json
 webpack.config.js
+appveyor.yml
