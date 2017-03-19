@@ -1,6 +1,11 @@
-exports.def = exports.defined = require('./defined');
+exports.defined = require('./defined');
 exports.fn = require('./function');
-exports.objLike = exports.objectLike = require('./object-like');
-exports.obj = exports.object = require('./object');
-exports.str = exports.string = require('./string');
+exports.objectLike = require('./object-like');
+exports.object = require('./object');
+exports.string = require('./string');
 exports.undef = require('./undefined');
+
+exports.def = exports.defined;
+exports.objLike = exports.objectLike;
+exports.obj = exports.object;
+exports.str = exports.string;

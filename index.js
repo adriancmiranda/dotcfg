@@ -20,7 +20,8 @@ function write(target, path, value, strategy){
     if (is.objectLike(target[path])) {
       target = target[path];
     } else {
-      target = target[path] = {};
+      target[path] = {};
+      target = target[path];
     }
   }
   path = keys[id];
@@ -54,7 +55,8 @@ function stub(namespace, target, strategy) {
     target = namespace;
   } else {
     target = is.objectLike(target) ? target : global;
-    target = target[namespace] = target[namespace] || {};
+    target[namespace] = target[namespace] || {};
+    target = target[namespace];
     target.namespace = namespace;
   }
   target.cfg = uri(target, is.fn(strategy) ? strategy : dotStrategyDefault);
