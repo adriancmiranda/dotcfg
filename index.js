@@ -54,9 +54,9 @@ var init = function (namespace/*?*/, scope/*?*/, strategy/*?*/) {
 		scope = scope[namespace];
 	}
 	this.strategy = strategy;
-	this.extends = proxy(assign(strategy), this, self);
+	this.extends = proxy(assign(strategy), this, scope);
 	this.namespace = namespace || 'dot' + guid;
-	this.scope = validate(self, this, fns);
+	this.scope = validate(scope, this, fns);
 	guid++;
 };
 
