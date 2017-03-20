@@ -2,7 +2,7 @@
   "name": "dotcfg",
   "author": "Adrian C. Miranda",
   "description": "Allows you to manage namespace objects with qualified names",
-  "version": "1.5.9",
+  "version": "1.5.10",
   "main": "index.js",
   "types": "index.d.ts",
   "homepage": "https://github.com/adriancmiranda/dotcfg",
@@ -16,13 +16,16 @@
     "url": "https://github.com/adriancmiranda/dotcfg/issues"
   },
   "xo": {
-    "overrides": [{
-      "files": "index.js",
-      "esnext": false
-    }, {
-      "files": "source/**/*.js",
-      "esnext": false
-    }]
+    "overrides": [
+      {
+        "files": "index.js",
+        "esnext": false
+      },
+      {
+        "files": "source/**/*.js",
+        "esnext": false
+      }
+    ]
   },
   "config": {
     "validate-commit-msg": {
