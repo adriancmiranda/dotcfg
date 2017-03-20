@@ -36,7 +36,10 @@ var DotCfg = function (namespace/*?*/, scope/*?*/, strategy/*?*/) {
 		scope = namespace;
 		namespace = undefined;
 	}
-	return new DotCfg.fn.init(namespace, scope, strategy);
+	var expose = is.defined(global) ? global : window;
+	var self = is.objectLike(scope) ? scope : expose;
+	var fn = is.fn(strategy) ? strategy : dotStrategyDefault;
+	return new DotCfg.fn.init(namespace, self, fn);
 };
 
 /*!
@@ -46,14 +49,12 @@ var DotCfg = function (namespace/*?*/, scope/*?*/, strategy/*?*/) {
  * @param strategy: A function that configures the input values.
  */
 var init = function (namespace/*?*/, scope/*?*/, strategy/*?*/) {
-	var expose = is.defined(global) ? global : window;
-	var self = is.objectLike(scope) ? scope : expose;
 	if (is.string(namespace)) {
-		self[namespace] = self[namespace] || Object.create(null);
-		self = self[namespace];
+		scope[namespace] = scope[namespace] || Object.create(null);
+		scope = scope[namespace];
 	}
-	this.strategy = is.fn(strategy) ? strategy : dotStrategyDefault;
-	this.extends = proxy(assign(this.strategy), this, self);
+	this.strategy = strategy;
+	this.extends = proxy(assign(strategy), this, self);
 	this.namespace = namespace || 'dot' + guid;
 	this.scope = validate(self, this, fns);
 	guid++;
