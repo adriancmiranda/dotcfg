@@ -4,7 +4,7 @@ var isObjectLike = require('./is/object-like');
 
 module.exports = function(target, notation, value, strategy) {
 	var id = 0;
-	var dot = target;
+	var scope = target;
 	var notation = notation;
 	var keys = parse(notation);
 	var total = keys.length - 1;
@@ -26,5 +26,5 @@ module.exports = function(target, notation, value, strategy) {
 			keys
 		);
 	} else delete(target[notation]);
-	return dot;
+	return scope;
 };
