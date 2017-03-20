@@ -69,8 +69,22 @@ var init = function (namespace/*?*/, scope/*?*/, strategy/*?*/) {
  */
 var cfg = function (notation/*?*/, value/*?*/, strategy/*?*/) {
 	var hasArg = arguments.length > 1;
-	if (!notation || notation === true) {
-		return notation ? assignStrategy({}, this.scope()) : this.scope(true);
+	if (!notation) {
+		return this.scope(true);
+	}
+	if (notation === true) {
+		var cp = assignStrategy({}, this.scope());
+		for (var id = 0, key; id < fns.length; id++) {
+			key = fns[id];
+			acc = '@' + key;
+			if (cp[acc]) {
+				cp[key] = cp[acc];
+				delete cp[acc];
+			} else {
+				delete cp[key];
+			}
+		}
+		return cp;
 	}
 	if (is.objectLike(notation)) {
 		return this.extends(notation);
