@@ -3,6 +3,10 @@ import assert from 'assert';
 import dotcfg from '../';
 
 ava('new instance', t => {
+  const TEST_CHAIN = dotcfg({}).cfg('name', 'test').cfg('env', 'ava');
+  t.is(TEST_CHAIN.cfg('name'), 'test');
+  t.truthy(TEST_CHAIN instanceof dotcfg);
+
   const TEST_OBJ = dotcfg({});
   t.truthy(TEST_OBJ.cfg, 'instance.cfg function exists');
   t.truthy(TEST_OBJ.resolve, 'instance.resolve function exists');
@@ -24,8 +28,8 @@ ava('new instance', t => {
 
 ava('instance.set', t => {
   const i = dotcfg({});
-  t.is(i.cfg('test', 'test property value').test, 'test property value');
-  t.is(i.cfg('another.property', 'another property value').another.property, 'another property value');
+  t.is(i.cfg('test', 'test property value').cfg('test'), 'test property value');
+  t.is(i.cfg('another.property', 'another property value').cfg('another.property'), 'another property value');
 });
 
 ava('instance.get', t => {
