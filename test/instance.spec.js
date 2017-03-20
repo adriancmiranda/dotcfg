@@ -3,27 +3,39 @@ import assert from 'assert';
 import dotcfg from '../';
 
 ava('new instance', t => {
-  const TEST_CHAIN = dotcfg({}).cfg('name', 'test').cfg('env', 'ava');
-  t.is(TEST_CHAIN.cfg('name'), 'test');
-  t.truthy(TEST_CHAIN instanceof dotcfg);
+  const TEST_CHAIN = dotcfg({}).set('name', 'test').cfg('env', 'ava');
+  t.is(TEST_CHAIN.get('env'), 'ava');
+  t.deepEqual(TEST_CHAIN.cfg(), { name: 'test', env: 'ava' });
+  t.falsy(TEST_CHAIN instanceof dotcfg);
+
+  const TEST_TYPE = dotcfg({});
+  TEST_TYPE.set('name', 'test').cfg('env', 'ava')
+  t.deepEqual(TEST_TYPE.cfg(), { name: 'test', env: 'ava' });
+  t.truthy(TEST_TYPE instanceof dotcfg);
 
   const TEST_OBJ = dotcfg({});
   t.truthy(TEST_OBJ.cfg, 'instance.cfg function exists');
   t.truthy(TEST_OBJ.resolve, 'instance.resolve function exists');
   t.truthy(TEST_OBJ.exe, 'instance.exe function exists');
+  t.truthy(TEST_OBJ.get, 'instance.get function exists');
+  t.truthy(TEST_OBJ.set, 'instance.set function exists');
 
   const TEST_NS = dotcfg('TEST_NS');
   t.truthy(TEST_NS.cfg, 'instance.cfg function exists');
   t.truthy(TEST_NS.resolve, 'instance.resolve function exists');
   t.truthy(TEST_NS.exe, 'instance.exe function exists');
+  t.truthy(TEST_NS.get, 'instance.get function exists');
+  t.truthy(TEST_NS.set, 'instance.set function exists');
 
   const SCOPE = { name: 'NS scope' };
   const TEST_NS_SCOPE = dotcfg('TEST_NS', SCOPE);
   TEST_NS_SCOPE.cfg('world', 'hello');
   t.truthy(SCOPE.TEST_NS.world, 'NS scope');
+});
 
+ava('instance.override', t => {
   const TEST_NEW = new dotcfg({ cfg: 'Fixed property methods' });
-  t.is(TEST_NEW.cfg('cfg'), 'Fixed property methods');
+  t.is(TEST_NEW.cfg('cfg$'), 'Fixed property methods');
 });
 
 ava('instance.set', t => {
