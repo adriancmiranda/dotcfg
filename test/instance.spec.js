@@ -5,11 +5,21 @@ import dotcfg from '../';
 ava('new instance', t => {
   const TEST_OBJ = dotcfg({});
   t.truthy(TEST_OBJ.cfg, 'instance.cfg function exists');
+  t.truthy(TEST_OBJ.resolve, 'instance.resolve function exists');
   t.truthy(TEST_OBJ.exe, 'instance.exe function exists');
 
   const TEST_NS = dotcfg('TEST_NS');
   t.truthy(TEST_NS.cfg, 'instance.cfg function exists');
+  t.truthy(TEST_NS.resolve, 'instance.resolve function exists');
   t.truthy(TEST_NS.exe, 'instance.exe function exists');
+
+  const SCOPE = { name: 'NS scope' };
+  const TEST_NS_SCOPE = dotcfg('TEST_NS', SCOPE);
+  TEST_NS_SCOPE.cfg('world', 'hello');
+  t.truthy(SCOPE.TEST_NS.world, 'NS scope');
+
+  const TEST_NEW = new dotcfg({ cfg: 'Fixed property methods' });
+  t.is(TEST_NEW.cfg('cfg'), 'Fixed property methods');
 });
 
 ava('instance.set', t => {
@@ -23,8 +33,6 @@ ava('instance.get', t => {
   t.is(i.cfg('name'), 'instance.get');
   t.is(i.cfg(true).name, 'instance.get', 'copy works');
   t.is(i.cfg().name, 'instance.get');
-  t.is(i.cfg, undefined);
-  t.is(i.exe, undefined);
 });
 
 ava('instance.assign', t => {
@@ -32,7 +40,7 @@ ava('instance.assign', t => {
   common.cfg('entry', 'entry common')
   common.cfg('commonProp', 'common property');
 
-  const a = dotcfg({ name: 'a' });
+  const a = dotcfg({ name: 'instance a' });
   a.cfg('entry', 'entry a');
 
   const b = dotcfg(Object.create(null));
@@ -43,7 +51,7 @@ ava('instance.assign', t => {
 
   t.is(merges[0].commonProp, 'common property');
   t.is(merges[0].entry, 'entry a');
-  t.is(merges[0].name, 'a');
+  t.is(merges[0].name, 'instance a');
   t.is(merges[1].commonProp, 'common property');
   t.is(merges[1].entry, 'entry common');
   t.is(merges[1].name, 'common');

@@ -47,6 +47,11 @@ ava('parse.notation', t => {
 ava('parse', t => {
   const eq = deepEqual(t);
   eq('test.12[1][a.b.c].spec', ['test', '12', '1', 'a.b.c', 'spec']);
+  eq('sample["teste"]', ['sample', '"teste"']);
+  eq('sample[""teste""]', ['sample', '""teste""']);
+  eq('sample[""teste]', ['sample', '""teste']);
+  eq('sample.another[\'teste\']', ['sample', 'another', '\'teste\'']);
+  eq("sample.another['teste']", ['sample', 'another', '\'teste\'']);
   eq('sample[]', ['sample', '']);
   eq('[test[ab]]', ['', 'test[ab]']);
   eq('[ab]', ['', 'ab']);

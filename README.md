@@ -8,83 +8,51 @@
 ### Install:
 
 ```bash
-npm i -S dotcfg
-```
-
-or
-
-```bash
-bower i -S dotcfg
-```
-
-or yet
-
-```bash
-npm i -S adriancmiranda/dotcfg
-```
-
-### How it works:
-
-```javascript
-interface DotCfg {
-  /**
-   * Write/Read/Delete/Update a config with strategy method if needed.
-   */
-  cfg(key: string|boolean|Object, value?: any, strategy?: Function): any;
-  
-  /**
-   * Read safely a key containing a function or a simple property
-   */
-  exe(key: string, ...rest: any[]):any
-
-  /**
-   * Should be named to avoid ambiguity and minimize the risk of naming collisions.
-   */
-  namespace: string;
-
-  /**
-   * @param namespace A string containing a qualified name to identify objects from.
-   * @param target A object that have system-wide relevance.
-   * @param strategy A function that configures the input values.
-   */
-  (namespace: string, target?: Object, strategy?: Function): any;
-
-  /**
-   * @param target A object that have system-wide relevance.
-   * @param strategy A function that configures the input values.
-   */
-  (target: Object, strategy?: Function): any;
-
-  /**
-   * @param namespace A string containing a qualified name to identify objects from.
-   */
-  (namespace: string): any;
-}
+npm install dotcfg --save
 ```
 
 ### Usage:
 
 ```javascript
-const dotcfg = require('dotcfg')
-const NS = dotcfg('NS')
-.cfg('env.url.host', process.env.HOST || '0.0.0.0') // { env:{ url:{ host:'0.0.0.0' } } }
-.cfg('env.url.port', process.env.PORT || 3000) // { env:{ url:{ host:'0.0.0.0', port:3000 } } }
-.cfg('resolve.extensions[1].name', '.js') // { resolve:{ extensions:{ '1': { name: '.js' } } } }
-.cfg('watchOptions.pool', undefined); // { watchOptions:{} }
-.cfg('process[env.NODE_ENV]', 'DEV') // { process:{ 'env.NODE_ENV': 'DEV' } }
+const dotcfg = require('dotcfg');
 
-console.log(NS.cfg(true /* true, brings a deep copy of raw object, false, brings a raw object */));
-console.log(NS.cfg('env')); // { url:{ host:'0.0.0.0', port:3000 } } }
-console.log(NS.cfg('env.url')); // { host:'0.0.0.0', port:3000 }
-console.log(NS.cfg('env.url.host')); // '0.0.0.0'
-console.log(NS.cfg('resolve.extensions[1]')); // { name:'.js' }
-console.log(NS.resolve.extensions[1].name); // '.js'
+const NYC = dotcfg('NYC');
+
+// SET
+// ---
+NYC.cfg('env.url.host', '0.0.0.0');
+// => { env:{ url:{ host:'0.0.0.0' } } }
+
+NYC.cfg('resolve.extensions[1].name', '.js')
+// => { resolve:{ extensions:{ '1':{ name:'.js' } } } }
+
+NYC.cfg('watchOptions.pool', undefined);
+// => { watchOptions:{} }
+
+NYC.cfg('process[env.NODE_ENV].type', 'DEV');
+// => { process:{ 'env.NODE_ENV':{ type:'DEV' } } }
+
+
+// GET
+// ---
+NYC.cfg('env');
+// <= { url:{ host:'0.0.0.0', port:3000 } } }
+
+NYC.cfg('env.url');
+// <= { host:'0.0.0.0', port:3000 }
+
+NYC.cfg('env.url.host');
+// <= '0.0.0.0'
+
+NYC.cfg('resolve.extensions[1]')
+// <= { name:'.js' }
+
+NYC.scope.resolve.extensions[1].name;
+// <= '.js'
+
+NYC.cfg(true);
+/*! true: brings a deep copy of raw object. */
 ```
-
-### Playground
-
-* [runkit](https://runkit.com/npm/dotcfg)
-
 
 [xo]: https://img.shields.io/badge/code_style-XO-5ed9c7.svg
 [xo-url]: https://github.com/sindresorhus/xo

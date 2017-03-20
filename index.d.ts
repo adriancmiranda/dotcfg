@@ -1,23 +1,35 @@
 interface DotCfg {
 	/**
 	 * Write/Read/Delete/Update a config with strategy method if needed.
-	 * @param key:
+	 * @param notation:
 	 * @param value:
 	 * @param strategy:
 	 */
-	cfg(key: string|boolean|Object, value?: any, strategy?: Function): any;
+	cfg(notation: string|boolean|Object, value?: any, strategy?: Function): any;
+
+  /**
+   * Read safely a key containing a function or a simple property.
+   * @param notation: A object path.
+   * @param ...rest: Arguments for the object.
+   */
+  resolve(notation: string, ...rest: any[]):any
 
 	/**
 	 * Read safely a key containing a function or a simple property.
-	 * @param key: A object path.
+	 * @param notation: A object path.
 	 * @param ...rest: Arguments for the object.
 	 */
-	exe(key: string, ...rest: any[]):any
+	exe(notation: string, ...rest: any[]):any
 
 	/**
 	 * Should be named to avoid ambiguity and minimize the risk of naming collisions.
 	 */
-	namespace: string;
+  namespace: string;
+
+  /**
+   * A object that have system-wide relevance.
+   */
+	scope: any;
 
 	/**
 	 * @param namespace: A string containing a qualified name to identify objects from.

@@ -8,21 +8,21 @@ module.exports = function(strategy) {
 		for (var ix = 1; ix < args.length; ix++) {
 			var from = args[ix];
 			var keys = Object.keys(Object(from));
-			var path = '';
 			for (var iy = 0; iy < keys.length; iy++) {
 				var key = keys[iy];
 				var outputValue = output[key];
 				var sourceValue = from[key];
+				var notation = key;
 				if (Array.isArray(outputValue) || Array.isArray(sourceValue)) {
-					var o = Array.isArray(outputValue) ? outputValue.slice() : [];
 					var f = Array.isArray(sourceValue) ? sourceValue.slice() : [];
-					output[key] = strategy(f, o, path, keys);
+					var o = Array.isArray(outputValue) ? outputValue.slice() : [];
+					output[key] = strategy(f, o, notation, keys);
 				} else if (isFn(outputValue) || isFn(sourceValue)) {
-					output[key] = strategy(sourceValue, outputValue, path, keys);
+					output[key] = strategy(sourceValue, outputValue, notation, keys);
 				} else if (isObject(outputValue) || isObject(sourceValue)) {
 					output[key] = assign(sourceValue, outputValue);
 				} else {
-					output[key] = strategy(sourceValue, outputValue, path, keys);
+					output[key] = strategy(sourceValue, outputValue, notation, keys);
 				}
 			}
 		}

@@ -2,7 +2,7 @@
   "name": "dotcfg",
   "author": "Adrian C. Miranda",
   "description": "Allows you to manage namespace objects with qualified names",
-  "version": "1.5.8",
+  "version": "1.5.14",
   "main": "index.js",
   "types": "index.d.ts",
   "homepage": "https://github.com/adriancmiranda/dotcfg",
@@ -15,6 +15,15 @@
   "bugs": {
     "url": "https://github.com/adriancmiranda/dotcfg/issues"
   },
+  "xo": {
+    "overrides": [{
+      "files": "index.js",
+      "esnext": false
+    }, {
+      "files": "source/**/*.js",
+      "esnext": false
+    }]
+  },
   "config": {
     "validate-commit-msg": {
       "types": "conventional-commit-types"
@@ -25,11 +34,12 @@
     "clean": "rimraf dist/",
     "dev": "run-p watch:*",
     "benchmark": "ava test/*.benchmark.js",
-    "prebuild": "run-s clean test benchmark",
-    "build": "webpack",
-    "watch": "webpack --progress --colors --watch --env dev",
+    "prebuild": "run-s lint test benchmark clean",
+    "build": "webpack --env.compress --env.uglify --env.bump",
+    "watch": "webpack --progress --colors --watch --env.dev",
     "watch:test": "npm test -- --watch",
     "test": "ava test/*.spec.js",
+    "lint": "xo index.js source/**/*.js",
     "travis:test": "npm test",
     "travis:benchmark": "npm run benchmark",
     "appveyor:test": "node --max_old_space_size=4096 node_modules\\ava-cli\\cli test/*.spec.js",
