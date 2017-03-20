@@ -39,6 +39,7 @@ Session.vim
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .*
 !.editorconfig
+!.gitattributes
 !.gitignore
 !.npmignore
 !.npmrc
