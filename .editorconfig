@@ -19,6 +19,8 @@ trim_trailing_whitespace = false
 [*.diff]
 trim_trailing_whitespace = false
 
-# Indentation override for all JS under lib directory
 [{source/**.js,webpack.config.js}]
+indent_style = tab
+
+[index.js]
 indent_style = tab

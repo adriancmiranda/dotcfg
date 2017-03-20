@@ -102,7 +102,7 @@ var exe = function (notation/*!*/) {
  */
 var setter = function (notation/*!*/, value/*!*/, strategy/*?*/) {
 	strategy = is.defined(value) && is.fn(strategy) ? strategy : this.strategy;
-  write(this.scope, notation, value, strategy);
+	write(this.scope, notation, value, strategy);
 	return this;
 };
 
