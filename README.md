@@ -23,7 +23,7 @@ const NYC = dotcfg('NYC');
 NYC.cfg('env.url.host', '0.0.0.0');
 // => { env:{ url:{ host:'0.0.0.0' } } }
 
-NYC.cfg('resolve.extensions[1].name', '.js')
+NYC.cfg('resolve.extensions.1.name', '.js')
 // => { resolve:{ extensions:{ '1':{ name:'.js' } } } }
 
 NYC.cfg('watchOptions.pool', undefined);
@@ -44,7 +44,7 @@ NYC.cfg('env.url');
 NYC.cfg('env.url.host');
 // <= '0.0.0.0'
 
-NYC.cfg('resolve.extensions[1]')
+NYC.cfg('resolve.extensions.1')
 // <= { name:'.js' }
 
 NYC.scope.resolve.extensions[1].name;
