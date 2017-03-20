@@ -57,6 +57,7 @@ var init = function (namespace/*?*/, scope/*?*/, strategy/*?*/) {
 	this.extends = proxy(assign(strategy), this, scope);
 	this.namespace = namespace || 'dot' + guid;
 	this.scope = validate(scope, this, fns);
+	return this.scope();
 	guid++;
 };
 
@@ -69,7 +70,7 @@ var init = function (namespace/*?*/, scope/*?*/, strategy/*?*/) {
 var cfg = function (notation/*?*/, value/*?*/, strategy/*?*/) {
 	var hasArg = arguments.length > 1;
 	if (!notation || notation === true) {
-		return notation ? assignStrategy({}, this.scope(true)) : this.scope(true);
+		return notation ? assignStrategy({}, this.scope()) : this.scope(true);
 	}
 	if (is.objectLike(notation)) {
 		return this.extends(notation);
