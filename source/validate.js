@@ -1,8 +1,6 @@
 var proxy = require('./proxy');
 
-var fns = 'resolve exe cfg get set'.split(' ');
-
-module.exports = function (scope, instance) {
+module.exports = function (scope, instance, fns) {
 	var cache = {};
 	var acc = '@';
 	for (var id = 0, key; id < fns.length; id++) {

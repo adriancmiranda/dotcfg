@@ -10,6 +10,11 @@ var assignStrategyDefault = require('./source/strategies/assign-default');
 var dotStrategyDefault = require('./source/strategies/dot-default');
 
 /*!
+ * Public methods.
+ */
+var fns = 'resolve exe cfg get set'.split(' ');
+
+/*!
  * Mixing behaviors.
  */
 var assignStrategy = assign(assignStrategyDefault);
@@ -50,7 +55,7 @@ var init = function (namespace/*?*/, scope/*?*/, strategy/*?*/) {
 	this.strategy = is.fn(strategy) ? strategy : dotStrategyDefault;
 	this.extends = proxy(assign(this.strategy), this, self);
 	this.namespace = namespace || 'dot' + guid;
-	this.scope = validate(self, this);
+	this.scope = validate(self, this, fns);
 	guid++;
 };
 
