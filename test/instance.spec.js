@@ -35,7 +35,7 @@ ava('new instance', t => {
 
 ava('instance.override', t => {
   const TEST_NEW = new dotcfg({ cfg: 'Fixed property methods' });
-  t.is(TEST_NEW.cfg('cfg$'), 'Fixed property methods');
+  t.is(TEST_NEW.cfg('@cfg'), 'Fixed property methods');
 });
 
 ava('instance.set', t => {

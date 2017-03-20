@@ -1,9 +1,11 @@
 /* global window */
 /* eslint-disable spaced-comment, new-cap, comma-dangle */
 var is = require('./source/is');
+var proxy = require('./source/proxy');
 var read = require('./source/read');
 var write = require('./source/write');
 var assign = require('./source/assign');
+var validate = require('./source/validate');
 var assignStrategyDefault = require('./source/strategies/assign-default');
 var dotStrategyDefault = require('./source/strategies/dot-default');
 
@@ -50,53 +52,6 @@ var init = function (namespace/*?*/, scope/*?*/, strategy/*?*/) {
 	this.namespace = namespace || 'dot' + guid;
 	this.scope = validate(self, this);
 	guid++;
-};
-
-/*!
- * Takes a function and returns a new one that will always have a particular context.
- * @param fn: The function whose context will be changed.
- * @param context: The object to which the context (this) of the function should be set.
- * @param ...rest: Prefix arguments.
- */
-var proxy = function(fn/*!*/, context/*!*/){
-	var args = Array.prototype.slice.call(arguments, 2);
-	var bind = function() {
-		return fn.apply(context, args.concat(Array.prototype.slice.call(arguments)));
-	};
-	bind.__originalFn__ = bind.__originalFn__ || fn;
-	return bind;
-};
-
-/*!
- *
- * @param self:
- * @param instance:
- */
-var validate = function(self, instance) {
-	var cache = {};
-	var fns = 'resolve exe cfg get set'.split(' ');
-	for (var id = 0, key; id < fns.length; id++) {
-		key = fns[id];
-		if (self[key]) {
-			self[key + '$'] = self[key];
-			cache[key] = self[key];
-		}
-		self[key] = proxy(instance[key], instance);
-	}
-	return function(flush) {
-		if (flush) {
-			for (var id = 0, key; id < fns.length; id++) {
-				key = fns[id];
-				if (cache[key]) {
-					self[key] = cache[key];
-					delete self[key + '$']
-				} else {
-					delete self[key];
-				}
-			}
-		}
-		return self;
-	};
 };
 
 /*!

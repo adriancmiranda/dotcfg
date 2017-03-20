@@ -2,6 +2,7 @@ exports.is = require('./is');
 exports.parse = require('./parse');
 exports.strategies = require('./strategies');
 exports.assign = require('./assign');
+exports.bind = require('./bind');
 exports.exists = require('./exists');
 exports.format = require('./format');
 exports.read = require('./read');
