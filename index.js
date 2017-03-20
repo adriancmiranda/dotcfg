@@ -46,10 +46,57 @@ var init = function (namespace/*?*/, scope/*?*/, strategy/*?*/) {
 		self = self[namespace];
 	}
 	this.strategy = is.fn(strategy) ? strategy : dotStrategyDefault;
-	this.extends = assign(this.strategy).bind(this, self);
+	this.extends = proxy(assign(this.strategy), this, self);
 	this.namespace = namespace || 'dot' + guid;
-	this.scope = self;
+	this.scope = validate(self, this);
 	guid++;
+};
+
+/*!
+ * Takes a function and returns a new one that will always have a particular context.
+ * @param fn: The function whose context will be changed.
+ * @param context: The object to which the context (this) of the function should be set.
+ * @param ...rest: Prefix arguments.
+ */
+var proxy = function(fn/*!*/, context/*!*/){
+	var args = Array.prototype.slice.call(arguments, 2);
+	var bind = function() {
+		return fn.apply(context, args.concat(Array.prototype.slice.call(arguments)));
+	};
+	bind.__originalFn__ = bind.__originalFn__ || fn;
+	return bind;
+};
+
+/*!
+ *
+ * @param self:
+ * @param instance:
+ */
+var validate = function(self, instance) {
+	var cache = {};
+	var fns = 'resolve exe cfg get set'.split(' ');
+	for (var id = 0, key; id < fns.length; id++) {
+		key = fns[id];
+		if (self[key]) {
+			self[key + '$'] = self[key];
+			cache[key] = self[key];
+		}
+		self[key] = proxy(instance[key], instance);
+	}
+	return function(flush) {
+		if (flush) {
+			for (var id = 0, key; id < fns.length; id++) {
+				key = fns[id];
+				if (cache[key]) {
+					self[key] = cache[key];
+					delete self[key + '$']
+				} else {
+					delete self[key];
+				}
+			}
+		}
+		return self;
+	};
 };
 
 /*!
@@ -61,7 +108,7 @@ var init = function (namespace/*?*/, scope/*?*/, strategy/*?*/) {
 var cfg = function (notation/*?*/, value/*?*/, strategy/*?*/) {
 	var hasArg = arguments.length > 1;
 	if (!notation || notation === true) {
-		return notation ? assignStrategy({}, this.scope) : this.scope;
+		return notation ? assignStrategy({}, this.scope(true)) : this.scope(true);
 	}
 	if (is.objectLike(notation)) {
 		return this.extends(notation);
@@ -75,7 +122,7 @@ var cfg = function (notation/*?*/, value/*?*/, strategy/*?*/) {
  * @param ...rest: Arguments for the object.
  */
 var resolve = function (notation/*!*/) {
-	var scope = this.scope;
+	var scope = this.scope();
 	var part = read(scope, notation);
 	var args = Array.prototype.slice.call(arguments, 1);
 	return is.fn(part) ? part.apply(scope, args) : part;
@@ -101,9 +148,8 @@ var exe = function (notation/*!*/) {
  * @param strategy: Arguments for the object.
  */
 var setter = function (notation/*!*/, value/*!*/, strategy/*?*/) {
-	strategy = is.defined(value) && is.fn(strategy) ? strategy : this.strategy;
-	write(this.scope, notation, value, strategy);
-	return this;
+	var fn = is.defined(value) && is.fn(strategy) ? strategy : this.strategy;
+	return write(this.scope(), notation, value, fn);
 };
 
 /*!
@@ -112,7 +158,7 @@ var setter = function (notation/*!*/, value/*!*/, strategy/*?*/) {
  * @param defaultValue: A fallback value.
  */
 var getter = function (notation/*!*/, defaultValue/*?*/) {
-	var value = read(this.scope, notation);
+	var value = read(this.scope(), notation);
 	return is.defined(value) ? value : defaultValue;
 };
 
