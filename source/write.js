@@ -3,10 +3,10 @@ var isDefined = require('./is/defined');
 var isObjectLike = require('./is/object-like');
 var isNumber = require('./is/number');
 
-module.exports = function(target, notation, value, strategy) {
+module.exports = function (target, path, value, strategy) {
 	var id = 0;
 	var scope = target;
-	var notation = notation;
+	var notation = path;
 	var keys = parse(notation);
 	var total = keys.length - 1;
 	var nextNotation;
@@ -31,6 +31,8 @@ module.exports = function(target, notation, value, strategy) {
 			notation,
 			keys
 		);
-	} else delete(target[notation]);
+	} else {
+		delete target[notation];
+	}
 	return scope;
 };

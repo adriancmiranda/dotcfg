@@ -1,3 +1,5 @@
+/* eslint-disable spaced-comment */
+
 /*!
  * Takes a function and returns a new one that will always have a particular context.
  * @param fn: The function whose context will be changed.

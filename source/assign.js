@@ -1,7 +1,7 @@
 var isFn = require('./is/function');
 var isObject = require('./is/object');
 
-module.exports = function(strategy) {
+module.exports = function (strategy) {
 	return function assign(target) {
 		var args = Array.prototype.slice.call(arguments);
 		var output = Object(target || {});
