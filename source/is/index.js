@@ -1,5 +1,6 @@
 exports.defined = require('./defined');
 exports.fn = require('./function');
+exports.number = require('./number');
 exports.numeric = require('./numeric');
 exports.objectLike = require('./object-like');
 exports.object = require('./object');

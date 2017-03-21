@@ -23,13 +23,18 @@ const data = {
 };
 
 ava('write', t => {
-  write(data, 'hello.from.nested.number', 12, v => v);
+  write(data, 'hello.from.nested.number', 12, dot);
   t.is(data.hello.from.nested.number, 12);
 
-  write(data, 'hello.from.nested.string', 'AB', v => v);
+  write(data, 'hello.from.nested.string', 'AB', dot);
   t.is(data.hello.from.nested.string, 'AB');
 
   write(data, 'hello.from.nested.info[10].spec', 'Info', dot);
   t.is(data.hello.from.nested.info.length, 11);
   t.is(data.hello.from.nested.info[10].spec, 'Info');
+
+  write(data, 'hello.from.1.foo', 'FOO', dot);
+  t.falsy(Array.isArray(data.hello.from));
+  t.is(data.hello.from['1'].foo, 'FOO');
+  t.is(data.hello.from.length, undefined);
 });

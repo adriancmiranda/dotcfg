@@ -1,7 +1,7 @@
 var parse = require('./parse');
 var isDefined = require('./is/defined');
 var isObjectLike = require('./is/object-like');
-var isNumeric = require('./is/numeric');
+var isNumber = require('./is/number');
 
 module.exports = function(target, notation, value, strategy) {
 	var id = 0;
@@ -13,7 +13,7 @@ module.exports = function(target, notation, value, strategy) {
 	while (id < total) {
 		notation = keys[id++];
 		nextNotation = keys[id];
-		if (isNumeric(nextNotation)) {
+		if (isNumber(nextNotation)) {
 			target[notation] = new Array(parseInt(nextNotation, 10) - 1);
 		}
 		if (isObjectLike(target[notation])) {
