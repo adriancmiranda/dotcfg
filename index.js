@@ -57,8 +57,8 @@ var init = function (namespace/*?*/, scope/*?*/, strategy/*?*/) {
 	this.extends = proxy(assign(strategy), this, scope);
 	this.namespace = namespace || 'dot' + guid;
 	this.scope = validate(scope, this, fns);
-	return this.scope();
 	guid++;
+	return this.scope();
 };
 
 /*!
@@ -74,7 +74,7 @@ var cfg = function (notation/*?*/, value/*?*/, strategy/*?*/) {
 	}
 	if (notation === true) {
 		var cp = assignStrategy({}, this.scope());
-		for (var id = 0, key; id < fns.length; id++) {
+		for (var id = 0, key, acc; id < fns.length; id++) {
 			key = fns[id];
 			acc = '@' + key;
 			if (cp[acc]) {

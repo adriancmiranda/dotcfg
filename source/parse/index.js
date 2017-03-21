@@ -1,5 +1,5 @@
-var parseNotation = require('./notation');
 var isNumeric = require('../is/numeric');
+var parseNotation = require('./notation');
 
 var hasBrackets = /\[|\]/;
 var parts = /(\[{1}\s{0,1})(.{0,}?\]{0,})(\s{0,1}\]{1})/g;
