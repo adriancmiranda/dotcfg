@@ -50,7 +50,7 @@ NYC.cfg('env.url.host');
 NYC.cfg('resolve.extensions.1');
 // <= { name:'.js' }
 
-NYC.scope.resolve.extensions[1].name;
+NYC.resolve.extensions[1].name;
 // <= '.js'
 
 NYC.cfg(true);
