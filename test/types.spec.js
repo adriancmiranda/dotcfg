@@ -28,6 +28,23 @@ ava('is.fn', t => {
   }
 });
 
+ava('is.number', t => {
+  t.truthy(is.number(0), 'positive zero is number');
+  t.truthy(is.number(0 / -1), 'negative zero is number');
+  t.truthy(is.number(3), 'three is number');
+  t.truthy(is.number(NaN), 'NaN is number');
+  t.truthy(is.number(Infinity), 'infinity is number');
+  t.truthy(is.number(-Infinity), 'negative infinity is number');
+  t.truthy(is.number(Object(42)), 'object number is number');
+  t.falsy(is.number(), 'undefined is not number');
+  t.falsy(is.number(null), 'null is not number');
+  t.falsy(is.number(true), 'true is not number')
+});
+
+ava('is.numeric', t => {
+  t.truthy(is.numeric('0'), 'positive zero is number');
+});
+
 ava('is.objectLike', t => {
   t.is(is['objLike'], is.objectLike, 'alias works');
   t.truthy(is.objectLike({}), 'object literal is objectLike');

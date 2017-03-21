@@ -1,3 +1,3 @@
 module.exports = function (value) {
-	return typeof value === 'number';
+	return toString.call(value) === '[object Number]';
 };
