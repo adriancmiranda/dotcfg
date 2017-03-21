@@ -12,7 +12,7 @@ var dotStrategyDefault = require('./source/strategies/dot-default');
 /*!
  * Public methods.
  */
-var fns = 'resolve exe cfg get set'.split(' ');
+var fns = 'res exe cfg get set'.split(' ');
 
 /*!
  * Mixing behaviors.
@@ -97,7 +97,7 @@ var cfg = function (notation/*?*/, value/*?*/, strategy/*?*/) {
  * @param notation: A object path.
  * @param ...rest: Arguments for the object.
  */
-var resolve = function (notation/*!*/) {
+var res = function (notation/*!*/) {
 	var scope = this.scope();
 	var part = read(scope, notation);
 	var args = Array.prototype.slice.call(arguments, 1);
@@ -112,9 +112,9 @@ var resolve = function (notation/*!*/) {
  */
 var exe = function (notation/*!*/) {
 	if (is.fn(console && console.warn)) {
-		console.warn('DotCfg: "exe" method is deprecated, call "resolve" method instead!');
+		console.warn('DotCfg: "exe" method is deprecated, call "res" method instead!');
 	}
-	return resolve(notation);
+	return res(notation);
 };
 
 /*!
@@ -147,7 +147,7 @@ DotCfg.prototype = {
 	cfg: cfg,
 	get: getter,
 	set: setter,
-	resolve: resolve,
+	res: res,
 	exe: exe,
 };
 

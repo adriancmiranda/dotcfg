@@ -11,18 +11,18 @@ ava('new instance', t => {
   const TEST_TYPE = dotcfg({});
   TEST_TYPE.set('name', 'test').cfg('env', 'ava')
   t.deepEqual(TEST_TYPE.cfg(), { name: 'test', env: 'ava' });
-  // t.truthy(TEST_TYPE instanceof dotcfg);
+  // t.truthy(TEST_TYPE instanceof dotcfg); // @TODO < fix this
 
   const TEST_OBJ = dotcfg({});
   t.truthy(TEST_OBJ.cfg, 'instance.cfg function exists');
-  t.truthy(TEST_OBJ.resolve, 'instance.resolve function exists');
+  t.truthy(TEST_OBJ.res, 'instance.res function exists');
   t.truthy(TEST_OBJ.exe, 'instance.exe function exists');
   t.truthy(TEST_OBJ.get, 'instance.get function exists');
   t.truthy(TEST_OBJ.set, 'instance.set function exists');
 
   const TEST_NS = dotcfg('TEST_NS');
   t.truthy(TEST_NS.cfg, 'instance.cfg function exists');
-  t.truthy(TEST_NS.resolve, 'instance.resolve function exists');
+  t.truthy(TEST_NS.res, 'instance.res function exists');
   t.truthy(TEST_NS.exe, 'instance.exe function exists');
   t.truthy(TEST_NS.get, 'instance.get function exists');
   t.truthy(TEST_NS.set, 'instance.set function exists');
@@ -33,9 +33,54 @@ ava('new instance', t => {
   t.truthy(SCOPE.TEST_NS.world, 'NS scope');
 });
 
-ava('instance.override', t => {
-  const TEST_NEW = new dotcfg({ cfg: 'Fixed property methods' });
-  t.is(TEST_NEW.cfg('@cfg'), 'Fixed property methods');
+ava('instance.conflicts', t => {
+  const obj = {
+    res: 'my res property',
+    exe: 'my exe property',
+    cfg: 'my cfg property',
+    get: 'my get property',
+    set: 'my set property',
+  };
+  const TEST_NEW = new dotcfg(obj);
+
+  t.truthy(typeof TEST_NEW.get('res') === 'function');
+  t.is(TEST_NEW.get('@res'), 'my res property');
+
+  t.truthy(typeof TEST_NEW.get('exe') === 'function');
+  t.is(TEST_NEW.get('@exe'), 'my exe property');
+
+  t.truthy(typeof TEST_NEW.get('cfg') === 'function');
+  t.is(TEST_NEW.get('@cfg'), 'my cfg property');
+
+  t.truthy(typeof TEST_NEW.get('get') === 'function');
+  t.is(TEST_NEW.get('@get'), 'my get property');
+
+  t.truthy(typeof TEST_NEW.get('set') === 'function');
+  t.is(TEST_NEW.get('@set'), 'my set property');
+
+  t.deepEqual(TEST_NEW.cfg(true), {
+    res: 'my res property',
+    exe: 'my exe property',
+    cfg: 'my cfg property',
+    get: 'my get property',
+    set: 'my set property',
+  }, 'getting everything cleaner');
+
+  TEST_NEW.cfg('@res', 'res property change');
+  // TEST_NEW.cfg('res', 10); // @TODO < fix this
+
+  t.truthy(typeof TEST_NEW.get('res') === 'function');
+  t.is(TEST_NEW.get('@res'), 'res property change');
+
+  t.deepEqual(TEST_NEW.cfg(true), {
+    res: 'res property change',
+    exe: 'my exe property',
+    cfg: 'my cfg property',
+    get: 'my get property',
+    set: 'my set property',
+  }, 'getting everything cleaner');
+
+  t.is(TEST_NEW.cfg(), obj);
 });
 
 ava('instance.set', t => {
