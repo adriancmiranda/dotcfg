@@ -7,9 +7,9 @@ module.exports = function(target, notation, value, strategy) {
 	var id = 0;
 	var scope = target;
 	var notation = notation;
-	var nextNotation;
 	var keys = parse(notation);
 	var total = keys.length - 1;
+	var nextNotation;
 	while (id < total) {
 		notation = keys[id++];
 		nextNotation = keys[id];
