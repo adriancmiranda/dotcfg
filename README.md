@@ -55,6 +55,9 @@ NYC.resolve.extensions[1].name;
 
 NYC.cfg(true);
 /*! true: brings a deep copy of raw object. */
+
+NYC.cfg();
+/*! false/undefined: flush dotcfg. */
 ```
 
 [xo]: https://img.shields.io/badge/code_style-XO-5ed9c7.svg
