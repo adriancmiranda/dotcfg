@@ -22,8 +22,6 @@ const data = {
   },
 };
 
-ava.todo('hello.from.nested.info[10].spec: Precisa ser um array com um objeto na posição 10');
-
 ava('write', t => {
   write(data, 'hello.from.nested.number', 12, v => v);
   t.is(data.hello.from.nested.number, 12);
