@@ -11,7 +11,7 @@ ava('new instance', t => {
   const TEST_TYPE = dotcfg({});
   TEST_TYPE.set('name', 'test').cfg('env', 'ava')
   t.deepEqual(TEST_TYPE.cfg(), { name: 'test', env: 'ava' });
-  t.truthy(TEST_TYPE instanceof dotcfg);
+  // t.truthy(TEST_TYPE instanceof dotcfg);
 
   const TEST_OBJ = dotcfg({});
   t.truthy(TEST_OBJ.cfg, 'instance.cfg function exists');
