@@ -1,15 +1,21 @@
 var parse = require('./parse');
 var isDefined = require('./is/defined');
 var isObjectLike = require('./is/object-like');
+var isNumeric = require('./is/numeric');
 
 module.exports = function(target, notation, value, strategy) {
 	var id = 0;
 	var scope = target;
 	var notation = notation;
+	var nextNotation;
 	var keys = parse(notation);
 	var total = keys.length - 1;
 	while (id < total) {
 		notation = keys[id++];
+		nextNotation = keys[id];
+		if (isNumeric(nextNotation)) {
+			target[notation] = new Array(parseInt(nextNotation, 10) - 1);
+		}
 		if (isObjectLike(target[notation])) {
 			target = target[notation];
 		} else {
