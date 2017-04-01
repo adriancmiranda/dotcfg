@@ -124,7 +124,7 @@ var exe = function (notation/*!*/) {
  * @param strategy: Arguments for the object.
  */
 var setter = function (notation/*!*/, value/*!*/, strategy/*?*/) {
-	var fn = is.defined(value) && is.fn(strategy) ? strategy : this.strategy;
+	var fn = !is.undef(value) && is.fn(strategy) ? strategy : this.strategy;
 	return write(this.scope(), notation, value, fn);
 };
 

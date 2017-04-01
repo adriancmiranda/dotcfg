@@ -4,17 +4,6 @@ import ava from 'ava-spec';
 import genFn from 'make-generator-function';
 import is from '../source/is';
 
-ava('is.defined', t => {
-  t.is(is['def'], is.defined, 'alias works');
-  t.falsy(is.defined(), 'undefined is not defined');
-  t.truthy(is.defined(null), 'null is defined');
-  t.truthy(is.defined({}), 'object is defined');
-  if (typeof window !== 'undefined') {
-    t.true(is.defined(window), 'window is defined');
-    t.true(is.defined(window.alert), 'window.alert is defined');
-  }
-});
-
 ava('is.fn', t => {
   t.truthy(is.fn(function(){}), 'function is function');
   t.falsy(is.fn({}), 'object is not function');

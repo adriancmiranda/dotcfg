@@ -1,5 +1,5 @@
 var parse = require('./parse');
-var isDefined = require('./is/defined');
+var isUndefined = require('./is/undefined');
 var isPrimitive = require('./is/primitive');
 var isNumber = require('./is/number');
 
@@ -24,15 +24,15 @@ module.exports = function (target, path, value, strategy) {
 		}
 	}
 	notation = keys[id];
-	if (isDefined(value)) {
+	if (isUndefined(value)) {
+		delete target[notation];
+	} else {
 		target[notation] = strategy(
 			value,
 			target[notation],
 			notation,
 			keys
 		);
-	} else {
-		delete target[notation];
 	}
 	return scope;
 };
