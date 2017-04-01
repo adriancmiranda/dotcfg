@@ -19,7 +19,7 @@ module.exports = function (target, path, value, strategy) {
 		if (isObjectLike(target[notation])) {
 			target = target[notation];
 		} else {
-			target[notation] = Object.create(null);
+			target[notation] = {};
 			target = target[notation];
 		}
 	}

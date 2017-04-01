@@ -1,7 +1,7 @@
 import ava from 'ava-spec';
 import assign from '../source/assign';
 
-ava('assign:can extend on 1 level', t => {
+ava('assign:can assign on 1 level', t => {
   const a = { hello: 1 };
   const b = { world: 2 };
   const c = assign(v => v);
@@ -11,7 +11,7 @@ ava('assign:can extend on 1 level', t => {
   });
 });
 
-ava('assign:can extend on 2 levels', t => {
+ava('assign:can assign on 2 levels', t => {
   const a = { person: { name: 'Ad' } };
   const b = { person: { age: 30 } };
   const c = assign(v => v);
@@ -20,7 +20,7 @@ ava('assign:can extend on 2 levels', t => {
   });
 });
 
-ava('assign:can extend with Buffer values', t => {
+ava('assign:can assign with Buffer values', t => {
   const a = { hello: 1 };
   const b = { value: new Buffer('world') };
   const c = assign(v => v);
@@ -40,27 +40,31 @@ ava('assign:Buffer is cloned', t => {
 });
 
 ava('assign:Date objects', t => {
-  // const a = { d: new Date() };
+  // const a = { instance: new Date() };
   // const b = assign(v => v)({}, a);
-  // t.truthy(b.d instanceOf Date);
-  // t.is(a.d, b.d);
+  // t.truthy(b.instance instanceOf Date);
+  // t.is(a.instance, b.instance);
 });
 
 ava('assign:Date object is cloned', t => {
+  // const a = { instance: new Date() };
+  // const b = assign({}, a);
+  // b.instance.setTime((new Date()).getTime() + 100000);
+  // t.not(b.instance.getTime(), a.instance.getTime(), '"b" is a clone from "a"');
 });
 
 ava('assign:RegExp objects', t => {
-  // const a = { d: new RegExp() };
+  // const a = { instance: new RegExp() };
   // const b = assign(v => v)({}, a);
-  // t.truthy(b.d instanceOf RegExp);
+  // t.truthy(b.instance instanceOf RegExp);
 });
 
 ava('assign:RegExp object is cloned', t => {
-  // const a = { d: new RegExp('b', 'g') };
+  // const a = { instance: new RegExp('b', 'g') };
   // const b = assign(v => v)({}, a);
-  // t.deepEqual(b.d.lastIndex, a.d.lastIndex);
-  // b.d.test('abc');
-  // t.not(b.d.lastIndex, a.d.lastIndex);
+  // t.deepEqual(b.instance.lastIndex, a.instance.lastIndex);
+  // b.instance.test('abc');
+  // t.not(b.instance.lastIndex, a.instance.lastIndex);
 });
 
 ava('assign:does not change sources', t => {
@@ -73,7 +77,7 @@ ava('assign:does not change sources', t => {
   // t.is(c, { c: 3 });
 });
 
-ava('assign:clone arrays instead of extend', t => {
+ava('assign:clone arrays instead of assign', t => {
   // const a = { a: [1, 2, 3] };
   // const b = { a: [2, 3] };
   // const c = assign(v => v)(a, b);
