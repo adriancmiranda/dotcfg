@@ -2,7 +2,7 @@
   "name": "dotcfg",
   "author": "Adrian C. Miranda",
   "description": "Allows you to manage namespace objects with qualified names",
-  "version": "1.5.12",
+  "version": "1.5.14",
   "main": "index.js",
   "types": "index.d.ts",
   "homepage": "https://github.com/adriancmiranda/dotcfg",
@@ -34,12 +34,13 @@
   },
   "scripts": {
     "upgrade": "ncu -a --loglevel verbose --packageFile package.json && npm i",
-    "clean": "rimraf dist/",
+    "clean": "rimraf dist/*.min.js*",
     "dev": "run-p watch:*",
     "benchmark": "ava test/*.benchmark.js",
     "prebuild": "run-s lint test benchmark clean",
-    "build": "webpack --env.compress --env.uglify --env.bump",
     "watch": "webpack --progress --colors --watch --env.dev",
+    "build": "webpack --env.dev",
+    "bump": "npm run build -- --env dev=0 --env.bump --env.uglify --env.compress",
     "watch:test": "npm test -- --watch",
     "test": "ava test/*.spec.js",
     "lint": "xo index.js source/**/*.js",
@@ -49,7 +50,7 @@
     "appveyor:benchmark": "npm run benchmark",
     "precommit": "npm test",
     "commitmsg": "validate-commit-msg",
-    "release": "npm run build && standard-version"
+    "release": "npm run bump && standard-version"
   },
   "devDependencies": {
     "ava": "^0.18.2",

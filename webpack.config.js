@@ -12,14 +12,14 @@ const git = new GitRevisionPlugin({ lightweightTags: true });
 moment.locale();
 
 module.exports = (argv = {}) => ({
-	bail: !argv.dev,
+	bail: argv.dev !== true,
 	context: __dirname,
 	entry: './index.js',
 	devtool: 'source-map',
 	target: 'web',
 	output: {
 		path: './dist',
-		filename: `${pkg.name}${argv.dev ? '' : '.min'}.js`,
+		filename: `${pkg.name}${argv.dev !== true ? '.min' : ''}.js`,
 		library: pkg.name,
 		libraryTarget: 'umd',
 		umdNamedDefine: true,
@@ -37,20 +37,20 @@ module.exports = (argv = {}) => ({
 			}
 		],
 	},
-	plugins: [].concat(!argv.dev && argv.bump ?
+	plugins: [].concat(argv.dev !== true && argv.bump ?
 		new BumpPlugin([
 			'package.json',
 			'component.json',
 			'bower.json',
 		])
-	: []).concat(!argv.dev && argv.uglify ?
+	: []).concat(argv.dev !== true && argv.uglify ?
 		new optimize.UglifyJsPlugin({
 			minimize: true,
 			output: {
 				comments: false,
 			},
 		})
-	: []).concat(!argv.dev && argv.compress ?
+	: []).concat(argv.dev !== true && argv.compress ?
 		new CompressionWebpackPlugin({
 			test: /\.js$/,
 			asset: '[path].gz[query]',
@@ -58,7 +58,7 @@ module.exports = (argv = {}) => ({
 			threshold: 300,
 			minRatio: 0.8,
 		})
-	: []).concat(!argv.dev ?
+	: []).concat(
 		new BannerPlugin({
 			banner: pirateFlag(pkg, {
 				moment: moment().format('LLLL'),
@@ -67,5 +67,5 @@ module.exports = (argv = {}) => ({
 				author: pkg.author,
 			}),
 		})
-	: []),
+	),
 });
