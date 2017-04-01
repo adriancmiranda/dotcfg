@@ -1,6 +1,6 @@
 var parse = require('./parse');
 var isDefined = require('./is/defined');
-var isObjectLike = require('./is/object-like');
+var isPrimitive = require('./is/primitive');
 var isNumber = require('./is/number');
 
 module.exports = function (target, path, value, strategy) {
@@ -16,10 +16,10 @@ module.exports = function (target, path, value, strategy) {
 		if (isNumber(nextNotation)) {
 			target[notation] = new Array(parseInt(nextNotation, 10) - 1);
 		}
-		if (isObjectLike(target[notation])) {
+		if (isPrimitive(target[notation])) {
+			target[notation] = {};
 			target = target[notation];
 		} else {
-			target[notation] = {};
 			target = target[notation];
 		}
 	}

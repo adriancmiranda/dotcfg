@@ -45,21 +45,20 @@ ava('is.numeric', t => {
   t.truthy(is.numeric('0'), 'positive zero is number');
 });
 
-ava('is.objectLike', t => {
-  t.is(is['objLike'], is.objectLike, 'alias works');
-  t.truthy(is.objectLike({}), 'object literal is objectLike');
-  t.falsy(is.objectLike(), 'undefined is not an objectLike');
-  t.falsy(is.objectLike(null), 'null is not an objectLike');
-  t.falsy(is.objectLike(true), 'true is not an objectLike');
-  t.falsy(is.objectLike(''), 'string is not an objectLike');
-  t.falsy(is.objectLike(NaN), 'NaN is not an objectLike');
-  t.falsy(is.objectLike(Infinity), 'Infinity is not an objectLike');
-  t.truthy(is.objectLike(Object), 'object constructor is an objectLike');
-  t.truthy(is.objectLike(function(){}), 'function is an objectLike');
-  t.truthy(is.objectLike(new Date()), 'new Date() is an objectLike');
-  t.truthy(is.objectLike(/test/), 'regexp is an objectLike');
+ava('is.primitive', t => {
+  t.falsy(is.primitive({}), 'object literal is not primitive');
+  t.truthy(is.primitive(), 'undefined is a primitive');
+  t.truthy(is.primitive(null), 'null is a primitive');
+  t.truthy(is.primitive(true), 'true is a primitive');
+  t.truthy(is.primitive(''), 'string is a primitive');
+  t.truthy(is.primitive(NaN), 'NaN is a primitive');
+  t.truthy(is.primitive(Infinity), 'Infinity is a primitive');
+  t.falsy(is.primitive(Object), 'object constructor is not a primitive');
+  t.falsy(is.primitive(function(){}), 'function is not a primitive');
+  t.falsy(is.primitive(new Date()), 'new Date() is not a primitive');
+  t.falsy(is.primitive(/test/), 'regexp is not a primitive');
   if (typeof Symbol !== 'function') {
-    t.falsy(is.objectLike(Symbol('foo')), 'symbol is not an objectLike');
+    t.falsy(is.primitive(Symbol('foo')), 'symbol is not a primitive');
   }
 });
 

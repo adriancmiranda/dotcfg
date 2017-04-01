@@ -31,13 +31,13 @@ var guid = 1;
  * @param strategy: A function that configures the input values.
  */
 var DotCfg = function (namespace/*?*/, scope/*?*/, strategy/*?*/) {
-	if (is.objectLike(namespace)) {
+	if (!is.primitive(namespace)) {
 		strategy = scope;
 		scope = namespace;
 		namespace = undefined;
 	}
 	var expose = is.defined(global) ? global : window;
-	var self = is.objectLike(scope) ? scope : expose;
+	var self = is.primitive(scope) ? expose : scope;
 	var fn = is.fn(strategy) ? strategy : dotStrategyDefault;
 	return new DotCfg.fn.init(namespace, self, fn);
 };
@@ -86,10 +86,10 @@ var cfg = function (notation/*?*/, value/*?*/, strategy/*?*/) {
 		}
 		return cp;
 	}
-	if (is.objectLike(notation)) {
-		return this.extends(notation);
+	if (is.primitive(notation)) {
+		return hasArg ? this.set(notation, value, strategy) : this.get(notation);
 	}
-	return hasArg ? this.set(notation, value, strategy) : this.get(notation);
+	return this.extends(notation);
 };
 
 /*!
