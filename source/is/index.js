@@ -1,3 +1,5 @@
+exports.date = require('./date');
+exports.regexp = require('./regexp');
 exports.fn = require('./function');
 exports.number = require('./number');
 exports.numeric = require('./numeric');
