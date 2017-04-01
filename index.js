@@ -36,7 +36,7 @@ var DotCfg = function (namespace/*?*/, scope/*?*/, strategy/*?*/) {
 		scope = namespace;
 		namespace = undefined;
 	}
-	var expose = is.defined(global) ? global : window;
+	var expose = is.undef(global) ? window : global;
 	var self = is.primitive(scope) ? expose : scope;
 	var fn = is.fn(strategy) ? strategy : dotStrategyDefault;
 	return new DotCfg.fn.init(namespace, self, fn);
@@ -135,7 +135,7 @@ var setter = function (notation/*!*/, value/*!*/, strategy/*?*/) {
  */
 var getter = function (notation/*!*/, defaultValue/*?*/) {
 	var value = read(this.scope(), notation);
-	return is.defined(value) ? value : defaultValue;
+	return is.undef(value) ? defaultValue : value;
 };
 
 /*!
