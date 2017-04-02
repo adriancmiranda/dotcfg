@@ -20,7 +20,7 @@ module.exports = function (strategy) {
 				} else if (isFn(outputValue) || isFn(sourceValue)) {
 					output[key] = strategy(sourceValue, outputValue, notation, keys);
 				} else if (isObject(outputValue) || isObject(sourceValue)) {
-					output[key] = assign(sourceValue, outputValue);
+					output[key] = assign(outputValue, sourceValue);
 				} else {
 					output[key] = strategy(sourceValue, outputValue, notation, keys);
 				}
