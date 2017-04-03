@@ -1,15 +1,15 @@
 /*!
- *    /     '      /  / 
- *   /__      ___ (  /   
- *   \--`-'-|`---\ |  
- *    |' _/   ` __/ /   
- *    '._  W    ,--'   
- *       |_:_._/         
- *                       
- * ~~~~~~~ dotcfg v1.5.12
- * 
- * @moment Saturday, April 1, 2017 1:49 PM
- * @commit 08308a2f9df72a8bd205e3e16e90a9a675deb9c7
+ *    /     '      /  /
+ *   /__      ___ (  /
+ *   \--`-'-|`---\ |
+ *    |' _/   ` __/ /
+ *    '._  W    ,--'
+ *       |_:_._/
+ *
+ * ~~~~~~~ dotcfg v1.5.13
+ *
+ * @moment Sunday, April 2, 2017 9:18 PM
+ * @commit 4b5b7a08d1e3e474709fb11eaa73f62930ff2cf3
  * @homepage https://github.com/adriancmiranda/dotcfg
  * @author Adrian C. Miranda
  */
@@ -88,7 +88,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 18);
+/******/ 	return __webpack_require__(__webpack_require__.s = 20);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -181,7 +181,7 @@ module.exports = function (value) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var isNumeric = __webpack_require__(3);
-var parseNotation = __webpack_require__(17);
+var parseNotation = __webpack_require__(19);
 
 var hasBrackets = /\[|\]/;
 var parts = /(\[{1}\s{0,1})(.{0,}?\]{0,})(\s{0,1}\]{1})/g;
@@ -230,7 +230,7 @@ module.exports = function (strategy) {
 				} else if (isFn(outputValue) || isFn(sourceValue)) {
 					output[key] = strategy(sourceValue, outputValue, notation, keys);
 				} else if (isObject(outputValue) || isObject(sourceValue)) {
-					output[key] = assign(sourceValue, outputValue);
+					output[key] = assign(outputValue, sourceValue);
 				} else {
 					output[key] = strategy(sourceValue, outputValue, notation, keys);
 				}
@@ -245,6 +245,8 @@ module.exports = function (strategy) {
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
+exports.date = __webpack_require__(17);
+exports.regexp = __webpack_require__(18);
 exports.fn = __webpack_require__(1);
 exports.number = __webpack_require__(2);
 exports.numeric = __webpack_require__(3);
@@ -402,6 +404,24 @@ module.exports = g;
 
 /***/ }),
 /* 17 */
+/***/ (function(module, exports) {
+
+module.exports = function (value) {
+	return toString.call(value) === '[object Date]';
+};
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+module.exports = function (value) {
+	return toString.call(value) === '[object RegExp]';
+};
+
+
+/***/ }),
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* eslint-disable no-var */
@@ -419,7 +439,7 @@ module.exports = function (path) {
 
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/* global window */
