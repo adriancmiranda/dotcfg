@@ -18,7 +18,7 @@ module.exports = (argv = {}) => ({
 	devtool: 'source-map',
 	target: 'web',
 	output: {
-		path: './dist',
+		path: resolve('./dist'),
 		filename: `${pkg.name}${argv.dev !== true ? '.min' : ''}.js`,
 		library: pkg.name,
 		libraryTarget: 'umd',

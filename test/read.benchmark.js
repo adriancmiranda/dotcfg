@@ -4,4 +4,5 @@ import microtime from 'microtime';
 import read from '../source/read';
 
 ava('read', t => {
+  t.is(toString.call(read), '[object Function]');
 });

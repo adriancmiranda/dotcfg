@@ -30,44 +30,44 @@ ava('assign:can assign with Buffer values', t => {
   });
 });
 
-ava('assign:Buffer is cloned', t => {
+// ava('assign:Buffer is cloned', t => {
   // const a = { };
   // const b = { value: new Buffer('foo') };
   // const c = assign(v => v)(a, b);
   // a.value.write('bar');
   // t.is(a.value.toString(), 'bar');
   // t.is(b.value.toString(), 'foo');
-});
+// });
 
-ava('assign:Date objects', t => {
+// ava('assign:Date objects', t => {
   // const a = { instance: new Date() };
   // const b = assign(v => v)({}, a);
   // t.truthy(b.instance instanceOf Date);
   // t.is(a.instance, b.instance);
-});
+// });
 
-ava('assign:Date object is cloned', t => {
+// ava('assign:Date object is cloned', t => {
   // const a = { instance: new Date() };
   // const b = assign({}, a);
   // b.instance.setTime((new Date()).getTime() + 100000);
   // t.not(b.instance.getTime(), a.instance.getTime(), '"b" is a clone from "a"');
-});
+// });
 
-ava('assign:RegExp objects', t => {
+// ava('assign:RegExp objects', t => {
   // const a = { instance: new RegExp() };
   // const b = assign(v => v)({}, a);
   // t.truthy(b.instance instanceOf RegExp);
-});
+// });
 
-ava('assign:RegExp object is cloned', t => {
+// ava('assign:RegExp object is cloned', t => {
   // const a = { instance: new RegExp('b', 'g') };
   // const b = assign(v => v)({}, a);
   // t.deepEqual(b.instance.lastIndex, a.instance.lastIndex);
   // b.instance.test('abc');
   // t.not(b.instance.lastIndex, a.instance.lastIndex);
-});
+// });
 
-ava('assign:does not change sources', t => {
+// ava('assign:does not change sources', t => {
   // const a = { a: [1] };
   // const b = { a: [2] };
   // const c = { c: 3 };
@@ -75,40 +75,40 @@ ava('assign:does not change sources', t => {
   // t.is(a, { a: [1] });
   // t.is(b, { a: [2] });
   // t.is(c, { c: 3 });
-});
+// });
 
-ava('assign:clone arrays instead of assign', t => {
+// ava('assign:clone arrays instead of assign', t => {
   // const a = { a: [1, 2, 3] };
   // const b = { a: [2, 3] };
   // const c = assign(v => v)(a, b);
   // t.is(c, { a: [2, 3] });
-});
+// });
 
-ava('assign:deep merge arrays', t => {
-});
+// ava('assign:deep merge arrays', t => {
+// });
 
-ava('assign:deep merge arbitrary types', t => {
-});
+// ava('assign:deep merge arbitrary types', t => {
+// });
 
-ava('assign:deep merge array and value', t => {
-});
+// ava('assign:deep merge array and value', t => {
+// });
 
-ava('assign:gets key for the merging', t => {
-});
+// ava('assign:gets key for the merging', t => {
+// });
 
-ava('assign:deep merging works', t => {
-});
+// ava('assign:deep merging works', t => {
+// });
 
-ava('assign:multi merge works', t => {
-});
+// ava('assign:multi merge works', t => {
+// });
 
-ava('assign:deep merge objects', t => {
-});
+// ava('assign:deep merge objects', t => {
+// });
 
-ava('assign:recursive clone objects and special objects in cloned arrays', t => {
-});
+// ava('assign:recursive clone objects and special objects in cloned arrays', t => {
+// });
 
-ava('assign:checking keys for hasOwnPrototype', t => {
+// ava('assign:checking keys for hasOwnPrototype', t => {
   // const A = function() {
   //   this.x = 1;
   //   this.y = 2;
@@ -131,4 +131,4 @@ ava('assign:checking keys for hasOwnPrototype', t => {
   //   y: 22,
   //   z: 5,
   // });
-});
+// });
