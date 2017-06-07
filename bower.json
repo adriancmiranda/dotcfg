@@ -1,6 +1,6 @@
 {
   "name": "dotcfg",
-  "version": "1.5.15",
+  "version": "1.5.14",
   "main": "index.js",
   "license": "MIT",
   "private": true,

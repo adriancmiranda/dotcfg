@@ -6,7 +6,7 @@
  *    '._  W    ,--'
  *       |_:_._/
  *
- * ~~~~~~~ dotcfg v1.5.13
+ * ~~~~~~~ dotcfg v1.5.14
  *
  * @moment Sunday, April 2, 2017 9:18 PM
  * @commit 4b5b7a08d1e3e474709fb11eaa73f62930ff2cf3
