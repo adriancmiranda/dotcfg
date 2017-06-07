@@ -21,7 +21,7 @@ module.exports = function (strategy) {
 					output[key] = strategy(sourceValue, outputValue, notation + '.' + key, keys);
 				} else if (isObject(outputValue) || isObject(sourceValue)) {
 					var cn = notation;
-					notation = `${cn ? cn + '.' : ''}${key}`;
+					notation = (cn ? cn + '.' : '') + key;
 					output[key] = assign(outputValue, sourceValue);
 					notation = cn;
 				} else {
