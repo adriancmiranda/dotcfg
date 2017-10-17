@@ -25,6 +25,12 @@ var assignStrategy = assign(assignStrategyDefault);
 var guid = 1;
 
 /*!
+ * returns a boolean indicating whether the object has
+ * the specified property as own (not inherited) property
+ */
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+/*!
  * Define a local copy of `DotCfg`.
  * @param namespace: A string containing a qualified name to identify objects from.
  * @param scope: A object that have system-wide relevance.
@@ -125,6 +131,15 @@ var exe = function (notation/*!*/) {
  */
 var setter = function (notation/*!*/, value/*!*/, strategy/*?*/) {
 	var fn = !is.undef(value) && is.fn(strategy) ? strategy : this.strategy;
+	if (is.object(notation)) {
+		var context;
+		for (var key in notation) {
+			if (hasOwnProperty.call(notation, key)) {
+				context = write(this.scope(), key, notation[key], fn);
+			}
+		}
+		return context;
+	}
 	return write(this.scope(), notation, value, fn);
 };
 
