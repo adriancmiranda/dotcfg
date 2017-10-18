@@ -1,7 +1,0 @@
-material/
-node_modules/
-test/
-**/.*
-package.json
-webpack.config.js
-appveyor.yml
