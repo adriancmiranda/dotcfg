@@ -1,4 +1,4 @@
-const { env } = require('./config');
+const { env } = require('./@/config');
 const rollup = require('./rollup');
 
 module.exports = ([{

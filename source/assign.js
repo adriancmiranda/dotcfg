@@ -1,5 +1,4 @@
-var isFn = require('./is/function');
-var isObject = require('./is/object');
+var is = require('describe-type').is;
 
 module.exports = function (strategy) {
 	var notation = '';
@@ -13,13 +12,13 @@ module.exports = function (strategy) {
 				var key = keys[iy];
 				var outputValue = output[key];
 				var sourceValue = from[key];
-				if (Array.isArray(outputValue) || Array.isArray(sourceValue)) {
-					var f = Array.isArray(sourceValue) ? sourceValue.slice() : [];
-					var o = Array.isArray(outputValue) ? outputValue.slice() : [];
+				if (is.array(outputValue) || is.array(sourceValue)) {
+					var f = is.array(sourceValue) ? sourceValue.slice() : [];
+					var o = is.array(outputValue) ? outputValue.slice() : [];
 					output[key] = strategy(f, o, notation + '.' + key, keys);
-				} else if (isFn(outputValue) || isFn(sourceValue)) {
+				} else if (is.callable(outputValue) || is.callable(sourceValue)) {
 					output[key] = strategy(sourceValue, outputValue, notation + '.' + key, keys);
-				} else if (isObject(outputValue) || isObject(sourceValue)) {
+				} else if (is.object(outputValue) || is.object(sourceValue)) {
 					var cn = notation;
 					notation = (cn ? cn + '.' : '') + key;
 					output[key] = assign(outputValue, sourceValue);

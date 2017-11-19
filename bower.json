@@ -4,17 +4,15 @@
   "main": "index.js",
   "license": "MIT",
   "private": true,
-  "devDependencies": {},
-  "exportsOverride": {},
   "ignore": [
     "node_modules",
-    "source",
+    "bin",
+    "material",
     "test",
     "**/.*",
+    "appveyor.yml",
     "bower.json",
-    "component.json",
-    "package.json",
-    "webpack.config.js",
-    "README.md"
+    "package-lock.json",
+    "package.json"
   ]
 }

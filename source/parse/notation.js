@@ -1,11 +1,11 @@
 /* eslint-disable no-var */
-var isString = require('../is/string');
+var is = require('describe-type').is;
 
 var dot = /\.(?![^[]*\])/g;
 var blank = [];
 
 module.exports = function (path) {
-	if (isString(path)) {
+	if (is.string(path)) {
 		return path.split(dot);
 	}
 	return Array.isArray(path) ? path : blank;

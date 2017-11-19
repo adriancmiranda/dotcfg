@@ -1,6 +1,6 @@
 /* global window */
 /* eslint-disable spaced-comment, new-cap, comma-dangle */
-var is = require('./source/is');
+var is = require('describe-type').is;
 var proxy = require('./source/proxy');
 var read = require('./source/read');
 var write = require('./source/write');
@@ -44,7 +44,7 @@ var DotCfg = function (namespace/*?*/, scope/*?*/, strategy/*?*/) {
 	}
 	var expose = is.undef(global) ? window : global;
 	var self = is.primitive(scope) ? expose : scope;
-	var fn = is.fn(strategy) ? strategy : dotStrategyDefault;
+	var fn = is.callable(strategy) ? strategy : dotStrategyDefault;
 	return new DotCfg.fn.init(namespace, self, fn);
 };
 
@@ -107,7 +107,7 @@ var res = function (notation/*!*/) {
 	var scope = this.scope();
 	var part = read(scope, notation);
 	var args = Array.prototype.slice.call(arguments, 1);
-	return is.fn(part) ? part.apply(scope, args) : part;
+	return is.callable(part) ? part.apply(scope, args) : part;
 };
 
 /*!
@@ -117,7 +117,7 @@ var res = function (notation/*!*/) {
  * @param ...rest: Arguments for the object.
  */
 var exe = function (notation/*!*/) {
-	if (is.fn(console && console.warn)) {
+	if (is.callable(console && console.warn)) {
 		console.warn('DotCfg: "exe" method is deprecated, call "res" method instead!');
 	}
 	return res(notation);
@@ -130,7 +130,7 @@ var exe = function (notation/*!*/) {
  * @param strategy: Arguments for the object.
  */
 var setter = function (notation/*!*/, value/*!*/, strategy/*?*/) {
-	var fn = !is.undef(value) && is.fn(strategy) ? strategy : this.strategy;
+	var fn = !is.undef(value) && is.callable(strategy) ? strategy : this.strategy;
 	if (is.object(notation)) {
 		var context;
 		for (var key in notation) {

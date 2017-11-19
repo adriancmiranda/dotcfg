@@ -1,11 +1,11 @@
-const spawn = require('cross-spawn');
-const { resolve } = require('path');
+const { join, resolve } = require('path');
+const { is } = require('describe-type');
 const { sync } = require('glob');
-const { argv } = require('../config');
+const { argv, source } = require('../@/config');
+const spawn = require('../@/spawn');
 
-const files = Array.isArray(argv.f) ? `{${argv.f.join(',')}}` : argv.f || '**/*';
-sync(resolve(`test/benchmark/${files}.bench.js`)).forEach(file => {
-	spawn.sync('babel-node', ['--presets', 'env', file], {
-		stdio: 'inherit',
-	});
+const context = is.string(argv.c) ? argv.c : `${source}/**`;
+const files = is.array(argv.f) ? `{${argv.f.join(',')}}` : argv.f || '*';
+sync(resolve(`${join(context, files)}.bench.js`)).forEach(file => {
+	spawn.sync('babel-node', ['--presets', 'env,stage-2', file]);
 });

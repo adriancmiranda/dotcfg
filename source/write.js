@@ -1,7 +1,5 @@
+var is = require('describe-type').is;
 var parse = require('./parse');
-var isUndefined = require('./is/undefined');
-var isPrimitive = require('./is/primitive');
-var isNumber = require('./is/number');
 
 module.exports = function (target, path, value, strategy) {
 	var id = 0;
@@ -13,10 +11,10 @@ module.exports = function (target, path, value, strategy) {
 	while (id < total) {
 		notation = keys[id++];
 		nextNotation = keys[id];
-		if (isNumber(nextNotation)) {
+		if (is.number(nextNotation)) {
 			target[notation] = new Array(parseInt(nextNotation, 10) - 1);
 		}
-		if (isPrimitive(target[notation])) {
+		if (is.primitive(target[notation])) {
 			target[notation] = {};
 			target = target[notation];
 		} else {
@@ -24,7 +22,7 @@ module.exports = function (target, path, value, strategy) {
 		}
 	}
 	notation = keys[id];
-	if (isUndefined(value)) {
+	if (is.undef(value)) {
 		delete target[notation];
 	} else {
 		target[notation] = strategy(

@@ -1,4 +1,4 @@
-exports.is = require('./is');
+exports.is = require('describe-type').is;
 exports.parse = require('./parse');
 exports.strategies = require('./strategies');
 exports.assign = require('./assign');
