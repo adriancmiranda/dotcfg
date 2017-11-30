@@ -1,6 +1,6 @@
 /* eslint-disable spaced-comment */
 
-var parse = require('./parse');
+var parse = require('../parse');
 
 module.exports = function (scope, notation) {
 	var id = 0;

@@ -1,5 +1,5 @@
 import ava from 'ava-spec';
-import read from '../../source/read';
+import read from '../../source/core/read';
 
 const data = {
   name: 'Unit test',

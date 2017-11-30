@@ -1,6 +1,6 @@
 import ava from 'ava-spec';
 import assert from 'assert';
-import dotcfg from '../../';
+import dotcfg from '../../source';
 
 ava('new instance', t => {
 //   const TEST_CHAIN = dotcfg({}).set('name', 'test').cfg('env', 'ava');

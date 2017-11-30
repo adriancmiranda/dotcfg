@@ -16,8 +16,7 @@
     "LICENSE",
     "CHANGELOG.md",
     "README.md",
-    "source",
-    "index.js"
+    "source"
   ],
   "repository": {
     "type": "git",

@@ -2,8 +2,8 @@
  * 
  * ~~~~ dotcfg v1.6.0
  * 
- * @commit 78829815279f0006e34db7b17e1ebb71a72ea4d7
- * @moment Sunday, November 19, 2017 11:35 AM
+ * @commit 5b0ec1399769bca74fdc3bfd3f1884d9686d34a0
+ * @moment Thursday, November 30, 2017 8:31 PM
  * @homepage https://github.com/adriancmiranda/dotcfg
  * @author Adrian C. Miranda
  * @license (c) 2016-2020 Adrian C. Miranda
@@ -29,12 +29,38 @@
 	var reEndsWithBrace = /\}$/;
 	var reIsJsonEnds = { '[': reEndsWithBracket, '{': reEndsWithBrace };
 
+
+	var patterns = Object.freeze({
+		reIsBase64: reIsBase64,
+		reFunctionName: reFunctionName,
+		reIsNativeFn: reIsNativeFn,
+		reStringToBoolean: reStringToBoolean,
+		reToPropName: reToPropName,
+		reIsHex: reIsHex,
+		reIsHexadecimal: reIsHexadecimal,
+		reIsJsonStart: reIsJsonStart,
+		reEndsWithBracket: reEndsWithBracket,
+		reEndsWithBrace: reEndsWithBrace,
+		reIsJsonEnds: reIsJsonEnds
+	});
+
 	// prototypes
 	var ObjectProto = Object.prototype;
+
+
+	var prototypes = Object.freeze({
+		ObjectProto: ObjectProto
+	});
 
 	// built-in method(s)
 	var objectHasOwnProperty = ObjectProto.hasOwnProperty;
 	var objectToString = ObjectProto.toString;
+
+
+	var builtIn = Object.freeze({
+		objectHasOwnProperty: objectHasOwnProperty,
+		objectToString: objectToString
+	});
 
 	// environment
 	var inNode = typeof window === 'undefined';
@@ -69,20 +95,33 @@
 		return 0 | parseInt(value, radix);
 	}
 
+	/* eslint-disable no-nested-ternary */
 	/**
 	 *
 	 * @function
 	 * @memberof utility
-	 * @param {Object} context
-	 * @param {Boolean} getNum
-	 * @returns {Array}
+	 * @param {Number} n - index
+	 * @param {Number} a - divident
+	 * @param {Number} b - divisor
+	 * @returns {Number}
 	 */
-	function mod(index, min, max) {
-		min = intOf(min);
-		max = intOf(max) || min || 1;
-		index = intOf(index);
-		var value = index % max;
-		return value < min ? (value + max) : value;
+	function mod(n, a, b) {
+		n = intOf(n);
+		a = intOf(a);
+		b = intOf(b);
+		var rem;
+		if (a < 0 || b < 0) {
+			var places = (b - a);
+			rem = (n - a) % (places + 1);
+			rem = rem < 0 ? (rem + (places + 1)) : rem === 0 ? 0 : rem;
+			return rem - (places - b);
+		}
+		if (n === b) { return n; }
+		if (n === b + 1) { return a; }
+		if (n === a - 1) { return b; }
+		rem = n % (b || 1);
+		rem = rem < a ? (rem + b) : rem === 0 ? 0 : rem;
+		return rem;
 	}
 
 	/**
@@ -142,6 +181,17 @@
 	/**
 	 *
 	 * @function
+	 * @memberof is
+	 * @param {any} value
+	 * @returns {Boolean}
+	 */
+	function number(value) {
+		return typeof value === 'number' || value instanceof Number;
+	}
+
+	/**
+	 *
+	 * @function
 	 * @memberof utility
 	 * @param {arraylike} value
 	 * @param {int} startIndex
@@ -150,21 +200,23 @@
 	 */
 	function slice(list, startIndex, endIndex) {
 		var range = [];
-		if (arraylike(list)) {
-			var size = list.length;
-			var start = mod(startIndex, 0, size);
-			var end = mod(endIndex, 0, size) || size;
-			if (string(list)) {
-				range = '';
-				while (start < end) {
-					range += list[start];
-					start += 1;
-				}
-				return range;
+		var size = arraylike(list) && list.length;
+		if (size) {
+			var start = mod(startIndex, 0, size + 1);
+			if (number(endIndex)) {
+				size = mod(endIndex, 0, size - 1);
 			}
-			while (start < end) {
-				range[range.length] = list[start];
-				start += 1;
+			if (start < size) {
+				if (string(list)) {
+					range = '';
+					for (var c = start; c < size; c += 1) {
+						range += list[c];
+					}
+					return range;
+				}
+				for (var i = size - 1; i > start - 1; i -= 1) {
+					range[i - start] = list[i];
+				}
 			}
 		}
 		return range;
@@ -212,22 +264,41 @@
 	 * @param {any} context - .
 	 * @returns {any}
 	 */
-	function apply(cmd, context, args) {
-		var $ = arraylike(args) ? args : [];
-		switch ($.length) {
-			case 0: return cmd.call(context);
-			case 1: return cmd.call(context, $[0]);
-			case 2: return cmd.call(context, $[0], $[1]);
-			case 3: return cmd.call(context, $[0], $[1], $[2]);
-			case 4: return cmd.call(context, $[0], $[1], $[2], $[3]);
-			case 5: return cmd.call(context, $[0], $[1], $[2], $[3], $[4]);
-			case 6: return cmd.call(context, $[0], $[1], $[2], $[3], $[4], $[5]);
-			case 7: return cmd.call(context, $[0], $[1], $[2], $[3], $[4], $[5], $[6]);
-			case 8: return cmd.call(context, $[0], $[1], $[2], $[3], $[4], $[5], $[6], $[7]);
-			case 9: return cmd.call(context, $[0], $[1], $[2], $[3], $[4], $[5], $[6], $[7], $[8]);
-			default: return cmd.apply(context, $);
+	function apply(cmd, context, args, blindly) {
+		try {
+			var $ = arraylike(args) ? args : [];
+			switch ($.length) {
+				case 0: return cmd.call(context);
+				case 1: return cmd.call(context, $[0]);
+				case 2: return cmd.call(context, $[0], $[1]);
+				case 3: return cmd.call(context, $[0], $[1], $[2]);
+				case 4: return cmd.call(context, $[0], $[1], $[2], $[3]);
+				case 5: return cmd.call(context, $[0], $[1], $[2], $[3], $[4]);
+				case 6: return cmd.call(context, $[0], $[1], $[2], $[3], $[4], $[5]);
+				case 7: return cmd.call(context, $[0], $[1], $[2], $[3], $[4], $[5], $[6]);
+				case 8: return cmd.call(context, $[0], $[1], $[2], $[3], $[4], $[5], $[6], $[7]);
+				case 9: return cmd.call(context, $[0], $[1], $[2], $[3], $[4], $[5], $[6], $[7], $[8]);
+				default: return cmd.apply(context, $);
+			}
+		} catch (err) {
+			if (blindly) { return err; }
+			throw err;
 		}
 	}
+
+
+
+	var index = Object.freeze({
+		prototypes: prototypes,
+		builtIn: builtIn,
+		patterns: patterns,
+		mod: mod,
+		slice: slice,
+		keys: keys,
+		apply: apply,
+		inNode: inNode,
+		env: env
+	});
 
 	/**
 	 *
@@ -289,7 +360,7 @@
 
 
 
-	var index = Object.freeze({
+	var index$1 = Object.freeze({
 		unsafeMethod: unsafeMethod,
 		ownProperty: ownProperty,
 		ownValue: ownValue,
@@ -356,17 +427,6 @@
 			return !value.valueOf();
 		}
 		return !value;
-	}
-
-	/**
-	 *
-	 * @function
-	 * @memberof is
-	 * @param {any} value
-	 * @returns {Boolean}
-	 */
-	function number(value) {
-		return typeof value === 'number' || value instanceof Number;
 	}
 
 	/**
@@ -752,7 +812,7 @@
 
 
 
-	var index$1 = Object.freeze({
+	var index$2 = Object.freeze({
 		a: a,
 		an: a,
 		any: any,
@@ -959,7 +1019,7 @@
 	function as(expected, value) {
 		var args = slice(arguments, 2);
 		if (callable(value) && (expected === Function || ownValue(expected, Function)) === false) {
-			value = apply(value, args[0], args);
+			value = apply(value, args[0], args, true);
 		}
 		return any(expected, value) ? value : args[0];
 	}
@@ -969,8 +1029,9 @@
 
 
 	var require$$0 = Object.freeze({
-		has: index,
-		is: index$1,
+		has: index$1,
+		is: index$2,
+		internal: index,
 		as: as,
 		stringOf: stringOf,
 		booleanOf: booleanOf,
@@ -983,23 +1044,6 @@
 		typify: typify,
 		name: name
 	});
-
-	/* eslint-disable spaced-comment */
-
-	/*!
-	 * Takes a function and returns a new one that will always have a particular context.
-	 * @param fn: The function whose context will be changed.
-	 * @param context: The object to which the context (this) of the function should be set.
-	 * @param ...rest: Prefix arguments.
-	 */
-	var proxy = function (fn/*!*/, context/*!*/) {
-		var args = Array.prototype.slice.call(arguments, 2);
-		var bind = function () {
-			return fn.apply(context, args.concat(Array.prototype.slice.call(arguments)));
-		};
-		bind.__originalFn__ = bind.__originalFn__ || fn;
-		return bind;
-	};
 
 	/* eslint-disable no-var */
 	var is$2 = require$$0.is;
@@ -1086,6 +1130,23 @@
 			);
 		}
 		return scope;
+	};
+
+	/* eslint-disable spaced-comment */
+
+	/*!
+	 * Takes a function and returns a new one that will always have a particular context.
+	 * @param fn: The function whose context will be changed.
+	 * @param context: The object to which the context (this) of the function should be set.
+	 * @param ...rest: Prefix arguments.
+	 */
+	var proxy = function (fn/*!*/, context/*!*/) {
+		var args = Array.prototype.slice.call(arguments, 2);
+		var bind = function () {
+			return fn.apply(context, args.concat(Array.prototype.slice.call(arguments)));
+		};
+		bind.__originalFn__ = bind.__originalFn__ || fn;
+		return bind;
 	};
 
 	var is$4 = require$$0.is;
@@ -1341,8 +1402,8 @@
 	DotCfg.fn.init.prototype = DotCfg.fn;
 	DotCfg.strategy = dotDefault;
 	DotCfg.assign = assignStrategy;
-	var dotcfg = DotCfg;
+	var source = DotCfg;
 
-	return dotcfg;
+	return source;
 
 })));

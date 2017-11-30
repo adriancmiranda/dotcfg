@@ -1,0 +1,11 @@
+exports.is = require('describe-type').is;
+exports.parse = require('../parse');
+exports.strategies = require('../strategies');
+exports.assign = require('./assign');
+exports.proxy = require('./proxy');
+exports.exists = require('./exists');
+exports.format = require('./format');
+exports.read = require('./read');
+exports.remove = require('./remove');
+exports.resolve = require('./resolve');
+exports.write = require('./write');

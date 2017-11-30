@@ -4,7 +4,7 @@
  * @param proto:
  */
 module.exports = function (proto) {
-	function dotcfg() {/*!*/}
-	dotcfg.prototype = proto;
-	return new dotcfg;
+	function DotCfg() {/* ! */}
+	DotCfg.prototype = proto;
+	return new DotCfg();
 };

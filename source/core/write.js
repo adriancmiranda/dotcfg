@@ -1,5 +1,5 @@
 var is = require('describe-type').is;
-var parse = require('./parse');
+var parse = require('../parse');
 
 module.exports = function (target, path, value, strategy) {
 	var id = 0;
