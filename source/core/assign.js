@@ -1,30 +1,34 @@
-var is = require('describe-type').is;
+import keys from 'describe-type/source/@/keys.js';
+import slice from 'describe-type/source/@/slice.js';
+import array from 'describe-type/source/is/array.js';
+import object from 'describe-type/source/is/object.js';
+import callable from 'describe-type/source/is/callable.js';
 
-module.exports = function (strategy) {
-	var notation = '';
+export default strategy => {
+	let notation = '';
 	return function assign(target) {
-		var args = Array.prototype.slice.call(arguments);
-		var output = Object(target || {});
-		for (var ix = 1; ix < args.length; ix++) {
-			var from = args[ix];
-			var keys = Object.keys(Object(from));
-			for (var iy = 0; iy < keys.length; iy++) {
-				var key = keys[iy];
-				var outputValue = output[key];
-				var sourceValue = from[key];
-				if (is.array(outputValue) || is.array(sourceValue)) {
-					var f = is.array(sourceValue) ? sourceValue.slice() : [];
-					var o = is.array(outputValue) ? outputValue.slice() : [];
-					output[key] = strategy(f, o, notation + '.' + key, keys);
-				} else if (is.callable(outputValue) || is.callable(sourceValue)) {
-					output[key] = strategy(sourceValue, outputValue, notation + '.' + key, keys);
-				} else if (is.object(outputValue) || is.object(sourceValue)) {
-					var cn = notation;
-					notation = (cn ? cn + '.' : '') + key;
+		const args = slice(arguments);
+		const output = Object(target || {});
+		for (let ix = 1; ix < args.length; ix++) {
+			const from = args[ix];
+			const keyList = keys(Object(from));
+			for (let iy = 0; iy < keyList.length; iy++) {
+				const key = keyList[iy];
+				const outputValue = output[key];
+				const sourceValue = from[key];
+				if (array(outputValue) || array(sourceValue)) {
+					const f = array(sourceValue) ? slice(sourceValue) : [];
+					const o = array(outputValue) ? slice(outputValue) : [];
+					output[key] = strategy(f, o, `${notation}.${key}`, keyList);
+				} else if (callable(outputValue) || callable(sourceValue)) {
+					output[key] = strategy(sourceValue, outputValue, `${notation}.${key}`, keyList);
+				} else if (object(outputValue) || object(sourceValue)) {
+					const cn = notation;
+					notation = (cn ? `${cn}.` : '') + key;
 					output[key] = assign(outputValue, sourceValue);
 					notation = cn;
 				} else {
-					output[key] = strategy(sourceValue, outputValue, notation + '.' + key, keys);
+					output[key] = strategy(sourceValue, outputValue, `${notation}.${key}`, keyList);
 				}
 			}
 		}

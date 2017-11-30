@@ -1,10 +1,11 @@
-var is = require('describe-type').is;
-var read = require('./read');
+import apply from 'describe-type/source/@/apply.js';
+import slice from 'describe-type/source/@/slice.js';
+import callable from 'describe-type/source/is/callable.js';
+import read from './read';
 
-module.exports = function (scope) {
+export default function resolve(scope) {
 	return function (path) {
-		var part = read(scope, path);
-		var args = Array.prototype.slice.call(arguments, 1);
-		return is.callable(part) ? part.apply(scope, args) : part;
+		const part = read(scope, path);
+		return callable(part) ? apply(part, scope, slice(arguments, 1)) : part;
 	};
-};
+}

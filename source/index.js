@@ -1,13 +1,17 @@
 /* global window */
 /* eslint-disable spaced-comment, new-cap, comma-dangle */
-var is = require('describe-type').is;
-var read = require('./core/read');
-var write = require('./core/write');
-var proxy = require('./core/proxy');
-var assign = require('./core/assign');
-var validate = require('./core/validate');
-var assignStrategyDefault = require('./strategies/assign-default');
-var dotStrategyDefault = require('./strategies/dot-default');
+import primitive from 'describe-type/source/is/primitive.js';
+import callable from 'describe-type/source/is/callable.js';
+import string from 'describe-type/source/is/string.js';
+import object from 'describe-type/source/is/object.js';
+import undef from 'describe-type/source/is/undef.js';
+import read from './core/read';
+import write from './core/write';
+import proxy from './core/proxy';
+import assign from './core/assign';
+import validate from './core/validate';
+import assignStrategyDefault from './strategies/assign-default';
+import dotStrategyDefault from './strategies/dot-default';
 
 /*!
  * Public methods.
@@ -37,14 +41,14 @@ var hasOwnProperty = Object.prototype.hasOwnProperty;
  * @param strategy: A function that configures the input values.
  */
 var DotCfg = function (namespace/*?*/, scope/*?*/, strategy/*?*/) {
-	if (!is.primitive(namespace)) {
+	if (!primitive(namespace)) {
 		strategy = scope;
 		scope = namespace;
 		namespace = undefined;
 	}
-	var expose = is.undef(global) ? window : global;
-	var self = is.primitive(scope) ? expose : scope;
-	var fn = is.callable(strategy) ? strategy : dotStrategyDefault;
+	var expose = undef(global) ? window : global;
+	var self = primitive(scope) ? expose : scope;
+	var fn = callable(strategy) ? strategy : dotStrategyDefault;
 	return new DotCfg.fn.init(namespace, self, fn);
 };
 
@@ -55,7 +59,7 @@ var DotCfg = function (namespace/*?*/, scope/*?*/, strategy/*?*/) {
  * @param strategy: A function that configures the input values.
  */
 var init = function (namespace/*?*/, scope/*?*/, strategy/*?*/) {
-	if (is.string(namespace)) {
+	if (string(namespace)) {
 		scope[namespace] = scope[namespace] || Object.create(null);
 		scope = scope[namespace];
 	}
@@ -92,7 +96,7 @@ var cfg = function (notation/*?*/, value/*?*/, strategy/*?*/) {
 		}
 		return cp;
 	}
-	if (is.primitive(notation)) {
+	if (primitive(notation)) {
 		return hasArg ? this.set(notation, value, strategy) : this.get(notation);
 	}
 	return this.extends(notation);
@@ -107,7 +111,7 @@ var res = function (notation/*!*/) {
 	var scope = this.scope();
 	var part = read(scope, notation);
 	var args = Array.prototype.slice.call(arguments, 1);
-	return is.callable(part) ? part.apply(scope, args) : part;
+	return callable(part) ? part.apply(scope, args) : part;
 };
 
 /*!
@@ -117,7 +121,7 @@ var res = function (notation/*!*/) {
  * @param ...rest: Arguments for the object.
  */
 var exe = function (notation/*!*/) {
-	if (is.callable(console && console.warn)) {
+	if (callable(console && console.warn)) {
 		console.warn('DotCfg: "exe" method is deprecated, call "res" method instead!');
 	}
 	return res(notation);
@@ -130,8 +134,8 @@ var exe = function (notation/*!*/) {
  * @param strategy: Arguments for the object.
  */
 var setter = function (notation/*!*/, value/*!*/, strategy/*?*/) {
-	var fn = !is.undef(value) && is.callable(strategy) ? strategy : this.strategy;
-	if (is.object(notation)) {
+	var fn = !undef(value) && callable(strategy) ? strategy : this.strategy;
+	if (object(notation)) {
 		var context;
 		for (var key in notation) {
 			if (hasOwnProperty.call(notation, key)) {
@@ -150,7 +154,7 @@ var setter = function (notation/*!*/, value/*!*/, strategy/*?*/) {
  */
 var getter = function (notation/*!*/, defaultValue/*?*/) {
 	var value = read(this.scope(), notation);
-	return is.undef(value) ? defaultValue : value;
+	return undef(value) ? defaultValue : value;
 };
 
 /*!

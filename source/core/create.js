@@ -3,8 +3,8 @@
  * prototype object and properties.
  * @param proto:
  */
-module.exports = function (proto) {
+export default function create(proto) {
 	function DotCfg() {/* ! */}
 	DotCfg.prototype = proto;
 	return new DotCfg();
-};
+}

@@ -1,9 +1,9 @@
-var proxy = require('./proxy');
+import proxy from './proxy';
 
-module.exports = function (scope, instance, fns) {
-	var cache = {};
-	var acc = '@';
-	for (var id = 0, key; id < fns.length; id++) {
+export default function validate(scope, instance, fns) {
+	const cache = {};
+	const acc = '@';
+	for (let id = 0, key; id < fns.length; id += 1) {
 		key = fns[id];
 		if (scope[key]) {
 			scope[acc + key] = scope[key];
@@ -13,7 +13,7 @@ module.exports = function (scope, instance, fns) {
 	}
 	return function (flush) {
 		if (flush) {
-			for (var id = 0, key; id < fns.length; id++) {
+			for (let id = 0, key; id < fns.length; id += 1) {
 				key = fns[id];
 				if (cache[key]) {
 					scope[key] = cache[key];
@@ -25,4 +25,4 @@ module.exports = function (scope, instance, fns) {
 		}
 		return scope;
 	};
-};
+}

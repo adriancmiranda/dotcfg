@@ -1,20 +1,22 @@
-var is = require('describe-type').is;
-var parse = require('../parse');
+import primitive from 'describe-type/source/is/primitive.js';
+import number from 'describe-type/source/is/number.js';
+import undef from 'describe-type/source/is/undef.js';
+import parse from '../parse/index.js';
 
-module.exports = function (target, path, value, strategy) {
-	var id = 0;
-	var scope = target;
-	var notation = path;
-	var keys = parse(notation);
-	var total = keys.length - 1;
-	var nextNotation;
+export default function write(target, path, value, strategy) {
+	let id = 0;
+	let notation = path;
+	let nextNotation;
+	const scope = target;
+	const keys = parse(notation);
+	const total = keys.length - 1;
 	while (id < total) {
 		notation = keys[id++];
 		nextNotation = keys[id];
-		if (is.number(nextNotation)) {
+		if (number(nextNotation)) {
 			target[notation] = new Array(parseInt(nextNotation, 10) - 1);
 		}
-		if (is.primitive(target[notation])) {
+		if (primitive(target[notation])) {
 			target[notation] = {};
 			target = target[notation];
 		} else {
@@ -22,7 +24,7 @@ module.exports = function (target, path, value, strategy) {
 		}
 	}
 	notation = keys[id];
-	if (is.undef(value)) {
+	if (undef(value)) {
 		delete target[notation];
 	} else {
 		target[notation] = strategy(
@@ -33,4 +35,4 @@ module.exports = function (target, path, value, strategy) {
 		);
 	}
 	return scope;
-};
+}

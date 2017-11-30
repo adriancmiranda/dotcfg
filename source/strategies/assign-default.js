@@ -1,8 +1,8 @@
-const is = require('describe-type').is;
+import array from 'describe-type/source/is/array.js';
 
-module.exports = function (value, target) {
-	if (is.array(target)) {
+export default function assignDefault(value, target) {
+	if (array(target)) {
 		return target.concat(value);
 	}
 	return value;
-};
+}

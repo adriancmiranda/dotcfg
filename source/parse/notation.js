@@ -1,12 +1,12 @@
-/* eslint-disable no-var */
-var is = require('describe-type').is;
+import array from 'describe-type/source/is/array.js';
+import string from 'describe-type/source/is/string.js';
 
-var dot = /\.(?![^[]*\])/g;
-var blank = [];
+const dot = /\.(?![^[]*\])/g;
+const blank = [];
 
-module.exports = function (path) {
-	if (is.string(path)) {
+export default function notation(path) {
+	if (string(path)) {
 		return path.split(dot);
 	}
-	return Array.isArray(path) ? path : blank;
-};
+	return array(path) ? path : blank;
+}
