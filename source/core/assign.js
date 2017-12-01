@@ -4,15 +4,15 @@ import array from 'describe-type/source/is/array.js';
 import object from 'describe-type/source/is/object.js';
 import callable from 'describe-type/source/is/callable.js';
 
-export default strategy => {
+export default (strategy) => {
 	let notation = '';
 	return function assign(target) {
 		const args = slice(arguments);
 		const output = Object(target || {});
-		for (let ix = 1; ix < args.length; ix++) {
+		for (let ix = 1; ix < args.length; ix += 1) {
 			const from = args[ix];
 			const keyList = keys(Object(from));
-			for (let iy = 0; iy < keyList.length; iy++) {
+			for (let iy = 0; iy < keyList.length; iy += 1) {
 				const key = keyList[iy];
 				const outputValue = output[key];
 				const sourceValue = from[key];

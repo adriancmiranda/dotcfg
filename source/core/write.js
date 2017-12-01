@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 import primitive from 'describe-type/source/is/primitive.js';
 import number from 'describe-type/source/is/number.js';
 import undef from 'describe-type/source/is/undef.js';

@@ -4,7 +4,7 @@
  * @param proto:
  */
 export default function create(proto) {
-	function DotCfg() {/* ! */}
+	function DotCfg() { }
 	DotCfg.prototype = proto;
 	return new DotCfg();
 }
