@@ -1,5 +1,5 @@
 import ava from 'ava-spec';
-import resolve from '../../source/core/resolve';
+import resolve from '../../source/core/resolve.js';
 
 ava('resolve', t => {
   // call a.b.c function with arguments 'argA', 'argB' and 'argC'

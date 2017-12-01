@@ -1,5 +1,5 @@
 import ava from 'ava-spec';
-import parse from '../../source/parse';
+import parse from '../../source/parse/index.js';
 
 function deepEqual(t, method, trace) {
   const fn = method ? parse[method] : parse;

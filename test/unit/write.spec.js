@@ -1,6 +1,6 @@
 import ava from 'ava-spec';
-import dot from '../../source/strategies/dot-default';
-import write from '../../source/core/write';
+import dot from '../../source/strategies/dot-default.js';
+import write from '../../source/core/write.js';
 
 const data = {
   name: 'Unit test',

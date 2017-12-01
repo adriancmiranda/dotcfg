@@ -1,5 +1,5 @@
 import ava from 'ava-spec';
-import assign from '../../source/core/assign';
+import assign from '../../source/core/assign.js';
 
 ava('assign:can assign on 1 level', t => {
   const a = { hello: 1 };
