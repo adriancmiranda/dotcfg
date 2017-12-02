@@ -35,4 +35,4 @@ test_script:
   - node --version
   - npm --version
   - yarn --version
-  - cmd: npm run appveyor:%job_part%
+  - cmd: npm run %job_part%:appveyor
