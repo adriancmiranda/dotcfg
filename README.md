@@ -1,7 +1,7 @@
 # dotcfg
 > Allows you to manage namespace objects with qualified names.
 
-[![stability]][stability-url] [![xo]][xo-url] [![deps]][deps-url] [![depsci]][depsci-url] [![travis]][travis-url] [![appveyor]][appveyor-url]
+[![stability]][stability-url] [![deps]][deps-url] [![depsci]][depsci-url] [![travis]][travis-url] [![appveyor]][appveyor-url]
 
 ## Getting Started
 
@@ -59,9 +59,6 @@ NYC.cfg(true);
 NYC.cfg();
 /*! false/undefined: flush dotcfg methods. */
 ```
-
-[xo]: https://img.shields.io/badge/code_style-XO-5ed9c7.svg
-[xo-url]: https://github.com/sindresorhus/xo
 
 [travis]: https://travis-ci.org/adriancmiranda/dotcfg.svg?branch=master
 [travis-url]: https://travis-ci.org/adriancmiranda/dotcfg
