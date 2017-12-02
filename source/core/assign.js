@@ -8,10 +8,10 @@ export default (strategy) => {
 	let notation = '';
 	return function assign(target) {
 		const args = slice(arguments);
-		const output = Object(target || {});
+		const output = target == null ? {} : target;
 		for (let ix = 1; ix < args.length; ix += 1) {
 			const from = args[ix];
-			const keyList = keys(Object(from));
+			const keyList = keys(from);
 			for (let iy = 0; iy < keyList.length; iy += 1) {
 				const key = keyList[iy];
 				const outputValue = output[key];
