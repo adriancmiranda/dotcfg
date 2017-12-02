@@ -1,3 +1,4 @@
+import apply from 'describe-type/source/@/apply.js';
 import numeric from 'describe-type/source/is/numeric.js';
 import parseNotation from './notation';
 
@@ -16,7 +17,7 @@ function strategies(path) {
 			}
 		}
 	}
-	return Array.prototype.concat.apply([], notation);
+	return apply(Array.prototype.concat, [], notation);
 }
 
 strategies.notation = parseNotation;
