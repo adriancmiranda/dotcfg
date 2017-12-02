@@ -1,7 +1,7 @@
 const { resolve } = require('path');
 const { DefinePlugin } = require('webpack');
 const { aliases, env, pack, source } = require('../@/config');
-
+console.log('->', source);
 const webpack = {
   plugins: [new DefinePlugin(env)],
   devtool: '#inline-source-map',
@@ -15,7 +15,7 @@ const webpack = {
       test: /\.jsx?$/,
       enforce: 'pre',
       use: ['remove-flow-types-loader'],
-      include: source,
+      include: source.path,
     }, {
       test: /\.jsx?$/,
       loader: 'babel-loader',
@@ -37,7 +37,7 @@ const karma = {
     pattern: 'test/fixtures/**/*.fixture.*',
     watched: true,
   }, {
-    pattern: 'test/unit/index.js',
+    pattern: 'test/unit/{index,*.unit}.js',
     watched: true,
   }],
   preprocessors: {

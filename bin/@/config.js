@@ -7,7 +7,7 @@ const banner = require('./banner');
 
 exports.pack = require('../../package.json');
 
-exports.source = parse(exports.pack.main);
+exports.source = parse(exports.pack.module);
 
 exports.source.path = resolve(exports.source.dir);
 
