@@ -1,4 +1,3 @@
-import ava from 'ava-spec';
 import read from '../../source/core/read.js';
 
 const data = {

@@ -1,4 +1,3 @@
-import ava from 'ava-spec';
 import remove from '../../source/core/remove.js';
 
 ava('remove', t => {

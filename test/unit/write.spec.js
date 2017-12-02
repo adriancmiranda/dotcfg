@@ -1,4 +1,3 @@
-import ava from 'ava-spec';
 import dot from '../../source/strategies/dot-default.js';
 import write from '../../source/core/write.js';
 

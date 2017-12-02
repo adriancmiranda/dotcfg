@@ -1,4 +1,3 @@
-import ava from 'ava-spec';
 import resolve from '../../source/core/resolve.js';
 
 ava('resolve', t => {
