@@ -1,7 +1,7 @@
 const { resolve } = require('path');
 const { DefinePlugin } = require('webpack');
 const { aliases, env, pack, source } = require('../@/config');
-console.log('->', source);
+
 const webpack = {
   plugins: [new DefinePlugin(env)],
   devtool: '#inline-source-map',

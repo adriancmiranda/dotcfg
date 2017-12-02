@@ -1,5 +1,6 @@
 /* global window */
 /* eslint-disable no-console, spaced-comment, new-cap, comma-dangle, no-restricted-syntax */
+import { env } from 'describe-type/source/@/env.js';
 import apply from 'describe-type/source/@/apply.js';
 import slice from 'describe-type/source/@/slice.js';
 import ownProperty from 'describe-type/source/has/ownProperty.js';
@@ -43,8 +44,7 @@ const DotCfg = function (namespace/*?*/, scope/*?*/, strategy/*?*/) {
 		scope = namespace;
 		namespace = undefined;
 	}
-	const expose = undef(global) ? window : global;
-	const self = primitive(scope) ? expose : scope;
+	const self = primitive(scope) ? env : scope;
 	const fn = callable(strategy) ? strategy : dotStrategyDefault;
 	return new DotCfg.fn.init(namespace, self, fn);
 };
