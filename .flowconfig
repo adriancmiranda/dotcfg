@@ -1,0 +1,21 @@
+[ignore]
+.*/node_modules/.*
+.*/bin/.*
+.*/dist/.*
+.*/material/.*
+.*/test/.*
+
+[include]
+.*/source/.*
+
+[libs]
+
+[lints]
+
+[options]
+suppress_comment= \\(.\\|\n\\)*\\$flow-disable-line
+unsafe.enable_getters_and_setters=true
+
+[strict]
+
+[version]

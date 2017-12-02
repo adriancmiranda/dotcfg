@@ -17,8 +17,8 @@ export default (strategy) => {
 				const outputValue = output[key];
 				const sourceValue = from[key];
 				if (array(outputValue) || array(sourceValue)) {
-					const f = array(sourceValue) ? slice(sourceValue) : [];
-					const o = array(outputValue) ? slice(outputValue) : [];
+					const f = slice(sourceValue);
+					const o = slice(outputValue);
 					output[key] = strategy(f, o, `${notation}.${key}`, keyList);
 				} else if (callable(outputValue) || callable(sourceValue)) {
 					output[key] = strategy(sourceValue, outputValue, `${notation}.${key}`, keyList);
