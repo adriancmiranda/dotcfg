@@ -1,5 +1,7 @@
 import exists from '../../source/core/exists.js';
 
-ava('exists', t => {
-  t.is(toString.call(exists), '[object Function]');
+describe('#exists', () => {
+  it('exists should be a Function', () => {
+    expect(exists).toEqual(jasmine.any(Function));
+  });
 });

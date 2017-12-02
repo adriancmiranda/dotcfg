@@ -21,19 +21,25 @@ const data = {
   },
 };
 
-ava('write', t => {
-  write(data, 'hello.from.nested.number', 12, dot);
-  t.is(data.hello.from.nested.number, 12);
+describe('#exists', () => {
+  it('write should be a Function', () => {
+    expect(write).toEqual(jasmine.any(Function));
+  });
 
-  write(data, 'hello.from.nested.string', 'AB', dot);
-  t.is(data.hello.from.nested.string, 'AB');
+  it('write', () => {
+    write(data, 'hello.from.nested.number', 12, dot);
+    expect(data.hello.from.nested.number).toBe(12);
 
-  write(data, 'hello.from.nested.info[10].spec', 'Info', dot);
-  t.is(data.hello.from.nested.info.length, 11);
-  t.is(data.hello.from.nested.info[10].spec, 'Info');
+    write(data, 'hello.from.nested.string', 'AB', dot);
+    expect(data.hello.from.nested.string).toBe('AB');
 
-  write(data, 'hello.from.1.foo', 'FOO', dot);
-  t.falsy(Array.isArray(data.hello.from));
-  t.is(data.hello.from['1'].foo, 'FOO');
-  t.is(data.hello.from.length, undefined);
+    write(data, 'hello.from.nested.info[10].spec', 'Info', dot);
+    expect(data.hello.from.nested.info.length).toBe(11);
+    expect(data.hello.from.nested.info[10].spec).toBe('Info');
+
+    write(data, 'hello.from.1.foo', 'FOO', dot);
+    expect(Array.isArray(data.hello.from)).toBe(false);
+    expect(data.hello.from['1'].foo).toBe('FOO');
+    expect(data.hello.from.length).toBe(undefined);
+  });
 });

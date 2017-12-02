@@ -1,5 +1,7 @@
 import remove from '../../source/core/remove.js';
 
-ava('remove', t => {
-  t.is(toString.call(remove), '[object Function]');
+describe('#remove', () => {
+  it('remove should be a Function', () => {
+    expect(remove).toEqual(jasmine.any(Function));
+  });
 });
