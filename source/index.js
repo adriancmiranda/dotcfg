@@ -176,4 +176,4 @@ DotCfg.fn = DotCfg.prototype;
 DotCfg.fn.init.prototype = DotCfg.fn;
 DotCfg.strategy = dotStrategyDefault;
 DotCfg.assign = assignStrategy;
-module.exports = DotCfg;
+export default DotCfg;
