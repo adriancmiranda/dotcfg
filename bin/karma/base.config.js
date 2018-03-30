@@ -38,7 +38,7 @@ const karma = {
     pattern: 'test/fixtures/**/*.fixture.*',
     watched: true,
   }, {
-    pattern: 'test/unit/{index,*.unit}.js',
+    pattern: 'test/unit/index.js',
     watched: true,
   }],
   preprocessors: {
