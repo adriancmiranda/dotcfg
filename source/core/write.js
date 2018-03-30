@@ -16,24 +16,16 @@ export default function write(target, path, value, strategy) {
 		nextNotation = keys[id];
 		if (number(nextNotation)) {
 			target[notation] = new Array(parseInt(nextNotation, 10) - 1);
-		}
-		if (primitive(target[notation])) {
+		} else if (primitive(target[notation])) {
 			target[notation] = {};
-			target = target[notation];
-		} else {
-			target = target[notation];
 		}
+		target = target[notation];
 	}
 	notation = keys[id];
 	if (undef(value)) {
 		delete target[notation];
 	} else {
-		target[notation] = strategy(
-			value,
-			target[notation],
-			notation,
-			keys
-		);
+		target[notation] = strategy(value, target[notation], notation, keys);
 	}
 	return scope;
 }

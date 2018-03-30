@@ -23,10 +23,10 @@ export default (strategy) => {
 				} else if (callable(outputValue) || callable(sourceValue)) {
 					output[key] = strategy(sourceValue, outputValue, `${notation}.${key}`, keyList);
 				} else if (object(outputValue) || object(sourceValue)) {
-					const cn = notation;
-					notation = (cn ? `${cn}.` : '') + key;
+					const cacheNotation = notation;
+					notation = (cacheNotation ? `${cacheNotation}.` : '') + key;
 					output[key] = assign(outputValue, sourceValue);
-					notation = cn;
+					notation = cacheNotation;
 				} else {
 					output[key] = strategy(sourceValue, outputValue, `${notation}.${key}`, keyList);
 				}

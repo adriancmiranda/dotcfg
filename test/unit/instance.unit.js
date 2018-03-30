@@ -1,7 +1,7 @@
 import assert from 'assert';
 import dotcfg from '../../source/index.js';
 
-describe('dotcfg', () => {
+describe('instance', () => {
   it('dotcfg should be a Function', () => {
     expect(dotcfg).toEqual(jasmine.any(Function));
   });

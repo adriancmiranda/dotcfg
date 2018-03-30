@@ -34,106 +34,106 @@ describe('#assign', () => {
     });
   });
 
-  it('Buffer is cloned', () => {
-    // const a = { };
-    // const b = { value: new Buffer('foo') };
-    // const c = assign(v => v)(a, b);
-    // a.value.write('bar');
-    // t.is(a.value.toString(), 'bar');
-    // t.is(b.value.toString(), 'foo');
-  });
+  // it('Buffer is cloned', () => {
+  //   const a = { };
+  //   const b = { value: new Buffer('foo') };
+  //   const c = assign(v => v)(a, b);
+  //   a.value.write('bar');
+  //   t.is(a.value.toString(), 'bar');
+  //   t.is(b.value.toString(), 'foo');
+  // });
 
-  it('Date objects', () => {
-    // const a = { instance: new Date() };
-    // const b = assign(v => v)({}, a);
-    // t.truthy(b.instance instanceOf Date);
-    // t.is(a.instance, b.instance);
-  });
+  // it('Date objects', () => {
+  //   const a = { instance: new Date() };
+  //   const b = assign(v => v)({}, a);
+  //   t.truthy(b.instance instanceOf Date);
+  //   t.is(a.instance, b.instance);
+  // });
 
-  it('Date object is cloned', () => {
-    // const a = { instance: new Date() };
-    // const b = assign({}, a);
-    // b.instance.setTime((new Date()).getTime() + 100000);
-    // t.not(b.instance.getTime(), a.instance.getTime(), '"b" is a clone from "a"');
-  });
+  // it('Date object is cloned', () => {
+  //   const a = { instance: new Date() };
+  //   const b = assign({}, a);
+  //   b.instance.setTime((new Date()).getTime() + 100000);
+  //   t.not(b.instance.getTime(), a.instance.getTime(), '"b" is a clone from "a"');
+  // });
 
-  it('RegExp objects', () => {
-    // const a = { instance: new RegExp() };
-    // const b = assign(v => v)({}, a);
-    // t.truthy(b.instance instanceOf RegExp);
-  });
+  // it('RegExp objects', () => {
+  //   const a = { instance: new RegExp() };
+  //   const b = assign(v => v)({}, a);
+  //   t.truthy(b.instance instanceOf RegExp);
+  // });
 
-  it('RegExp object is cloned', () => {
-    // const a = { instance: new RegExp('b', 'g') };
-    // const b = assign(v => v)({}, a);
-    // t.deepEqual(b.instance.lastIndex, a.instance.lastIndex);
-    // b.instance.test('abc');
-    // t.not(b.instance.lastIndex, a.instance.lastIndex);
-  });
+  // it('RegExp object is cloned', () => {
+  //   const a = { instance: new RegExp('b', 'g') };
+  //   const b = assign(v => v)({}, a);
+  //   t.deepEqual(b.instance.lastIndex, a.instance.lastIndex);
+  //   b.instance.test('abc');
+  //   t.not(b.instance.lastIndex, a.instance.lastIndex);
+  // });
 
-  it('does not change sources', () => {
-    // const a = { a: [1] };
-    // const b = { a: [2] };
-    // const c = { c: 3 };
-    // const d = assign(v => v)({}, a, b, c);
-    // t.is(a, { a: [1] });
-    // t.is(b, { a: [2] });
-    // t.is(c, { c: 3 });
-  });
+  // it('does not change sources', () => {
+  //   const a = { a: [1] };
+  //   const b = { a: [2] };
+  //   const c = { c: 3 };
+  //   const d = assign(v => v)({}, a, b, c);
+  //   t.is(a, { a: [1] });
+  //   t.is(b, { a: [2] });
+  //   t.is(c, { c: 3 });
+  // });
 
-  it('clone arrays instead of assign', () => {
-    // const a = { a: [1, 2, 3] };
-    // const b = { a: [2, 3] };
-    // const c = assign(v => v)(a, b);
-    // t.is(c, { a: [2, 3] });
-  });
+  // it('clone arrays instead of assign', () => {
+  //   const a = { a: [1, 2, 3] };
+  //   const b = { a: [2, 3] };
+  //   const c = assign(v => v)(a, b);
+  //   t.is(c, { a: [2, 3] });
+  // });
 
-  it('deep merge arrays', () => {
-  });
+  // it('deep merge arrays', () => {
+  // });
 
-  it('deep merge arbitrary types', () => {
-  });
+  // it('deep merge arbitrary types', () => {
+  // });
 
-  it('deep merge array and value', () => {
-  });
+  // it('deep merge array and value', () => {
+  // });
 
-  it('gets key for the merging', () => {
-  });
+  // it('gets key for the merging', () => {
+  // });
 
-  it('deep merging works', () => {
-  });
+  // it('deep merging works', () => {
+  // });
 
-  it('multi merge works', () => {
-  });
+  // it('multi merge works', () => {
+  // });
 
-  it('deep merge objects', () => {
-  });
+  // it('deep merge objects', () => {
+  // });
 
-  it('recursive clone objects and special objects in cloned arrays', () => {
-  });
+  // it('recursive clone objects and special objects in cloned arrays', () => {
+  // });
 
-  it('checking keys for hasOwnPrototype', () => {
-    // const A = function() {
-    //   this.x = 1;
-    //   this.y = 2;
-    // };
-    // A.prototype.z = 3;
+  // it('checking keys for hasOwnPrototype', () => {
+  //   const A = function() {
+  //     this.x = 1;
+  //     this.y = 2;
+  //   };
+  //   A.prototype.z = 3;
 
-    // const a = new A();
+  //   const a = new A();
 
-    // const b = assign(v => v)({ x: 123 }, a);
-    // t.is(b, {
-    //   x: 1,
-    //   y: 2,
-    // });
+  //   const b = assign(v => v)({ x: 123 }, a);
+  //   t.is(b, {
+  //     x: 1,
+  //     y: 2,
+  //   });
 
-    // a.z = 5;
+  //   a.z = 5;
 
-    // const c = assign(v => v)({ x: 123 }, a, { y: 22 });
-    // t.is(c, {
-    //   x: 1,
-    //   y: 22,
-    //   z: 5,
-    // });
-  });
+  //   const c = assign(v => v)({ x: 123 }, a, { y: 22 });
+  //   t.is(c, {
+  //     x: 1,
+  //     y: 22,
+  //     z: 5,
+  //   });
+  // });
 });
