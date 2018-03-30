@@ -3,6 +3,7 @@ const { DefinePlugin } = require('webpack');
 const { aliases, env, pack, source } = require('../@/config');
 
 const webpack = {
+  mode: 'development',
   plugins: [new DefinePlugin(env)],
   devtool: '#inline-source-map',
   resolve: {

@@ -1,13 +1,28 @@
 const { is, as } = require('describe-type');
+const { env, flag } = require('../@/config');
 
 const defaultFormats = ['iife', 'umd', 'amd', 'cjs'];
 
-const target = (outputPath, format, minify) => ({
-	file: `${outputPath}.${format}${minify ? '.min' : ''}.js`,
-	format,
+const target = (name, outputPath, format) => ({
+  sourcemap: env.MINIFY,
+  file: `${outputPath}.${format}${env.MINIFY ? '.min' : ''}.js`,
+  banner: env.SIGN ? flag : '',
+  format,
+  name,
 });
 
-module.exports = (env, output, formats) => {
-	formats = as(Array, is.string(formats) ? [formats] : formats, defaultFormats);
-	return formats.map(format => target(output, format, env.MINIFY));
+exports.parseFormats = ({ formats }) => {
+  formats = is.string(formats) ? [formats] : formats;
+  formats = as(Array, formats, defaultFormats);
+  return formats;
+};
+
+exports.hasFormat = (file, format) => {
+  const formats = exports.parseFormats(file);
+  return formats.indexOf(format) !== -1;
+};
+
+exports.parseOutput = ({ module, output, formats }) => {
+  formats = exports.parseFormats({ formats });
+  return formats.map(format => target(module, output, format));
 };
