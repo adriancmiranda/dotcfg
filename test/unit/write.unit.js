@@ -1,4 +1,4 @@
-import dot from '../../source/strategies/dot-default.js';
+import dot from '../../source/strategies/dotDefault.js';
 import write from '../../source/core/write.js';
 
 const data = {

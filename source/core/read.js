@@ -1,5 +1,5 @@
 /* eslint-disable no-cond-assign, no-plusplus, no-empty */
-import parse from '../parse/index.js';
+import parse from './parse.js';
 
 export default function read(scope, notation) {
 	let id = 0;

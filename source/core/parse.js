@@ -1,12 +1,15 @@
 import apply from 'describe-type/source/@/apply.js';
 import numeric from 'describe-type/source/is/numeric.js';
-import parseNotation from './notation';
+import array from 'describe-type/source/is/array.js';
+import string from 'describe-type/source/is/string.js';
 
 const hasBrackets = /\[|\]/;
 const parts = /(\[{1}\s{0,1})(.{0,}?\]{0,})(\s{0,1}\]{1})/g;
+const dot = /\.(?![^[]*\])/g;
+const blank = [];
 
-function strategies(path) {
-	const notation = parseNotation(path);
+function parse(path) {
+	const notation = parse.notation(path);
 	for (let x = 0; x < notation.length; x += 1) {
 		if (hasBrackets.test(notation[x])) {
 			notation[x] = notation[x].replace(parts, ',$2').split(',');
@@ -20,5 +23,11 @@ function strategies(path) {
 	return apply(Array.prototype.concat, [], notation);
 }
 
-strategies.notation = parseNotation;
-export default strategies;
+parse.notation = (path) => {
+	if (string(path)) {
+		return path.split(dot);
+	}
+	return array(path) ? path : blank;
+};
+
+export default parse;

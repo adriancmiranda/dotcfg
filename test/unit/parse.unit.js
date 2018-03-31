@@ -1,4 +1,4 @@
-import parse from '../../source/parse/index.js';
+import parse from '../../source/core/parse.js';
 
 function deepEqual(method, trace) {
   const fn = method ? parse[method] : parse;

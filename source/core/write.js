@@ -2,7 +2,7 @@
 import primitive from 'describe-type/source/is/primitive.js';
 import number from 'describe-type/source/is/number.js';
 import undef from 'describe-type/source/is/undef.js';
-import parse from '../parse/index.js';
+import parse from './parse.js';
 
 export default function write(target, path, value, strategy) {
 	let id = 0;
