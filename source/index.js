@@ -51,7 +51,7 @@ function DotCfg(namespace, scope, strategy) {
 	if (instanceOf(DotCfg, this)) {
 		this.strategy = as(Function, strategy, dotStrategyDefault);
 		this.extends = proxy(assign(this.strategy), this, scope);
-		this.namespace = namespace || `dot${guid += 1}`;
+		this.namespace = as(String, namespace, `dot${guid += 1}`);
 		this.scope = scope;
 		return this;
 	}
