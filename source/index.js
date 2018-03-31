@@ -1,5 +1,3 @@
-/* global window */
-/* eslint-disable no-console, spaced-comment, new-cap, comma-dangle, no-restricted-syntax */
 import { env } from 'describe-type/source/@/env.js';
 import apply from 'describe-type/source/@/apply.js';
 import slice from 'describe-type/source/@/slice.js';
