@@ -7,34 +7,32 @@ describe('instance', () => {
   });
 
   it('new instance', () => {
-    const chainable = DotCfg({}).set('name', 'test').cfg('env', 'ava');
-    expect(chainable.get('env')).toEqual('ava');
-    expect(chainable.cfg()).toEqual({ name: 'test', env: 'ava' });
-    // t.falsy(chainable instanceof DotCfg);
+    const testChain = DotCfg({}).set('name', 'test').cfg('env', 'ava');
+    expect(testChain.get('env')).toEqual('ava');
+    expect(testChain.cfg()).toEqual({ name: 'test', env: 'ava' });
+    expect(testChain instanceof DotCfg).toBe(true);
 
-    // const TEST_TYPE = DotCfg({});
-    // TEST_TYPE.set('name', 'test').cfg('env', 'ava');
-    // expect(TEST_TYPE.cfg()).toEqual({ name: 'test', env: 'ava' });
-    // // t.truthy(TEST_TYPE instanceof DotCfg); // @TODO < fix this
+    const testType = DotCfg({});
+    testType.set('name', 'test').cfg('env', 'ava');
+    expect(testType.cfg()).toEqual({ name: 'test', env: 'ava' });
+    expect(testType instanceof DotCfg).toBe(true);
 
-    // const TEST_OBJ = DotCfg({});
-    // expect(TEST_OBJ.cfg).toEqual(jasmine.any(Function), 'instance.cfg function exists');
-    // expect(TEST_OBJ.res).toEqual(jasmine.any(Function), 'instance.res function exists');
-    // expect(TEST_OBJ.exe).toEqual(jasmine.any(Function), 'instance.exe function exists');
-    // expect(TEST_OBJ.get).toEqual(jasmine.any(Function), 'instance.get function exists');
-    // expect(TEST_OBJ.set).toEqual(jasmine.any(Function), 'instance.set function exists');
+    const testObject = DotCfg({});
+    expect(testObject.set).toEqual(jasmine.any(Function), 'instance.set function exists');
+    expect(testObject.get).toEqual(jasmine.any(Function), 'instance.get function exists');
+    expect(testObject.res).toEqual(jasmine.any(Function), 'instance.res function exists');
+    expect(testObject.cfg).toEqual(jasmine.any(Function), 'instance.cfg function exists');
 
-    // const TEST_NS = DotCfg('TEST_NS');
-    // expect(TEST_NS.cfg).toEqual(jasmine.any(Function), 'instance.cfg function exists');
-    // expect(TEST_NS.res).toEqual(jasmine.any(Function), 'instance.res function exists');
-    // expect(TEST_NS.exe).toEqual(jasmine.any(Function), 'instance.exe function exists');
-    // expect(TEST_NS.get).toEqual(jasmine.any(Function), 'instance.get function exists');
-    // expect(TEST_NS.set).toEqual(jasmine.any(Function), 'instance.set function exists');
+    const testNamespace = DotCfg('TEST_NS');
+    expect(testNamespace.cfg).toEqual(jasmine.any(Function), 'instance.cfg function exists');
+    expect(testNamespace.res).toEqual(jasmine.any(Function), 'instance.res function exists');
+    expect(testNamespace.get).toEqual(jasmine.any(Function), 'instance.get function exists');
+    expect(testNamespace.set).toEqual(jasmine.any(Function), 'instance.set function exists');
 
-    // // const SCOPE = { name: 'NS scope' };
-    // // const TEST_NS_SCOPE = DotCfg('TEST_NS', SCOPE);
-    // // TEST_NS_SCOPE.cfg('world', 'hello');
-    // // t.truthy(SCOPE.TEST_NS.world, 'NS scope');
+    // const scope = { name: 'NS scope' };
+    // const testNamespaceScope = DotCfg('TEST_NS', scope);
+    // testNamespaceScope.cfg('world', 'hello');
+    // expect(scope.TEST_NS.world).toEqual('NS scope');
   });
 
  // it('instance.override', () => {

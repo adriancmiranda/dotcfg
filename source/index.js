@@ -41,15 +41,16 @@ function DotCfg(namespace, scope, strategy) {
 		scope = namespace;
 		namespace = undefined;
 	}
-	scope = primitive(scope) ? env : scope;
-	strategy = as(Function, strategy, dotStrategyDefault);
+	if (primitive(scope)) {
+		scope = env;
+	}
 	if (string(namespace)) {
 		scope[namespace] = scope[namespace] || {};
 		scope = scope[namespace];
 	}
 	if (instanceOf(DotCfg, this)) {
-		this.strategy = strategy;
-		this.extends = proxy(assign(strategy), this, scope);
+		this.strategy = as(Function, strategy, dotStrategyDefault);
+		this.extends = proxy(assign(this.strategy), this, scope);
 		this.namespace = namespace || `dot${guid += 1}`;
 		this.scope = scope;
 		return this;
