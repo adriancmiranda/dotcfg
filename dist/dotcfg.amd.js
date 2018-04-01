@@ -1,9 +1,9 @@
 /*!
  * 
- * ~~~~ dotcfg v1.6.0
+ * ~~~~ dotcfg v1.7.0
  * 
- * @commit e868f00727b032de8e3943ba8852e92ddfe72532
- * @moment Sunday, April 1, 2018 2:01 PM
+ * @commit 04430a204d3194bc0764968e1f96934c2a61e6c3
+ * @moment Sunday, April 1, 2018 3:38 PM
  * @homepage https://github.com/adriancmiranda/dotcfg
  * @author Adrian C. Miranda
  * @license (c) 2016-2021 Adrian C. Miranda
@@ -706,6 +706,9 @@ define(function () { 'use strict';
 			var hasArg = arguments.length > 1;
 			if (!notation) {
 				return this.scope;
+			}
+			if (notation === true) {
+				return assignStrategy({}, this.scope);
 			}
 			if (primitive(notation)) {
 				return hasArg ? this.set(notation, value, strategy) : this.get(notation);
