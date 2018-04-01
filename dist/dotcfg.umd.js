@@ -2,11 +2,11 @@
  * 
  * ~~~~ dotcfg v1.6.0
  * 
- * @commit cb83d17c2032af29d1ca253dbbd0bf0f2895183c
- * @moment Saturday, December 2, 2017 4:59 PM
+ * @commit e868f00727b032de8e3943ba8852e92ddfe72532
+ * @moment Sunday, April 1, 2018 2:01 PM
  * @homepage https://github.com/adriancmiranda/dotcfg
  * @author Adrian C. Miranda
- * @license (c) 2016-2020 Adrian C. Miranda
+ * @license (c) 2016-2021 Adrian C. Miranda
  */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -22,29 +22,12 @@
 	 *
 	 * @function
 	 * @memberof is
-	 * @param {Function} expect
-	 * @param {any} value
-	 * @returns {Boolean}
-	 */
-	function a(expected, value) {
-		if (expected == null || value == null) { return value === expected; }
-		if (value.constructor === expected) { return true; }
-		if (value.constructor === undefined) { return expected === Object; }
-		return expected === Function && (
-			value.constructor.name === 'GeneratorFunction' ||
-			value.constructor.name === 'AsyncFunction'
-		);
-	}
-
-	/**
-	 *
-	 * @function
-	 * @memberof is
 	 * @param {any} value
 	 * @returns {Boolean}
 	 */
 	function array(value) {
-		return a(Array, value);
+		if (value == null) { return false; }
+		return value.constructor === Array;
 	}
 
 	/**
@@ -70,34 +53,6 @@
 			(!!value && typeof value === 'object' && typeof value.length === 'number') &&
 			(value.length === 0 || (value.length > 0 && (value.length - 1) in value))
 		);
-	}
-
-	/**
-	 *
-	 * @param {Function} cmd - .
-	 * @param {any} context - .
-	 * @returns {any}
-	 */
-	function apply(cmd, context, args, blindly) {
-		try {
-			var $ = arraylike(args) ? args : [];
-			switch ($.length) {
-				case 0: return cmd.call(context);
-				case 1: return cmd.call(context, $[0]);
-				case 2: return cmd.call(context, $[0], $[1]);
-				case 3: return cmd.call(context, $[0], $[1], $[2]);
-				case 4: return cmd.call(context, $[0], $[1], $[2], $[3]);
-				case 5: return cmd.call(context, $[0], $[1], $[2], $[3], $[4]);
-				case 6: return cmd.call(context, $[0], $[1], $[2], $[3], $[4], $[5]);
-				case 7: return cmd.call(context, $[0], $[1], $[2], $[3], $[4], $[5], $[6]);
-				case 8: return cmd.call(context, $[0], $[1], $[2], $[3], $[4], $[5], $[6], $[7]);
-				case 9: return cmd.call(context, $[0], $[1], $[2], $[3], $[4], $[5], $[6], $[7], $[8]);
-				default: return cmd.apply(context, $);
-			}
-		} catch (err) {
-			if (blindly) { return err; }
-			throw err;
-		}
 	}
 
 	/**
@@ -153,6 +108,7 @@
 	}
 
 	/* eslint-disable no-nested-ternary */
+
 	/**
 	 *
 	 * @function
@@ -214,6 +170,45 @@
 		return range;
 	}
 
+	/**
+	 *
+	 * @function
+	 * @memberof is
+	 * @param {Function} expect
+	 * @param {any} value
+	 * @returns {Boolean}
+	 */
+	function a(expected, value) {
+		if (expected == null || value == null) { return value === expected; }
+		if (value.constructor === expected) { return true; }
+		if (value.constructor === undefined) { return expected === Object; }
+		return expected === Function && (
+			value.constructor.name === 'GeneratorFunction' ||
+			value.constructor.name === 'AsyncFunction'
+		);
+	}
+
+	/**
+	 *
+	 * @function
+	 * @memberof is
+	 * @param {Function|Array.<Function>} expected
+	 * @param {any} value
+	 * @returns {Boolean}
+	 */
+	function instanceOf(expected, value) {
+		if (expected == null) { return expected === value; }
+		if (expected.constructor === Array && expected.length > 0) {
+			for (var i = expected.length - 1; i > -1; i -= 1) {
+				var ctor = expected[i];
+				if (ctor === Number) { return a(ctor, value); }
+				if (typeof ctor === 'function' && value instanceof ctor) { return true; }
+			}
+		}
+		if (expected === Number) { return a(expected, value); }
+		return typeof expected === 'function' && value instanceof expected;
+	}
+
 	// prototypes
 	var ObjectProto = Object.prototype;
 
@@ -241,7 +236,7 @@
 	 * @returns {Boolean}
 	 */
 	function callable(value) {
-		return a(Function, value);
+		return typeof value === 'function';
 	}
 
 	/**
@@ -264,11 +259,102 @@
 	 *
 	 * @function
 	 * @memberof is
+	 * @param {any}
+	 * @returns {Boolean}
+	 */
+	function exotic(value) {
+		return primitive(value) === false;
+	}
+
+	/**
+	 *
+	 * @param {Function} cmd - .
+	 * @param {any} context - .
+	 * @returns {any}
+	 */
+	function apply(cmd, context, args, blindly) {
+		try {
+			var $ = arraylike(args) ? args : [];
+			switch ($.length) {
+				case 0: return cmd.call(context);
+				case 1: return cmd.call(context, $[0]);
+				case 2: return cmd.call(context, $[0], $[1]);
+				case 3: return cmd.call(context, $[0], $[1], $[2]);
+				case 4: return cmd.call(context, $[0], $[1], $[2], $[3]);
+				case 5: return cmd.call(context, $[0], $[1], $[2], $[3], $[4]);
+				case 6: return cmd.call(context, $[0], $[1], $[2], $[3], $[4], $[5]);
+				case 7: return cmd.call(context, $[0], $[1], $[2], $[3], $[4], $[5], $[6]);
+				case 8: return cmd.call(context, $[0], $[1], $[2], $[3], $[4], $[5], $[6], $[7]);
+				case 9: return cmd.call(context, $[0], $[1], $[2], $[3], $[4], $[5], $[6], $[7], $[8]);
+				default: return cmd.apply(context, $);
+			}
+		} catch (err) {
+			if (blindly) { return err; }
+			throw err;
+		}
+	}
+
+	/**
+	 *
+	 * @function
+	 * @memberof has
+	 * @param {String|Array} context
+	 * @param {any} value
+	 * @returns {Boolean}
+	 */
+	function ownValue(context, value) {
+		if (arraylike(context) === false) { return false; }
+		for (var id = context.length - 1; id > -1; id -= 1) {
+			if (value === context[id]) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 *
+	 * @function
+	 * @memberof is
+	 * @param {Function|Array.<Function>} expected
+	 * @param {any} value
+	 * @returns {Boolean}
+	 */
+	function any(expected, value) {
+		if (expected == null) { return expected === value; }
+		if (expected.constructor === Array && expected.length > 0) {
+			for (var i = expected.length - 1; i > -1; i -= 1) {
+				if (a(expected[i], value)) { return true; }
+			}
+		}
+		return a(expected, value);
+	}
+
+	/**
+	 *
+	 * @param {Function|Array.<Function>} expected
+	 * @param {any} value
+	 * @returns {Boolean}
+	 */
+	function as(expected, value) {
+		var args = slice(arguments, 2);
+		if (callable(value) && (expected === Function || ownValue(expected, Function)) === false) {
+			value = apply(value, args[0], args, true);
+		}
+		return any(expected, value) ? value : args[0];
+	}
+
+	/**
+	 *
+	 * @function
+	 * @memberof is
 	 * @param {any} value
 	 * @returns {Boolean}
 	 */
 	function object(value) {
-		return a(Object, value);
+		if (value == null) { return false; }
+		if (value.constructor === Object) { return true; }
+		return value.constructor === undefined;
 	}
 
 	/**
@@ -280,6 +366,101 @@
 	 */
 	function undef(value) {
 		return value === undefined;
+	}
+
+	function assignDefault(value, target) {
+		if (array(target)) {
+			return target.concat(value);
+		}
+		return value;
+	}
+
+	function dotDefault(value) {
+		return value;
+	}
+
+	/*!
+	 * Takes a function and returns a new one that will always have a particular context.
+	 * @param fn: The function whose context will be changed.
+	 * @param context: The object to which the context (this) of the function should be set.
+	 * @param ...rest: Prefix arguments.
+	 */
+	function proxy(fn, context) {
+		var args = slice(arguments, 2);
+		var bind = function () {
+			return apply(fn, context, args.concat(slice(arguments)));
+		};
+		bind.__originalFn__ = bind.__originalFn__ || fn;
+		return bind;
+	}
+
+	/* eslint-disable no-restricted-syntax */
+
+	/**
+	 *
+	 * @function
+	 * @memberof utility
+	 * @param {Object} context
+	 * @param {Boolean} getNum
+	 * @returns {Array}
+	 */
+	function keys(object, getEnum) {
+		if (object == null) { return []; }
+		if (Object.keys && !getEnum) {
+			return Object.keys(object);
+		}
+		var properties = [];
+		for (var key in object) {
+			if (getEnum || ownProperty(object, key)) {
+				properties[properties.length] = key;
+			}
+		}
+		return properties;
+	}
+
+	function assign (strategy) {
+		var notation = '';
+		return function assign(target) {
+			var args = slice(arguments);
+			var output = target == null ? {} : target;
+			for (var ix = 1; ix < args.length; ix += 1) {
+				var from = args[ix];
+				var keyList = keys(from);
+				for (var iy = 0; iy < keyList.length; iy += 1) {
+					var key = keyList[iy];
+					var outputValue = output[key];
+					var sourceValue = from[key];
+					if (array(outputValue) || array(sourceValue)) {
+						var f = slice(sourceValue);
+						var o = slice(outputValue);
+						output[key] = strategy(f, o, (notation + "." + key), keyList);
+					} else if (callable(outputValue) || callable(sourceValue)) {
+						output[key] = strategy(sourceValue, outputValue, (notation + "." + key), keyList);
+					} else if (object(outputValue) || object(sourceValue)) {
+						var cacheNotation = notation;
+						notation = (cacheNotation ? (cacheNotation + ".") : '') + key;
+						output[key] = assign(outputValue, sourceValue);
+						notation = cacheNotation;
+					} else {
+						output[key] = strategy(sourceValue, outputValue, (notation + "." + key), keyList);
+					}
+				}
+			}
+			return output;
+		};
+	}
+
+	/**
+	 * Removes a property from an object; if no more references to the same property
+	 * are held, it is eventually released automatically.
+	 * @param {Object} object
+	 * @param {String} prop
+	 */
+	function deletePropertyAt(object, prop) {
+		if (object == null) { return object; }
+		var value = object[prop];
+		delete object[prop];
+		return value;
 	}
 
 	/**
@@ -334,351 +515,217 @@
 		}
 	}
 
+	var hasBrackets = /\[|\]/;
+	var parts = /(\[{1}\s{0,1})(.{0,}?\]{0,})(\s{0,1}\]{1})/g;
 	var dot = /\.(?![^[]*\])/g;
 	var blank = [];
 
-	function notation(path) {
-		if (string(path)) {
-			return path.split(dot);
-		}
-		return array(path) ? path : blank;
-	}
-
-	var hasBrackets = /\[|\]/;
-	var parts = /(\[{1}\s{0,1})(.{0,}?\]{0,})(\s{0,1}\]{1})/g;
-
-	function strategies(path) {
-		var notation$$1 = notation(path);
-		for (var x = 0; x < notation$$1.length; x += 1) {
-			if (hasBrackets.test(notation$$1[x])) {
-				notation$$1[x] = notation$$1[x].replace(parts, ',$2').split(',');
-				for (var y = 1; y <= notation$$1[x].length; y += 1) {
-					if (numeric(notation$$1[x][y])) {
-						notation$$1[x][y] = parseInt(notation$$1[x][y], 10);
+	function parse(path) {
+		var notation = parse.notation(path);
+		for (var x = 0; x < notation.length; x += 1) {
+			if (hasBrackets.test(notation[x])) {
+				notation[x] = notation[x].replace(parts, ',$2').split(',');
+				for (var y = 1; y <= notation[x].length; y += 1) {
+					if (numeric(notation[x][y])) {
+						notation[x][y] = parseInt(notation[x][y], 10);
 					}
 				}
 			}
 		}
-		return apply(Array.prototype.concat, [], notation$$1);
+		return apply(Array.prototype.concat, [], notation);
 	}
 
-	strategies.notation = notation;
-
-	/* eslint-disable no-cond-assign, no-plusplus, no-empty */
-	function read(scope, notation) {
-		var id = 0;
-		var keys = strategies(notation);
-		var total = keys.length;
-		while ((scope = scope[keys[id++]]) && id < total) { }
-		return id < total ? undefined : scope;
-	}
+	parse.notation = function (path) {
+		if (string(path)) {
+			return path.split(dot);
+		}
+		return array(path) ? path : blank;
+	};
 
 	/* eslint-disable no-plusplus */
+
 	function write(target, path, value, strategy) {
 		var id = 0;
 		var notation = path;
 		var nextNotation;
 		var scope = target;
-		var keys = strategies(notation);
+		var keys = parse(notation);
 		var total = keys.length - 1;
 		while (id < total) {
 			notation = keys[id++];
 			nextNotation = keys[id];
 			if (number(nextNotation)) {
 				target[notation] = new Array(parseInt(nextNotation, 10) - 1);
-			}
-			if (primitive(target[notation])) {
+			} else if (primitive(target[notation])) {
 				target[notation] = {};
-				target = target[notation];
-			} else {
-				target = target[notation];
 			}
+			target = target[notation];
 		}
 		notation = keys[id];
 		if (undef(value)) {
 			delete target[notation];
 		} else {
-			target[notation] = strategy(
-				value,
-				target[notation],
-				notation,
-				keys
-			);
+			target[notation] = strategy(value, target[notation], notation, keys);
 		}
 		return scope;
 	}
 
-	/*!
-	 * Takes a function and returns a new one that will always have a particular context.
-	 * @param fn: The function whose context will be changed.
-	 * @param context: The object to which the context (this) of the function should be set.
-	 * @param ...rest: Prefix arguments.
-	 */
-	function proxy(fn, context) {
-		var args = slice(arguments, 2);
-		var bind = function () {
-			return apply(fn, context, args.concat(slice(arguments)));
+	/* eslint-disable no-restricted-syntax */
+
+	function normalize(object, strategy) {
+		for (var key in object) {
+			if (ownProperty(object, key)) {
+				write(object, key, deletePropertyAt(object, key), strategy);
+			}
+		}
+		return object;
+	}
+
+	function read(scope, notation) {
+		var id = 0;
+		var keys = parse(notation);
+		var total = keys.length;
+		for (; id < total; id += 1) {
+			if (scope) {
+				var key = keys[id];
+				scope = scope[key];
+			}
+		}
+		return id < total ? undefined : scope;
+	}
+
+	function resolve(scope, path, args, blindly) {
+		var part = read(scope, path);
+		if (callable(part)) {
+			return apply(part, scope, args, blindly);
+		}
+		return part;
+	}
+
+	function resolver(scope, scopeBlindly) {
+		return function (path, blindly) {
+			blindly = undef(blindly) ? scopeBlindly : blindly;
+			return resolve(scope, path, slice(arguments, 1), blindly);
 		};
-		bind.__originalFn__ = bind.__originalFn__ || fn;
-		return bind;
 	}
 
 	/* eslint-disable no-restricted-syntax */
+
 	/**
-	 *
-	 * @function
-	 * @memberof utility
-	 * @param {Object} context
-	 * @param {Boolean} getNum
-	 * @returns {Array}
+	 * A global GUID counter for objects.
 	 */
-	function keys(object, getEnum) {
-		if (object == null) { return []; }
-		if (Object.keys && !getEnum) {
-			return Object.keys(object);
-		}
-		var properties = [];
-		for (var key in object) {
-			if (getEnum || ownProperty(object, key)) {
-				properties[properties.length] = key;
-			}
-		}
-		return properties;
-	}
+	var guid = 0;
 
-	var assign = function (strategy) {
-		var notation = '';
-		return function assign(target) {
-			var args = slice(arguments);
-			var output = target == null ? {} : target;
-			for (var ix = 1; ix < args.length; ix += 1) {
-				var from = args[ix];
-				var keyList = keys(from);
-				for (var iy = 0; iy < keyList.length; iy += 1) {
-					var key = keyList[iy];
-					var outputValue = output[key];
-					var sourceValue = from[key];
-					if (array(outputValue) || array(sourceValue)) {
-						var f = slice(sourceValue);
-						var o = slice(outputValue);
-						output[key] = strategy(f, o, (notation + "." + key), keyList);
-					} else if (callable(outputValue) || callable(sourceValue)) {
-						output[key] = strategy(sourceValue, outputValue, (notation + "." + key), keyList);
-					} else if (object(outputValue) || object(sourceValue)) {
-						var cn = notation;
-						notation = (cn ? (cn + ".") : '') + key;
-						output[key] = assign(outputValue, sourceValue);
-						notation = cn;
-					} else {
-						output[key] = strategy(sourceValue, outputValue, (notation + "." + key), keyList);
-					}
-				}
-			}
-			return output;
-		};
-	};
-
-	function validate(scope, instance, fns) {
-		var cache = {};
-		var acc = '@';
-		for (var id = 0, key = (void 0); id < fns.length; id += 1) {
-			key = fns[id];
-			if (scope[key]) {
-				scope[acc + key] = scope[key];
-				cache[key] = scope[key];
-			}
-			scope[key] = proxy(instance[key], instance);
-		}
-		return function (flush) {
-			if (flush) {
-				for (var id = 0, key = (void 0); id < fns.length; id += 1) {
-					key = fns[id];
-					if (cache[key]) {
-						scope[key] = cache[key];
-						delete scope[acc + key];
-					} else {
-						delete scope[key];
-					}
-				}
-			}
-			return scope;
-		};
-	}
-
-	function assignDefault(value, target) {
-		if (array(target)) {
-			return target.concat(value);
-		}
-		return value;
-	}
-
-	function dotDefault(value) {
-		return value;
-	}
-
-	/* global window */
-	/* eslint-disable no-console, spaced-comment, new-cap, comma-dangle, no-restricted-syntax */
-	/*!
-	 * Public methods.
-	 */
-	var fns = 'res exe cfg get set'.split(' ');
-
-	/*!
+	/**
 	 * Mixing behaviors.
 	 */
 	var assignStrategy = assign(assignDefault);
 
-	/*!
-	 * A global GUID counter for objects.
-	 */
-	var guid = 1;
-
-	/*!
-	 * Define a local copy of `DotCfg`.
-	 * @param namespace: A string containing a qualified name to identify objects from.
-	 * @param scope: A object that have system-wide relevance.
-	 * @param strategy: A function that configures the input values.
-	 */
-	var DotCfg = function (namespace/*?*/, scope/*?*/, strategy/*?*/) {
-		if (!primitive(namespace)) {
-			strategy = scope;
-			scope = namespace;
-			namespace = undefined;
-		}
-		var self = primitive(scope) ? env : scope;
-		var fn = callable(strategy) ? strategy : dotDefault;
-		return new DotCfg.fn.init(namespace, self, fn);
-	};
-
-	/*!
+	/**
 	 * Create a instance of `DotCfg`.
 	 * @param namespace: A string containing a qualified name to identify objects from.
 	 * @param scope: A object that have system-wide relevance.
 	 * @param strategy: A function that configures the input values.
 	 */
-	var init = function (namespace/*?*/, scope/*?*/, strategy/*?*/) {
-		if (string(namespace)) {
-			scope[namespace] = scope[namespace] || Object.create(null);
-			scope = scope[namespace];
-		}
-		this.strategy = strategy;
-		this.extends = proxy(assign(strategy), this, scope);
-		this.namespace = namespace || ("dot" + guid);
-		this.scope = validate(scope, this, fns);
-		guid += 1;
-		return this.scope();
-	};
-
-	/*!
-	 * Write/Read/Delete/Update a config with strategy method if needed.
-	 * @param notation:
-	 * @param value:
-	 * @param strategy:
-	 */
-	var cfg = function (notation/*?*/, value/*?*/, strategy/*?*/) {
-		var hasArg = arguments.length > 1;
-		if (!notation) {
-			return this.scope(true);
-		}
-		if (notation === true) {
-			var cp = assignStrategy({}, this.scope());
-			for (var id = 0, key = (void 0), acc = (void 0); id < fns.length; id += 1) {
-				key = fns[id];
-				acc = "@" + key;
-				if (cp[acc]) {
-					cp[key] = cp[acc];
-					delete cp[acc];
-				} else {
-					delete cp[key];
-				}
+	function DotCfg(namespace, scope, strategy) {
+		if (instanceOf(DotCfg, this)) {
+			if (exotic(namespace)) {
+				strategy = scope;
+				scope = namespace;
+				namespace = undefined;
 			}
-			return cp;
-		}
-		if (primitive(notation)) {
-			return hasArg ? this.set(notation, value, strategy) : this.get(notation);
-		}
-		return this.extends(notation);
-	};
-
-	/*!
-	 * Read safely a key containing a function or a simple property.
-	 * @param notation: A object path.
-	 * @param ...rest: Arguments for the object.
-	 */
-	var res = function (notation/*!*/) {
-		var scope = this.scope();
-		var part = read(scope, notation);
-		var args = slice(arguments, 1);
-		return callable(part) ? apply(part, scope, args) : part;
-	};
-
-	/*!
-	 * *** DEPRECATED METHOD ***
-	 * Read safely a key containing a function or a simple property.
-	 * @param notation: A object path.
-	 * @param ...rest: Arguments for the object.
-	 */
-	var exe = function (notation/*!*/) {
-		if (callable(console && console.warn)) {
-			console.warn('DotCfg: "exe" method is deprecated, call "res" method instead!');
-		}
-		return res(notation);
-	};
-
-	/*!
-	 * Write in scope.
-	 * @param notation: A object path.
-	 * @param value: Arguments for the object.
-	 * @param strategy: Arguments for the object.
-	 */
-	var setter = function (notation/*!*/, value/*!*/, strategy/*?*/) {
-		var this$1 = this;
-
-		var fn = !undef(value) && callable(strategy) ? strategy : this.strategy;
-		if (object(notation)) {
-			var context;
-			for (var key in notation) {
-				if (ownProperty(notation, key)) {
-					context = write(this$1.scope(), key, notation[key], fn);
-				}
+			if (primitive(scope)) {
+				scope = env;
 			}
-			return context;
+			if (string(namespace)) {
+				scope[namespace] = scope[namespace] || {};
+				scope = scope[namespace];
+			}
+			this.strategy = as(Function, strategy, dotDefault);
+			this.extends = proxy(assign(this.strategy), this, scope);
+			this.namespace = as(String, namespace, ("dot" + (guid += 1)));
+			this.scope = normalize(scope, this.strategy);
+			return this;
 		}
-		return write(this.scope(), notation, value, fn);
-	};
+		return new DotCfg(namespace, scope, strategy);
+	}
 
-	/*!
-	 * Read scope notation.
-	 * @param notation: A object path.
-	 * @param defaultValue: A fallback value.
+	/**
+	 * Static methods
 	 */
-	var getter = function (notation/*!*/, defaultValue/*?*/) {
-		var value = read(this.scope(), notation);
-		return undef(value) ? defaultValue : value;
-	};
+	DotCfg.strategy = dotDefault;
+	DotCfg.assign = assignStrategy;
+	DotCfg.normalize = normalize;
+	DotCfg.resolver = resolver;
+	DotCfg.resolve = resolve;
+	DotCfg.write = write;
+	DotCfg.read = read;
 
-	/*!
-	 * @public Methods and properties.
+	/**
+	 * Public methods and properties.
 	 */
 	DotCfg.prototype = {
 		constructor: DotCfg,
-		get: getter,
-		set: setter,
-		init: init,
-		cfg: cfg,
-		res: res,
-		exe: exe,
-	};
 
-	/*!
-	 * Expose `DotCfg` and some static methods.
-	 * @static strategy: Default notation strategy.
-	 * @static assign: Default mixing strategy.
-	 */
-	DotCfg.fn = DotCfg.prototype;
-	DotCfg.fn.init.prototype = DotCfg.fn;
-	DotCfg.strategy = dotDefault;
-	DotCfg.assign = assignStrategy;
+		/**
+		 * Write in scope.
+		 * @param notation: A object path.
+		 * @param value: Arguments for the object.
+		 * @param strategy: Arguments for the object.
+		 */
+		set: function set(notation, value, strategy) {
+			var this$1 = this;
+
+			var fn = !undef(value) && callable(strategy) ? strategy : this.strategy;
+			if (object(notation)) {
+				var context;
+				for (var key in notation) {
+					if (ownProperty(notation, key)) {
+						context = write(this$1.scope, key, notation[key], fn);
+					}
+				}
+				return context;
+			}
+			write(this.scope, notation, value, fn);
+			return this;
+		},
+
+		/**
+		 * Read scope notation.
+		 * @param notation: A object path.
+		 * @param defaultValue: A fallback value.
+		 */
+		get: function get(notation, defaultValue) {
+			var value = read(this.scope, notation);
+			return undef(value) ? defaultValue : value;
+		},
+
+		/**
+		 * Write/Read/Delete/Update a config with strategy method if needed.
+		 * @param notation: A object path.
+		 * @param value: Arguments for the object.
+		 * @param strategy: Arguments for the object.
+		 */
+		cfg: function cfg(notation, value, strategy) {
+			var hasArg = arguments.length > 1;
+			if (!notation) {
+				return this.scope;
+			}
+			if (primitive(notation)) {
+				return hasArg ? this.set(notation, value, strategy) : this.get(notation);
+			}
+			return this.extends(notation);
+		},
+
+		/**
+		 * Read safely a key containing a function or a simple property.
+		 * @param notation: A object path.
+		 * @param ...rest: Arguments for the object.
+		 */
+		res: function res(notation) {
+			return resolve(this.scope, notation, slice(arguments, 1), false);
+		},
+	};
 
 	return DotCfg;
 

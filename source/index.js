@@ -1,22 +1,24 @@
 /* eslint-disable no-restricted-syntax */
 import { env } from 'describe-type/source/@/env.js';
-import apply from 'describe-type/source/@/apply.js';
 import slice from 'describe-type/source/@/slice.js';
 import instanceOf from 'describe-type/source/is/instanceOf.js';
 import ownProperty from 'describe-type/source/has/ownProperty.js';
 import exotic from 'describe-type/source/is/exotic.js';
 import primitive from 'describe-type/source/is/primitive.js';
 import callable from 'describe-type/source/is/callable.js';
-import as from 'describe-type/source/as/as.instanceOf.js';
+import as from 'describe-type/source/as/as.any.js';
 import string from 'describe-type/source/is/string.js';
 import object from 'describe-type/source/is/object.js';
 import undef from 'describe-type/source/is/undef.js';
 import assignStrategyDefault from './strategies/assignDefault.js';
 import dotStrategyDefault from './strategies/dotDefault.js';
 import proxy from './@/proxy.js';
-import read from './core/read.js';
-import write from './core/write.js';
 import assign from './core/assign.js';
+import normalize from './core/normalize.js';
+import read from './core/read.js';
+import resolve from './core/resolve.js';
+import resolver from './core/resolver.js';
+import write from './core/write.js';
 
 /**
  * A global GUID counter for objects.
@@ -35,37 +37,38 @@ const assignStrategy = assign(assignStrategyDefault);
  * @param strategy: A function that configures the input values.
  */
 function DotCfg(namespace, scope, strategy) {
-	if (exotic(namespace)) {
-		strategy = scope;
-		scope = namespace;
-		namespace = undefined;
-	}
-	if (primitive(scope)) {
-		scope = env;
-	}
-	if (string(namespace)) {
-		scope[namespace] = scope[namespace] || {};
-		scope = scope[namespace];
-	}
 	if (instanceOf(DotCfg, this)) {
+		if (exotic(namespace)) {
+			strategy = scope;
+			scope = namespace;
+			namespace = undefined;
+		}
+		if (primitive(scope)) {
+			scope = env;
+		}
+		if (string(namespace)) {
+			scope[namespace] = scope[namespace] || {};
+			scope = scope[namespace];
+		}
 		this.strategy = as(Function, strategy, dotStrategyDefault);
 		this.extends = proxy(assign(this.strategy), this, scope);
 		this.namespace = as(String, namespace, `dot${guid += 1}`);
-		this.scope = scope;
+		this.scope = normalize(scope, this.strategy);
 		return this;
 	}
 	return new DotCfg(namespace, scope, strategy);
 }
 
 /**
- * Static method to assign strategy.
+ * Static methods
  */
 DotCfg.strategy = dotStrategyDefault;
-
-/**
- * Static method to assign.
- */
 DotCfg.assign = assignStrategy;
+DotCfg.normalize = normalize;
+DotCfg.resolver = resolver;
+DotCfg.resolve = resolve;
+DotCfg.write = write;
+DotCfg.read = read;
 
 /**
  * Public methods and properties.
@@ -115,6 +118,9 @@ DotCfg.prototype = {
 		if (!notation) {
 			return this.scope;
 		}
+		if (notation === true) {
+			return assignStrategy({}, this.scope);
+		}
 		if (primitive(notation)) {
 			return hasArg ? this.set(notation, value, strategy) : this.get(notation);
 		}
@@ -127,9 +133,7 @@ DotCfg.prototype = {
 	 * @param ...rest: Arguments for the object.
 	 */
 	res(notation) {
-		const part = read(this.scope, notation);
-		const args = slice(arguments, 1);
-		return callable(part) ? apply(part, this.scope, args) : part;
+		return resolve(this.scope, notation, slice(arguments, 1), false);
 	},
 };
 

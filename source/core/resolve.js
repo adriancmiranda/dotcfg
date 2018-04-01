@@ -1,11 +1,11 @@
 import apply from 'describe-type/source/@/apply.js';
-import slice from 'describe-type/source/@/slice.js';
 import callable from 'describe-type/source/is/callable.js';
 import read from './read';
 
-export default function resolve(scope) {
-	return function (path) {
-		const part = read(scope, path);
-		return callable(part) ? apply(part, scope, slice(arguments, 1)) : part;
-	};
+export default function resolve(scope, path, args, blindly) {
+	const part = read(scope, path);
+	if (callable(part)) {
+		return apply(part, scope, args, blindly);
+	}
+	return part;
 }

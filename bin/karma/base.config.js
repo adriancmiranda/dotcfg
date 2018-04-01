@@ -40,8 +40,12 @@ const karma = {
   }, {
     pattern: 'test/unit/index.js',
     watched: true,
+  }, {
+    pattern: 'source/**/*.js',
+    watched: true,
   }],
   preprocessors: {
+    'source/**/*.js': ['webpack', 'sourcemap'],
     'test/unit/**/{index,*.unit}.js': ['webpack', 'sourcemap'],
     'test/fixtures/**/{index,*.fixture}.js': ['webpack', 'sourcemap'],
     'test/fixtures/**/*.fixture.html': ['html2js'],
