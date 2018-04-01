@@ -51,9 +51,9 @@ function DotCfg(namespace, scope, strategy) {
 			scope = scope[namespace];
 		}
 		this.strategy = as(Function, strategy, dotStrategyDefault);
-		this.extends = proxy(assign(this.strategy), this, scope);
-		this.namespace = as(String, namespace, `dot${guid += 1}`);
 		this.scope = normalize(scope, this.strategy);
+		this.extends = proxy(assign(this.strategy), this, this.scope);
+		this.namespace = as(String, namespace, `dot${guid += 1}`);
 		return this;
 	}
 	return new DotCfg(namespace, scope, strategy);

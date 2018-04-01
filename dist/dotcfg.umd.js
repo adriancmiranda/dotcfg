@@ -1,9 +1,9 @@
 /*!
  * 
- * ~~~~ dotcfg v1.7.0
+ * ~~~~ dotcfg v1.7.1
  * 
- * @commit 04430a204d3194bc0764968e1f96934c2a61e6c3
- * @moment Sunday, April 1, 2018 3:38 PM
+ * @commit 428709f38b586befba0d04ce3b03fc0bfeaab076
+ * @moment Sunday, April 1, 2018 4:19 PM
  * @homepage https://github.com/adriancmiranda/dotcfg
  * @author Adrian C. Miranda
  * @license (c) 2016-2021 Adrian C. Miranda
@@ -642,9 +642,9 @@
 				scope = scope[namespace];
 			}
 			this.strategy = as(Function, strategy, dotDefault);
-			this.extends = proxy(assign(this.strategy), this, scope);
-			this.namespace = as(String, namespace, ("dot" + (guid += 1)));
 			this.scope = normalize(scope, this.strategy);
+			this.extends = proxy(assign(this.strategy), this, this.scope);
+			this.namespace = as(String, namespace, ("dot" + (guid += 1)));
 			return this;
 		}
 		return new DotCfg(namespace, scope, strategy);

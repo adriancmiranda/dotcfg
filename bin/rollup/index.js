@@ -14,7 +14,6 @@ const watch = require('./watch');
 
 module.exports = file => ({
 	watch,
-	indent: env.INDENT,
 	input: file.source,
 	output: targets.parseOutput(file),
 	plugins: [

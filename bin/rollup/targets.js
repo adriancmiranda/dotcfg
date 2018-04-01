@@ -7,6 +7,7 @@ const target = (name, outputPath, format) => ({
   sourcemap: env.MINIFY,
   file: `${outputPath}.${format}${env.MINIFY ? '.min' : ''}.js`,
   banner: env.SIGN ? flag : '',
+  indent: env.INDENT,
   format,
   name,
 });
