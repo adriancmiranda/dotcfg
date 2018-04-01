@@ -2,8 +2,8 @@
  * 
  * ~~~~ dotcfg v1.7.1
  * 
- * @commit 428709f38b586befba0d04ce3b03fc0bfeaab076
- * @moment Sunday, April 1, 2018 4:19 PM
+ * @commit e7f05c39ba47b264709b371df78fdcdf753f4c52
+ * @moment Sunday, April 1, 2018 4:27 PM
  * @homepage https://github.com/adriancmiranda/dotcfg
  * @author Adrian C. Miranda
  * @license (c) 2016-2021 Adrian C. Miranda
