@@ -124,7 +124,8 @@ DotCfg.prototype = {
 		if (primitive(notation)) {
 			return hasArg ? this.set(notation, value, strategy) : this.get(notation);
 		}
-		return this.extends(notation);
+		this.extends(notation);
+		return this;
 	},
 
 	/**
