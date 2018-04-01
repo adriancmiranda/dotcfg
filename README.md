@@ -5,10 +5,29 @@
 
 ## Getting Started
 
-### Install:
+## Installation
 
 ```bash
 npm install dotcfg --save
+```
+
+### Links to CDN
+
+* [dotcfg.umd.js](https://rawgit.com/adriancmiranda/dotcfg/master/dist/dotcfg.umd.js)
+* [dotcfg.umd.min.js](https://cdn.rawgit.com/adriancmiranda/dotcfg/master/dist/dotcfg.umd.min.js)
+* [dotcfg.umd.min.js.map](https://cdn.rawgit.com/adriancmiranda/dotcfg/master/dist/dotcfg.umd.min.js.map)
+* [dotcfg.umd.min.js.gz](https://cdn.rawgit.com/adriancmiranda/dotcfg/master/dist/dotcfg.umd.min.js.gz)
+
+Use this URL for dev/testing
+
+```html
+<script src="https://rawgit.com/adriancmiranda/dotcfg/master/dist/dotcfg.umd.js"></script>
+```
+
+Use this URL in production
+
+```html
+<script src="https://cdn.rawgit.com/adriancmiranda/dotcfg/master/dist/dotcfg.umd.min.js"></script>
 ```
 
 ### Usage:
