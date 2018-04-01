@@ -5,30 +5,38 @@ interface DotCfg {
 	 * @param value:
 	 * @param strategy:
 	 */
-	cfg(notation: string|boolean|Object, value?: any, strategy?: Function): any;
-
-  /**
-   * Read safely a key containing a function or a simple property.
-   * @param notation: A object path.
-   * @param ...rest: Arguments for the object.
-   */
-  resolve(notation: string, ...rest: any[]):any
+	cfg(notation: string|array|boolean|Object, value?: any, strategy?: Function): any;
 
 	/**
 	 * Read safely a key containing a function or a simple property.
 	 * @param notation: A object path.
 	 * @param ...rest: Arguments for the object.
 	 */
-	exe(notation: string, ...rest: any[]):any
+	res(notation: string|array, ...rest: any[]): any;
+
+	/**
+	 * Write in scope.
+	 * @param notation: A object path.
+	 * @param value: Arguments for the object.
+	 * @param strategy: Arguments for the object.
+	 */
+	set(notation: string|array|Object, value: any, strategy?: Function): DotCfg;
+
+	/**
+	 * Read scope notation.
+	 * @param notation: A object path.
+	 * @param defaultValue: A fallback value.
+	 */
+	get(notation: string|array|Object, defaultValue?: any): any;
 
 	/**
 	 * Should be named to avoid ambiguity and minimize the risk of naming collisions.
 	 */
-  namespace: string;
+	namespace: string;
 
-  /**
-   * A object that have system-wide relevance.
-   */
+	/**
+	 * A object that have system-wide relevance.
+	 */
 	scope: any;
 
 	/**
