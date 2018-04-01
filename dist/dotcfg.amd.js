@@ -1,9 +1,9 @@
 /*!
  * 
- * ~~~~ dotcfg v1.7.1
+ * ~~~~ dotcfg v1.7.2
  * 
- * @commit e7f05c39ba47b264709b371df78fdcdf753f4c52
- * @moment Sunday, April 1, 2018 4:27 PM
+ * @commit 758a4a1ddf2db2d3a7ec6b3c740774d00c5499a6
+ * @moment Sunday, April 1, 2018 6:32 PM
  * @homepage https://github.com/adriancmiranda/dotcfg
  * @author Adrian C. Miranda
  * @license (c) 2016-2021 Adrian C. Miranda
@@ -713,7 +713,8 @@ define(function () { 'use strict';
 			if (primitive(notation)) {
 				return hasArg ? this.set(notation, value, strategy) : this.get(notation);
 			}
-			return this.extends(notation);
+			this.extends(notation);
+			return this;
 		},
 
 		/**
