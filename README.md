@@ -69,14 +69,14 @@ NYC.cfg('env.url.host');
 NYC.cfg('resolve.extensions.1');
 // <= { name:'.js' }
 
-NYC.resolve.extensions[1].name;
+NYC.scope.resolve.extensions[1].name;
 // <= '.js'
 
 NYC.cfg(true);
 /*! true: brings a deep copy of raw object. */
 
 NYC.cfg();
-/*! false/undefined: flush dotcfg methods. */
+/*! false/undefined: brings dotcfg object. */
 ```
 
 [travis]: https://travis-ci.org/adriancmiranda/dotcfg.svg?branch=master
