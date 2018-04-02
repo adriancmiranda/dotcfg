@@ -13,10 +13,29 @@ npm install dotcfg --save
 
 ### Links to CDN
 
+#### umd
 * [dotcfg.umd.js](https://rawgit.com/adriancmiranda/dotcfg/master/dist/dotcfg.umd.js)
 * [dotcfg.umd.min.js](https://cdn.rawgit.com/adriancmiranda/dotcfg/master/dist/dotcfg.umd.min.js)
 * [dotcfg.umd.min.js.map](https://cdn.rawgit.com/adriancmiranda/dotcfg/master/dist/dotcfg.umd.min.js.map)
 * [dotcfg.umd.min.js.gz](https://cdn.rawgit.com/adriancmiranda/dotcfg/master/dist/dotcfg.umd.min.js.gz)
+
+#### amd
+* [dotcfg.amd.js](https://rawgit.com/adriancmiranda/dotcfg/master/dist/dotcfg.amd.js)
+* [dotcfg.amd.min.js](https://cdn.rawgit.com/adriancmiranda/dotcfg/master/dist/dotcfg.amd.min.js)
+* [dotcfg.amd.min.js.map](https://cdn.rawgit.com/adriancmiranda/dotcfg/master/dist/dotcfg.amd.min.js.map)
+* [dotcfg.amd.min.js.gz](https://cdn.rawgit.com/adriancmiranda/dotcfg/master/dist/dotcfg.amd.min.js.gz)
+
+#### iife
+* [dotcfg.iife.js](https://rawgit.com/adriancmiranda/dotcfg/master/dist/dotcfg.iife.js)
+* [dotcfg.iife.min.js](https://cdn.rawgit.com/adriancmiranda/dotcfg/master/dist/dotcfg.iife.min.js)
+* [dotcfg.iife.min.js.map](https://cdn.rawgit.com/adriancmiranda/dotcfg/master/dist/dotcfg.iife.min.js.map)
+* [dotcfg.iife.min.js.gz](https://cdn.rawgit.com/adriancmiranda/dotcfg/master/dist/dotcfg.iife.min.js.gz)
+
+#### cjs
+* [dotcfg.cjs.js](https://rawgit.com/adriancmiranda/dotcfg/master/dist/dotcfg.cjs.js)
+* [dotcfg.cjs.min.js](https://cdn.rawgit.com/adriancmiranda/dotcfg/master/dist/dotcfg.cjs.min.js)
+* [dotcfg.cjs.min.js.map](https://cdn.rawgit.com/adriancmiranda/dotcfg/master/dist/dotcfg.cjs.min.js.map)
+* [dotcfg.cjs.min.js.gz](https://cdn.rawgit.com/adriancmiranda/dotcfg/master/dist/dotcfg.cjs.min.js.gz)
 
 Use this URL for dev/testing
 
