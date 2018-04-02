@@ -60,17 +60,6 @@ function DotCfg(namespace, scope, strategy) {
 }
 
 /**
- * Static methods
- */
-DotCfg.strategy = dotStrategyDefault;
-DotCfg.assign = assignStrategy;
-DotCfg.normalize = normalize;
-DotCfg.resolver = resolver;
-DotCfg.resolve = resolve;
-DotCfg.write = write;
-DotCfg.read = read;
-
-/**
  * Public methods and properties.
  */
 DotCfg.prototype = {
@@ -137,5 +126,16 @@ DotCfg.prototype = {
 		return resolve(this.scope, notation, slice(arguments, 1), false);
 	},
 };
+
+/**
+ * Static methods
+ */
+DotCfg.strategy = dotStrategyDefault;
+DotCfg.assign = assignStrategy;
+DotCfg.normalize = normalize;
+DotCfg.resolver = resolver;
+DotCfg.resolve = resolve;
+DotCfg.write = write;
+DotCfg.read = read;
 
 export default DotCfg;
