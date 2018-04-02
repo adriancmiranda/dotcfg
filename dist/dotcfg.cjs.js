@@ -1,9 +1,9 @@
 /*!
  * 
- * ~~~~ dotcfg v1.7.2
+ * ~~~~ dotcfg v1.7.3
  * 
- * @commit 758a4a1ddf2db2d3a7ec6b3c740774d00c5499a6
- * @moment Sunday, April 1, 2018 6:32 PM
+ * @commit 23514e57bf38288df8548fbb66182579655976fa
+ * @moment Sunday, April 1, 2018 11:41 PM
  * @homepage https://github.com/adriancmiranda/dotcfg
  * @author Adrian C. Miranda
  * @license (c) 2016-2021 Adrian C. Miranda
@@ -511,17 +511,22 @@ function numeric(value) {
 	}
 }
 
-var hasBrackets = /\[|\]/;
-var parts = /(\[{1}\s{0,1})(.{0,}?\]{0,})(\s{0,1}\]{1})/g;
-var dot = /\.(?![^[]*\])/g;
-var blank = [];
+// pattern(s)
+var reHasBrackets = /\[|\]/;
+var reStartWithBracket = /^\[/;
+var reParts = /(\[{1}\s{0,1})(.{0,}?\]{0,})(\s{0,1}\]{1})/g;
+var reDot = /\.(?![^[]*\])/g;
 
 function parse(path) {
 	var notation = parse.notation(path);
 	for (var x = 0; x < notation.length; x += 1) {
-		if (hasBrackets.test(notation[x])) {
-			notation[x] = notation[x].replace(parts, ',$2').split(',');
-			for (var y = 1; y <= notation[x].length; y += 1) {
+		if (reHasBrackets.test(notation[x])) {
+			if (reStartWithBracket.test(notation[x])) {
+				notation[x] = [notation[x].replace(reParts, '$2')];
+			} else {
+				notation[x] = notation[x].replace(reParts, ',$2').split(',');
+			}
+			for (var y = 0; y < notation[x].length; y += 1) {
 				if (numeric(notation[x][y])) {
 					notation[x][y] = parseInt(notation[x][y], 10);
 				}
@@ -533,9 +538,9 @@ function parse(path) {
 
 parse.notation = function (path) {
 	if (string(path)) {
-		return path.split(dot);
+		return path.split(reDot);
 	}
-	return array(path) ? path : blank;
+	return array(path) ? path : [];
 };
 
 /* eslint-disable no-plusplus */
@@ -568,13 +573,20 @@ function write(target, path, value, strategy) {
 
 /* eslint-disable no-restricted-syntax */
 
-function normalize(object, strategy) {
-	for (var key in object) {
-		if (ownProperty(object, key)) {
-			write(object, key, deletePropertyAt(object, key), strategy);
+function normalize(hash, strategy, recursive) {
+	hash = as(Object, hash, {});
+	strategy = as(Function, strategy, dotDefault);
+	recursive = as(Boolean, recursive, true);
+	for (var key in hash) {
+		if (ownProperty(hash, key)) {
+			if (recursive && object(hash[key])) {
+				normalize(hash[key], strategy);
+			} else {
+				write(hash, key, deletePropertyAt(hash, key), strategy);
+			}
 		}
 	}
-	return object;
+	return hash;
 }
 
 function read(scope, notation) {
@@ -638,7 +650,7 @@ function DotCfg(namespace, scope, strategy) {
 			scope = scope[namespace];
 		}
 		this.strategy = as(Function, strategy, dotDefault);
-		this.scope = normalize(scope, this.strategy);
+		this.scope = normalize(scope, this.strategy, false);
 		this.extends = proxy(assign(this.strategy), this, this.scope);
 		this.namespace = as(String, namespace, ("dot" + (guid += 1)));
 		return this;
@@ -647,27 +659,45 @@ function DotCfg(namespace, scope, strategy) {
 }
 
 /**
- * Static methods
- */
-DotCfg.strategy = dotDefault;
-DotCfg.assign = assignStrategy;
-DotCfg.normalize = normalize;
-DotCfg.resolver = resolver;
-DotCfg.resolve = resolve;
-DotCfg.write = write;
-DotCfg.read = read;
-
-/**
  * Public methods and properties.
  */
 DotCfg.prototype = {
 	constructor: DotCfg,
 
 	/**
+	 *
+	 * @param recursive:
+	 * @returns DotCfg
+	 */
+	normalize: function normalize$1(recursive) {
+		normalize(this.scope, this.strategy, recursive);
+		return this;
+	},
+
+	/**
+	 * Read safely a key containing a function or a simple property.
+	 * @param notation: A object path.
+	 * @param ...rest: Arguments for the object.
+	 * @returns any
+	 */
+	resolve: function resolve$1(notation) {
+		return resolve(this.scope, notation, slice(arguments, 1), false);
+	},
+
+	// @deprecated
+	res: function res(notation) {
+		if (callable(console && console.warn)) {
+			console.warn('DotCfg: "res" method is deprecated, call "resolve" method instead!');
+		}
+		return this.resolve(notation);
+	},
+
+	/**
 	 * Write in scope.
 	 * @param notation: A object path.
 	 * @param value: Arguments for the object.
 	 * @param strategy: Arguments for the object.
+	 * @returns DotCfg
 	 */
 	set: function set(notation, value, strategy) {
 		var this$1 = this;
@@ -690,6 +720,7 @@ DotCfg.prototype = {
 	 * Read scope notation.
 	 * @param notation: A object path.
 	 * @param defaultValue: A fallback value.
+	 * @returns any
 	 */
 	get: function get(notation, defaultValue) {
 		var value = read(this.scope, notation);
@@ -701,6 +732,7 @@ DotCfg.prototype = {
 	 * @param notation: A object path.
 	 * @param value: Arguments for the object.
 	 * @param strategy: Arguments for the object.
+	 * @returns DotCfg
 	 */
 	cfg: function cfg(notation, value, strategy) {
 		var hasArg = arguments.length > 1;
@@ -716,15 +748,17 @@ DotCfg.prototype = {
 		this.extends(notation);
 		return this;
 	},
-
-	/**
-	 * Read safely a key containing a function or a simple property.
-	 * @param notation: A object path.
-	 * @param ...rest: Arguments for the object.
-	 */
-	res: function res(notation) {
-		return resolve(this.scope, notation, slice(arguments, 1), false);
-	},
 };
+
+/**
+ * Static methods
+ */
+DotCfg.strategy = dotDefault;
+DotCfg.assign = assignStrategy;
+DotCfg.normalize = normalize;
+DotCfg.resolver = resolver;
+DotCfg.resolve = resolve;
+DotCfg.write = write;
+DotCfg.read = read;
 
 module.exports = DotCfg;
