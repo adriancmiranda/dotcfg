@@ -1,9 +1,9 @@
 /*!
  * 
- * ~~~~ dotcfg v1.7.3
+ * ~~~~ dotcfg v1.7.4
  * 
- * @commit 23514e57bf38288df8548fbb66182579655976fa
- * @moment Sunday, April 1, 2018 11:41 PM
+ * @commit 2bb392338071b25fdd2d28b7255173ec33adf702
+ * @moment Monday, April 2, 2018 12:55 AM
  * @homepage https://github.com/adriancmiranda/dotcfg
  * @author Adrian C. Miranda
  * @license (c) 2016-2021 Adrian C. Miranda
@@ -584,7 +584,7 @@
 		for (var key in hash) {
 			if (ownProperty(hash, key)) {
 				if (recursive && object(hash[key])) {
-					normalize(hash[key], strategy);
+					normalize(hash[key], strategy, recursive);
 				} else {
 					write(hash, key, deletePropertyAt(hash, key), strategy);
 				}
