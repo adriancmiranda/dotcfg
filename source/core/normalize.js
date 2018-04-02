@@ -3,7 +3,7 @@ import ownProperty from 'describe-type/source/has/ownProperty.js';
 import as from 'describe-type/source/as/as.any.js';
 import object from 'describe-type/source/is/object.js';
 import deletePropertyAt from '../@/deletePropertyAt.js';
-import dotStrategyDefault from './strategies/dotDefault.js';
+import dotStrategyDefault from '../strategies/dotDefault.js';
 import write from './write.js';
 
 export default function normalize(hash, strategy, recursive) {

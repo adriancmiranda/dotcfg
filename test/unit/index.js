@@ -1,5 +1,6 @@
 describe('[dotcfg]', () => {
 	require('./assign.unit');
+	require('./normalize.unit');
 	require('./parse.unit');
 	require('./read.unit');
 	require('./resolve.unit');

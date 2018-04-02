@@ -21,14 +21,16 @@ describe('instance', () => {
     const dotObject = DotCfg({});
     expect(dotObject.set).toEqual(jasmine.any(Function), 'instance.set function exists');
     expect(dotObject.get).toEqual(jasmine.any(Function), 'instance.get function exists');
-    expect(dotObject.res).toEqual(jasmine.any(Function), 'instance.res function exists');
     expect(dotObject.cfg).toEqual(jasmine.any(Function), 'instance.cfg function exists');
+    expect(dotObject.resolve).toEqual(jasmine.any(Function), 'instance.resolve function exists');
+    expect(dotObject.normalize).toEqual(jasmine.any(Function), 'instance.normalize function exists');
 
-    const dotNamespace = DotCfg('TEST_NS');
+    const dotNamespace = new DotCfg('TEST_NS');
     expect(dotNamespace.cfg).toEqual(jasmine.any(Function), 'instance.cfg function exists');
-    expect(dotNamespace.res).toEqual(jasmine.any(Function), 'instance.res function exists');
     expect(dotNamespace.get).toEqual(jasmine.any(Function), 'instance.get function exists');
     expect(dotNamespace.set).toEqual(jasmine.any(Function), 'instance.set function exists');
+    expect(dotNamespace.resolve).toEqual(jasmine.any(Function), 'instance.resolve function exists');
+    expect(dotNamespace.normalize).toEqual(jasmine.any(Function), 'instance.normalize function exists');
 
     const scope = { name: 'NS scope' };
     const dotNamespaceScope = new DotCfg('TEST_NS', scope);
@@ -44,32 +46,32 @@ describe('instance', () => {
   });
 
   it('new normalized instance', () => {
-    const uri = configFixture.data['server.db.uri'];
-    const dot = DotCfg(configFixture.data);
+    const uri = DotCfg(configFixture.mixed).normalize(true).get('server[db.uri]');
+    const dot = DotCfg(configFixture.notation);
     expect(dot.get('server')).toEqual(jasmine.any(Object), '`server` should be an object');
     expect(dot.get('server.db')).toEqual(jasmine.any(Object), '`server.db` should be an object');
-    expect(dot.get('server.db.uri')).toEqual(uri, `\`server.db.uri\` should be ${uri}`);
+    expect(dot.get('server.db.uri')).toEqual(uri, `\`server[db.uri]\` should be ${uri}`);
   });
 
  it('instance.override', () => {
     const scope = {
-      res: 'my res property',
+      resolve: 'my resolve property',
       cfg: 'my cfg property',
       get: 'my get property',
       set: 'my set property',
     };
     const dotNu = new DotCfg(scope);
-    expect(dotNu.get('res')).toEqual(scope.res);
+    expect(dotNu.get('resolve')).toEqual(scope.resolve);
     expect(dotNu.get('cfg')).toEqual(scope.cfg);
     expect(dotNu.get('get')).toEqual(scope.get);
     expect(dotNu.get('set')).toEqual(scope.set);
     expect(dotNu.cfg(true)).toEqual(scope, 'getting everything cleaner');
 
-    dotNu.cfg('res', 'res property changed');
-    expect(dotNu.get('res')).toEqual('res property changed');
+    dotNu.cfg('resolve', 'resolve property changed');
+    expect(dotNu.get('resolve')).toEqual('resolve property changed');
 
     expect(dotNu.cfg(true)).toEqual({
-      res: 'res property changed',
+      resolve: 'resolve property changed',
       cfg: 'my cfg property',
       get: 'my get property',
       set: 'my set property',

@@ -39,6 +39,12 @@ describe('#parse', () => {
     eq('test.💩.char', ['test', '💩', 'char']);
     eq('test.ab', ['test', 'ab']);
     eq('test', ['test']);
+    eq('[0]', ['[0]']);
+    eq('[1]', ['[1]']);
+    eq('[]', ['[]']);
+    eq('[ab]', ['[ab]']);
+    eq('[ab', ['[ab']);
+    eq('[', ['[']);
     eq(['a', 1, {}], ['a', 1, {}]);
     eq(/test\.ab/, []);
     eq(/test.ab/gi, []);
@@ -50,17 +56,19 @@ describe('#parse', () => {
 
   it('parse', () => {
     const eq = deepEqual();
-    eq('test.12[1][a.b.c].spec', ['test', '12', 1, 'a.b.c', 'spec']);
+    eq('test.12[1][a.b.c].spec', ['test', 12, 1, 'a.b.c', 'spec']);
     eq('sample["teste"]', ['sample', '"teste"']);
     eq('sample[""teste""]', ['sample', '""teste""']);
     eq('sample[""teste]', ['sample', '""teste']);
     eq('sample.another[\'teste\']', ['sample', 'another', '\'teste\'']);
     eq("sample.another['teste']", ['sample', 'another', '\'teste\'']);
     eq('sample[]', ['sample', '']);
-    eq('[test[ab]]', ['', 'test[ab]']);
-    eq('[ab]', ['', 'ab']);
+    eq('[test[ab]]', ['test[ab]']);
+    eq('[0]', [0]);
+    eq('[1]', [1]);
+    eq('[]', ['']);
+    eq('[ab]', ['ab']);
     eq('[ab', ['[ab']);
-    eq('[]', ['', '']);
     eq('[', ['[']);
   });
 });

@@ -66,10 +66,39 @@ DotCfg.prototype = {
 	constructor: DotCfg,
 
 	/**
+	 *
+	 * @param recursive:
+	 * @returns DotCfg
+	 */
+	normalize(recursive) {
+		normalize(this.scope, this.strategy, recursive);
+		return this;
+	},
+
+	/**
+	 * Read safely a key containing a function or a simple property.
+	 * @param notation: A object path.
+	 * @param ...rest: Arguments for the object.
+	 * @returns any
+	 */
+	resolve(notation) {
+		return resolve(this.scope, notation, slice(arguments, 1), false);
+	},
+
+	// @deprecated
+	res(notation) {
+		if (callable(console && console.warn)) {
+			console.warn('DotCfg: "res" method is deprecated, call "resolve" method instead!');
+		}
+		return this.resolve(notation);
+	},
+
+	/**
 	 * Write in scope.
 	 * @param notation: A object path.
 	 * @param value: Arguments for the object.
 	 * @param strategy: Arguments for the object.
+	 * @returns DotCfg
 	 */
 	set(notation, value, strategy) {
 		const fn = !undef(value) && callable(strategy) ? strategy : this.strategy;
@@ -90,6 +119,7 @@ DotCfg.prototype = {
 	 * Read scope notation.
 	 * @param notation: A object path.
 	 * @param defaultValue: A fallback value.
+	 * @returns any
 	 */
 	get(notation, defaultValue) {
 		const value = read(this.scope, notation);
@@ -101,6 +131,7 @@ DotCfg.prototype = {
 	 * @param notation: A object path.
 	 * @param value: Arguments for the object.
 	 * @param strategy: Arguments for the object.
+	 * @returns DotCfg
 	 */
 	cfg(notation, value, strategy) {
 		const hasArg = arguments.length > 1;
@@ -115,15 +146,6 @@ DotCfg.prototype = {
 		}
 		this.extends(notation);
 		return this;
-	},
-
-	/**
-	 * Read safely a key containing a function or a simple property.
-	 * @param notation: A object path.
-	 * @param ...rest: Arguments for the object.
-	 */
-	res(notation) {
-		return resolve(this.scope, notation, slice(arguments, 1), false);
 	},
 };
 

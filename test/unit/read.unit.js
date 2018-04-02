@@ -28,6 +28,7 @@ describe('#read', () => {
   it('read', () => {
     expect(read(data, 'name')).toEqual('Unit test');
     expect(read(data, 'list[0]')).toEqual('test_1');
+    expect(read(data.list, '[0]')).toEqual('test_1');
     expect(read(data, 'hello.from.nested.object')).toEqual('This is the object property');
     expect(read(data, 'hello.from.nested.list[0].value')).toEqual('It works!');
     expect(read(data, 'hello.from.nested.list[1].value')).toEqual('It works too!');

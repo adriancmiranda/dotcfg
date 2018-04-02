@@ -11,8 +11,8 @@ describe('#resolver', () => {
     const argB = 'argB';
     const argC = 'argC';
     const fn = (a, b, c) => ({ a: a, b: b, c: c });
-    let res = resolver({ a: { b: { c: fn } } });
-    expect(res('a.b.c', argA, argB, argC)).toEqual({
+    let resolve = resolver({ a: { b: { c: fn } } });
+    expect(resolve('a.b.c', argA, argB, argC)).toEqual({
       a: argA,
       b: argB,
       c: argC,
@@ -20,7 +20,7 @@ describe('#resolver', () => {
 
     // get a.b.c property value
     const propertyValue = 'This is a test';
-    res = resolver({ a: { b: { c: propertyValue } } });
-    expect(res('a.b.c')).toEqual(propertyValue);
+    resolve = resolver({ a: { b: { c: propertyValue } } });
+    expect(resolve('a.b.c')).toEqual(propertyValue);
   });
 });
