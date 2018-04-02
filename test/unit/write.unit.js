@@ -41,5 +41,15 @@ describe('#exists', () => {
     expect(Array.isArray(data.hello.from)).toBe(false);
     expect(data.hello.from['1'].foo).toBe('FOO');
     expect(data.hello.from.length).toBe(undefined);
+
+    write(data, '[0]', 'first', dot);
+    expect(data[0]).toBe('first');
+
+    write(data, '[key]', 'first_key', dot);
+    expect(data.key).toBe('first_key');
+
+    const list = [];
+    write(list, '[0]', 'first', dot);
+    expect(list[0]).toBe('first');
   });
 });
