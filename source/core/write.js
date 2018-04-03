@@ -15,7 +15,8 @@ export default function write(target, path, value, strategy) {
 		notation = keys[id++];
 		nextNotation = keys[id];
 		if (number(nextNotation)) {
-			target[notation] = new Array(parseInt(nextNotation, 10) - 1);
+			const size = parseInt(nextNotation, 10);
+			target[notation] = size ? new Array(size - 1) : [];
 		} else if (primitive(target[notation])) {
 			target[notation] = {};
 		}

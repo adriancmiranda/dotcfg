@@ -51,5 +51,12 @@ describe('#exists', () => {
     const list = [];
     write(list, '[0]', 'first', dot);
     expect(list[0]).toBe('first');
+
+    const empty = [];
+    write(empty, 'hello.from[0]', true, dot);
+    expect(empty.hello.from[0]).toBe(true);
+
+    write(empty, 'hello.from[0].type', '.dot', dot);
+    expect(empty.hello.from[0].type).toBe('.dot');
   });
 });
