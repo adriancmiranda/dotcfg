@@ -1,9 +1,9 @@
 /*!
  * 
- * ~~~~ dotcfg v1.7.4
+ * ~~~~ dotcfg v1.7.6
  * 
- * @commit 2bb392338071b25fdd2d28b7255173ec33adf702
- * @moment Monday, April 2, 2018 12:55 AM
+ * @commit 1f8f008e657a28e422d3f2951023116f7ab04dd7
+ * @moment Tuesday, April 3, 2018 5:46 PM
  * @homepage https://github.com/adriancmiranda/dotcfg
  * @author Adrian C. Miranda
  * @license (c) 2016-2021 Adrian C. Miranda
@@ -560,7 +560,8 @@
 			notation = keys[id++];
 			nextNotation = keys[id];
 			if (number(nextNotation)) {
-				target[notation] = new Array(parseInt(nextNotation, 10) - 1);
+				var size = parseInt(nextNotation, 10);
+				target[notation] = size ? new Array(size - 1) : [];
 			} else if (primitive(target[notation])) {
 				target[notation] = {};
 			}
