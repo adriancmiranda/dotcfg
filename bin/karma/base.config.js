@@ -1,10 +1,9 @@
 const { resolve } = require('path');
-const { DefinePlugin } = require('webpack');
+const { DefinePlugin, SourceMapDevToolPlugin } = require('webpack');
 const { aliases, env, pack, source } = require('../@/config');
 
 const webpack = {
   mode: 'development',
-  plugins: [new DefinePlugin(env)],
   devtool: '#inline-source-map',
   resolve: {
     alias: Object.assign({
@@ -26,6 +25,13 @@ const webpack = {
       },
     }],
   },
+  plugins: [
+    new DefinePlugin(env),
+    new SourceMapDevToolPlugin({
+      filename: null,
+      test: /\.(ts|js)($|\?)/i,
+    }),
+  ],
 };
 
 const karma = {
