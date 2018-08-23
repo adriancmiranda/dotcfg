@@ -1,4 +1,4 @@
-import * as is from 'describe-type/source/is/index.js';
+import * as is from 'describe-type/is/index.next.js';
 import * as strategies from '../strategies/index.js';
 import * as internal from '../@/index.js';
 

@@ -2,11 +2,11 @@ const flow = require('rollup-plugin-flow');
 const nodeResolve = require('rollup-plugin-node-resolve');
 const cjs = require('rollup-plugin-commonjs');
 const optimizeJs = require('rollup-plugin-optimize-js');
-const gzip = require('rollup-plugin-gzip');
-const uglify = require('rollup-plugin-uglify');
+const filesize = require('rollup-plugin-filesize');
 const buble = require('rollup-plugin-buble');
 const alias = require('rollup-plugin-alias');
 const replace = require('rollup-plugin-replace');
+const { terser } = require('rollup-plugin-terser');
 const { minify } = require('uglify-es');
 const { env, aliases, flag, REPLACE_ENV } = require('../@/config');
 const targets = require('./targets');
@@ -24,7 +24,7 @@ module.exports = file => ({
 		flow({ all: false, pretty: true }),
 		alias(Object.assign({ resolve: ['.js', '.json'] }, aliases)),
 	].concat(file.plugins || []).concat(env.MINIFY ? [
-		uglify({ output: { preamble: flag, ascii_only: true } }, minify),
+		terser({ output: { preamble: flag, ascii_only: true } }, minify),
 		optimizeJs(),
-	].concat(env.GZIP ? [gzip()] : []) : []),
+	].concat(env.GZIP ? [filesize()] : []) : []),
 });

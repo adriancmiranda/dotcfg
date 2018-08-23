@@ -1,8 +1,8 @@
-import keys from 'describe-type/source/@/keys.js';
-import slice from 'describe-type/source/@/slice.js';
-import array from 'describe-type/source/is/array.js';
-import object from 'describe-type/source/is/object.js';
-import callable from 'describe-type/source/is/callable.js';
+import keys from 'describe-type/ponyfill/Object.keys.next.js';
+import slice from 'describe-type/internal/slice.next.js';
+import array from 'describe-type/is/array/index.next.js';
+import object from 'describe-type/is/object/index.next.js';
+import callable from 'describe-type/is/callable.next.js';
 
 export default (strategy) => {
 	let notation = '';

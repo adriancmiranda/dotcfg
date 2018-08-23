@@ -12,6 +12,7 @@ rules:
   import/extensions: off
   func-names: off
   no-underscore-dangle: off
+  object-curly-newline: off
   prefer-rest-params: off
   semi-style: off
   no-tabs: off

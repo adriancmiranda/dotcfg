@@ -1,5 +1,5 @@
-import apply from 'describe-type/source/@/apply.js';
-import slice from 'describe-type/source/@/slice.js';
+import apply from 'describe-type/internal/apply.js';
+import slice from 'describe-type/internal/slice.js';
 
 /*!
  * Takes a function and returns a new one that will always have a particular context.

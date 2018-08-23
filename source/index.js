@@ -1,15 +1,15 @@
 /* eslint-disable no-restricted-syntax */
-import { env } from 'describe-type/source/@/env.js';
-import slice from 'describe-type/source/@/slice.js';
-import instanceOf from 'describe-type/source/is/instanceOf.js';
-import ownProperty from 'describe-type/source/has/ownProperty.js';
-import exotic from 'describe-type/source/is/exotic.js';
-import primitive from 'describe-type/source/is/primitive.js';
-import callable from 'describe-type/source/is/callable.js';
-import as from 'describe-type/source/as/as.any.js';
-import string from 'describe-type/source/is/string.js';
-import object from 'describe-type/source/is/object.js';
-import undef from 'describe-type/source/is/undef.js';
+import { env } from 'describe-type/internal/env.next.js';
+import slice from 'describe-type/internal/slice.next.js';
+import instanceOf from 'describe-type/is/instanceOf.next.js';
+import ownProperty from 'describe-type/has/ownProperty.next.js';
+import exotic from 'describe-type/is/exotic.next.js';
+import primitive from 'describe-type/is/primitive.next.js';
+import callable from 'describe-type/is/callable.next.js';
+import as from 'describe-type/as/as.any.next.js';
+import string from 'describe-type/is/string/index.next.js';
+import object from 'describe-type/is/object/index.next.js';
+import undef from 'describe-type/is/undef.next.js';
 import assignStrategyDefault from './strategies/assignDefault.js';
 import dotStrategyDefault from './strategies/dotDefault.js';
 import proxy from './@/proxy.js';
@@ -83,14 +83,6 @@ DotCfg.prototype = {
 	 */
 	resolve(notation) {
 		return resolve(this.scope, notation, slice(arguments, 1), false);
-	},
-
-	// @deprecated
-	res(notation) {
-		if (callable(console && console.warn)) {
-			console.warn('DotCfg: "res" method is deprecated, call "resolve" method instead!');
-		}
-		return this.resolve(notation);
 	},
 
 	/**

@@ -1,7 +1,7 @@
 /* eslint-disable no-plusplus */
-import primitive from 'describe-type/source/is/primitive.js';
-import number from 'describe-type/source/is/number.js';
-import undef from 'describe-type/source/is/undef.js';
+import primitive from 'describe-type/is/primitive.next.js';
+import number from 'describe-type/is/number.next.js';
+import undef from 'describe-type/is/undef.next.js';
 import parse from './parse.js';
 
 export default function write(target, path, value, strategy) {

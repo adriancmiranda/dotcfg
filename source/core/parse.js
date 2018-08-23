@@ -1,7 +1,7 @@
-import apply from 'describe-type/source/@/apply.js';
-import numeric from 'describe-type/source/is/numeric.js';
-import array from 'describe-type/source/is/array.js';
-import string from 'describe-type/source/is/string.js';
+import apply from 'describe-type/internal/apply.next.js';
+import numeric from 'describe-type/is/numeric.next.js';
+import array from 'describe-type/is/array/index.next.js';
+import string from 'describe-type/is/string/index.next.js';
 import { reHasBrackets, reStartWithBracket, reParts, reDot } from '../@/patterns.js';
 
 function parse(path) {
