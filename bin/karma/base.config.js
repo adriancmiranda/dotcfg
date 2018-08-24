@@ -12,14 +12,14 @@ const webpack = {
   },
   module: {
     rules: [{
-      test: /\.jsx?$/,
+      test: /\.jsx?($|\?)/i,
       enforce: 'pre',
       use: ['remove-flow-types-loader'],
       include: source.path,
     }, {
-      test: /\.jsx?$/,
+      test: /\.jsx?($|\?)/i,
       loader: 'babel-loader',
-      exclude: /node_modules/,
+      exclude: /\bnode_modules\b/,
       options: {
         presets: ['env'],
       },
@@ -29,7 +29,7 @@ const webpack = {
     new DefinePlugin(env),
     new SourceMapDevToolPlugin({
       filename: null,
-      test: /\.(ts|js)($|\?)/i,
+      test: /\.((j|t)sx?)($|\?)/i,
     }),
   ],
 };
