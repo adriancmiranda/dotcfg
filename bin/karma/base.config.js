@@ -21,7 +21,7 @@ const webpack = {
       loader: 'babel-loader',
       exclude: /\bnode_modules\b/,
       options: {
-        presets: ['env'],
+        presets: ['@babel/preset-env'],
       },
     }],
   },
