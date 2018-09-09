@@ -12,12 +12,12 @@ const webpack = {
   },
   module: {
     rules: [{
-      test: /\.jsx?($|\?)/i,
+      test: /\.((j|t)sx?)($|\?)/i,
       enforce: 'pre',
       use: ['remove-flow-types-loader'],
       include: source.path,
     }, {
-      test: /\.jsx?($|\?)/i,
+      test: /\.((j|t)sx?)($|\?)/i,
       loader: 'babel-loader',
       exclude: /\bnode_modules\b/,
       options: {
